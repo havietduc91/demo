@@ -1,0 +1,37 @@
+<div class='span12'>
+<?php echo $this->render('index/role-nav.phtml');?>
+</div>
+
+<div class='span12'>
+    <div class='well'>
+    <?php
+        echo ($this->form);
+    ?>
+    </div>
+    <div style='clear:both'></div>
+    <?php if (isset($this->list) && count($this->list) > 0) :?>
+    
+    <h1>Role List</h1>    
+    <?php if($this->total > 0) :?>
+        <?php echo $this->render("widget/pagination.phtml");?>
+    <?php endif;?>
+    <table class='table'>
+    <thead>
+        <tr>
+    	    <td>Name</td><td>Perms</td><td>action</td>
+    	</tr>
+    </thead>
+    <tbody>
+    	<?php foreach ($this->list as $row) :?>
+    	<tr>
+    	<td><b><?php echo $row['name']?></b></td>
+    	<td> <?php echo implode(", ", $row['permissions']);?></td>
+    	<td><a class='cl_ajax' _cl_get_metadata='hide_my_parent:2' href='/user/delete-role?id=<?php echo $row['id']?>'>delete</a> | <a href='/user/update-role?id=<?php echo $row['id']?>'>edit</a>
+    	</td>
+    	<?php endforeach;?>
+    </tbody>
+    </table>
+    <?php else:?>
+    No match
+    <?php endif;?>
+</div>    

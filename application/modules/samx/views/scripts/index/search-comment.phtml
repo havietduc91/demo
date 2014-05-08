@@ -1,0 +1,72 @@
+<div class='row'>
+<div class='col-md-12'>
+<?php echo $this->render('index/navbar.phtml');?>
+</div>
+
+
+<div class='col-md-2'>
+    <div class='search_form well'>
+    <?php $this->form->setDisplayInline();
+        $this->form->setAttrib('id' , 'search_form');
+    ?>
+    <?php echo $this->form;?>
+    </div>
+</div>
+
+<div class='col-md-10'>
+    <?php if($this->total > 0) :?>
+        <?php echo $this->render("widget/pagination.phtml");?>
+    <?php endif;?>
+    
+    <?php if($this->count > 0) :?>
+	
+    	<h3>Samx Comments List</h3>
+    	<?php //echo $this->render('widget/table.phtml');?>
+    	<a href="/<?php echo $this->module?>/bulk-delete" _cl_get_metadata="delete_bulk" class="cl_ajax btn btn-xs btn-danger">Delete</a>
+    	<div class="clear"></div>
+    	<br/>
+        <table class="table table-striped table-bordered table-condensed">
+        	<thead>
+        		<tr>
+        			<th><input type="checkbox" class="checkall"/></th>
+        			<th>ID</th>
+                    <th><?php echo ucwords($this->module);?> name</th>
+                    <th>Content</th>
+        			<th>Status</th>
+        			<th>Action</th>
+        		</tr>
+        	</thead>
+        	<tbody>
+        		<?php foreach($this->list as $row) :?>
+        		<tr id="<?php echo $row['id'];?>">
+        			<td><input type="checkbox" value="<?php echo $row['id'];?>" class="check-item" /></td>
+        			<td><?php echo Cl_Utility::charBreadcumb($row['id'], 8);?>...</td>
+                    <td><a href="/samx/<?php echo $row['node']['id'];?>"><?php echo $row['node']['name'];?></a></td>
+                    <td><?php echo word_breadcumb($row['content'],80);?><br/><a href="/samx/<?php echo $row['node']['id'];?>#<?php echo $row['id'];?>">View more...</a></td>
+        			<td>
+        			    <div class="btn-group">
+        			    	<a href="/samx/update-comment?nid=<?php echo $row['node']['id'];?>&id=<?php echo $row['id'];?>&status=queued&_cl_step=status"
+        			    	class="btn btn-primary btn-xs <?php if($row['status']=='queued') echo 'active';?> cl_ajax" 
+        			    	_cl_get_metadata="active_button_group"> Queued </a>
+        			    	<a href="/samx/update-comment?nid=<?php echo $row['node']['id'];?>&id=<?php echo $row['id'];?>&status=approved&_cl_step=status"
+        			    	class="btn btn-primary btn-xs <?php if($row['status']=='approved') echo 'active';?> cl_ajax" _cl_get_metadata="active_button_group"> Approved</a>
+        			    </div>     
+        			</td>
+        			
+        			<td>
+        				<a href="/samx/<?php echo $row['node']['id'];?>#<?php echo $row['id']?>" class="btn btn-default btn-xs"><i class="icon-edit"></i>Edit</a>
+                        <a href="/samx/update-comment?nid=<?php echo $row['node']['id'];?>&id=<?php echo $row['id']?>&_cl_step=is_spam" class="btn btn-xs cl_ajax"><i class="icon-edit"></i>Spam</a>
+        				<a href="/samx/del-comment?nid=<?php echo $row['node']['id'];?>&id=<?php echo $row['id']?>" 
+        					class="btn btn-xs btn-danger cl_ajax" _cl_get_metadata="remove_my_parent:2">
+        					<i class="icon-remove"></i>Delete
+        				</a>
+        			</td>
+        		</tr>
+        		<?php endforeach;?>
+        	</tbody>
+        </table>
+    <?php else:?>
+    	<h3>No comment found</h3>
+    <?php endif;?>
+</div>
+</div>

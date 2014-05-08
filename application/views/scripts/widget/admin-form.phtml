@@ -1,0 +1,10 @@
+<?php if (isset($this->successMsg)) :?>
+<div style='color:green'>
+	<?php echo $this->successMsg;?>
+</div>	
+<?php elseif (isset($this->err)) :?>
+<div style='color:yellow'>
+	<?php echo $this->err;?>
+</div>
+<?php endif;?>
+<?php echo $this->form;?>

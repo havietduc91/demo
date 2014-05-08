@@ -1,0 +1,19 @@
+<div class="col1">
+    <div class="avatar">
+        <img src="<?php echo display_avatar($this->ufl['avatar'], 50);?>" width="50" height="50" />
+    </div>
+    <div class="info">
+        <div class="name">
+            <a class="username_link" href="<?php echo get_user_link($this->ufl);?>"><?php echo $this->ufl['name'];?></a> 
+            <a href="/user/unrelate?t=user&id=<?php echo $this->ufl['id'];?>" class="cl_ajax uf" <?php if($this->rel == 'u'):?>style="display:none;"<?php endif;?>
+               _cl_get_metadata="hide_me_show_next">Unfollow
+            </a>
+            <a href="/user/relate?t=user&id=<?php echo $this->ufl['id'];?>" class="cl_ajax f" <?php if($this->rel == 'f'):?>style="display:none;"<?php endif;?> 
+               _cl_get_metadata="hide_me_show_prev" >Follow
+            </a>
+        </div>
+        <div class="friends"><a href="#"></a></div>
+        <div class="town"></div>
+    </div>
+    <div class="clear"></div>
+</div>

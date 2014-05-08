@@ -1,0 +1,58 @@
+<b>Total: <?php echo $this->total;?></b> 
+
+<?php 
+    $perPage = $this->form->getValue('items_per_page');
+    $range = PAGE_RANGES;
+    if ($perPage != -1)
+    {
+        $page = $this->form->getValue('page');
+        if (is_null($page) || $page == '')
+            $page = 1;
+        if ($this->total > $perPage) {
+            $nrOfPages = floor(($this->total - 1) / $perPage) + 1;
+?>
+divided into <?php echo $nrOfPages;?> pages :
+
+<div class="pagination">
+  <ul>
+	<?php if ($page - $range > 1): ?>
+	  <li><a href="#" page="1">First</a></li>
+	  <li><a href="#" page="<?php echo $page - 1;?>">&laquo; Prev</a></li>
+	<?php else: ?>
+	 <!--  <li><a href="#">Prev</a></li>  -->
+	<?php endif; ?>
+	
+	<?php for ($i = $page - $range; $i <= /*$nrOfPages*/ $page + $range; $i ++) :?>
+		<?php 
+			if ($i <= 0 || $i > $nrOfPages)
+				continue;
+			if ($i == 1)
+				$l = 1;
+			else
+				$l = $i;
+		?>
+		<?php if ($i == $page) :?>
+        	<li class="active">
+              <a href="#"><?php echo $i;?></a>
+            </li>
+		<?php else:?>
+			<li><a href="javascript:void(0);" page='<?php echo $l;?>'><?php echo $i;?></a></li>
+		<?php endif;?>
+	<?php endfor;?>
+	
+	<?php if ($page + $range < $nrOfPages): ?>
+	  <li><a href="#" page="<?php echo $page + 1;?>">
+	    Next &raquo;
+	  </a></li>
+	  <li><a href="#" page="<?php echo $nrOfPages;?>">Last</a></li>
+	<?php else: ?>
+		<!-- <li><a href="#">Next</a></li> -->
+	<?php endif; ?>
+  </ul>
+</div>
+ 
+
+        <?php }?>
+<?php }?>
+
+<hr/>

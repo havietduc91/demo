@@ -1,0 +1,69 @@
+<?php
+    $this->placeholder('addstuffbox')->captureStart();
+    	echo $this->render("/widget/add-stuff-box.phtml");
+    $this->placeholder('addstuffbox')->captureEnd();
+    
+    $this->placeholder('user-follow')->captureStart();
+    echo $this->render('/widget/list-cached-friends.phtml');
+    $this->placeholder('user-follow')->captureEnd();
+    
+    $this->placeholder('user-cache-items')->captureStart();
+    echo $this->render('/widget/list-user-cached-items.phtml');
+    $this->placeholder('user-cache-items')->captureEnd();
+    
+	$this->placeholder('suggest-items')->captureStart();
+	echo $this->render("widget/suggest-items.phtml");
+	$this->placeholder('suggest-items')->captureEnd();
+?>
+
+<div class="friendslist_bar">
+    <div class="friendslist_title">User gallery</div>
+    <div class="clear"></div>
+</div>
+
+<div class="stufflist_sort">
+    <ul>
+        <li>View by</li>
+        <li>• <a href="/user/gallery?id=<?php echo $this->uid;?>&view_by=file" class="<?php if($this->view_by == 'file') echo 'selected';?>">List files</a></li>
+        <li>• <a href="/user/gallery?id=<?php echo $this->uid;?>&view_by=item" class="<?php if($this->view_by == 'item') echo 'selected';?>">Item</a></li>
+    </ul>
+</div>
+<div class="stufflist_listing">
+    <ul>
+        <?php echo $this->render("index/partials/user-gallery.phtml");?>
+    </ul>
+</div>
+<div class="showmore">
+    <?php  /*
+   					$metadata="{
+	    					callbacks : {
+	    						'success' : [
+	        						{
+	            						func : 'cl_more_post_and_append',
+	        							params : [{
+	        								selectors : ['.stufflist_listing ul'],
+	        								where : 'append'
+	        								} ]   						
+	        						},
+	        						{
+	            						func : 'cl_set_feed_page_number',
+	        							params : []   						
+	        						}
+	        						
+	        					]
+	        				}, 
+						}";
+   				    $metadata = remove_whitespaces($metadata);*/
+   	?> 
+    <div class="showolder">
+        <div class="btn-light">
+            <a href="/user/gallery?id=<?php echo $this->uid;?>&page=2&view_by=<?php echo $this->view_by;?>" 
+            name="/user/gallery?id=<?php echo $this->uid;?>&view_by=<?php echo $this->view_by;?>" 
+            _cl_get_metadata="cl_more_post_and_append" 
+            class="cl_ajax">Show more</a>
+        </div>
+    </div>
+</div>
+<div id="popupModal"></div>
+<div id="bgPopup"></div>
+<div class="clear"></div>

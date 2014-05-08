@@ -1,0 +1,23 @@
+<div class='row'>
+<?php echo sand_dev_info_phtml(__FILE__);?>
+
+<?php $page = Zend_Registry::get('page');?>
+<div class='col-md-12'>
+<?php echo $this->render('index/navbar.phtml');?>
+</div>
+<div class='col-md-6'>
+<?php if ($page == 'samx/index/new'):?>
+<h1> <?php echo t('new_samx',1);?></h1>
+<?php else:?>
+<h1> <?php echo t('update_samx',1);?></h1>
+<?php endif;?>
+<?php $this->form->setAttrib('class', 'cl_ajax');?>
+<?php echo $this->form;?>
+</div>
+<div class='col-md-6'>
+<a href="#" id="preview_post_btn" class='btn btn-primary'>Preview</a>
+    <hr/>
+    <div id='preview_area'>
+    </div>
+</div>
+</div>

@@ -1,0 +1,16 @@
+<?php if (isset($this->err)) 
+    echo "<div class='err'>" . $this->err . "</div>";
+else 
+    echo "<h2>" . $this->successMsg ."</h2>" ;
+?>
+<?php if (!isset($this->successMsg)) :?>
+	<h2>Enter your token here and click "Verify" </h2>
+	<br/>
+	<form action="" method="POST">
+		<input name='token' value='' required='required' />
+		<input type='submit' value='Verify' name="submit" class="btn_act" />
+	</form>
+	
+	<br/>
+	Do not know your token? Click <a href="/user/resend-mail-verification" >here</a> and we will resend you the verification mail. And don't forget to check your mail box afterwards!
+<?php endif;

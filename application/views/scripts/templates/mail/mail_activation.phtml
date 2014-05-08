@@ -1,0 +1,6 @@
+Dear <?php echo $this->to;?>, <br/>
+<p>
+Thank you for registering on <?php echo DOMAIN?>. To use all of our features, you need to activate your account. </p>
+<p>Please click the following link to activate <a href='<?php echo SITE_URL?>/user/activate?activation_code=<?php echo $this->params['activation_code']?>&id=<?php echo $this->params['id']?>&act=1'><?php echo SITE_URL?>/user/activate?activation_code=<?php echo $this->params['activation_code']?>&id=<?php echo $this->params['id']?></a><br/>
+</p>
+<?php echo $this->render('/templates/notif/email-footer.phtml');?> 

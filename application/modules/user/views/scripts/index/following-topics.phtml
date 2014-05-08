@@ -1,0 +1,48 @@
+<div class="friendslist_bar">
+    <div class="friendslist_title"><?php echo $this->title;?></div>
+    <div class="clear"></div>
+</div>
+
+<?php if(isset($this->data)) :?>
+    <?php echo $this->render('/post/post-list.phtml'); ?>
+<?php else:?>
+    No topic <?php if($this->act == "following-topics") echo "followed"; else echo "recommented";?>
+<?php endif;?>
+
+<?php  
+/*
+   					$metadata="{
+	    					callbacks : {
+	    						'success' : [
+	        						{
+	            						func : 'cl_more_post_and_append',
+	        							params : [{
+	        								selectors : [['parent','parent','parent']],
+	        								post_append_func : 'show_more_post_callback',
+	        								where : 'before'
+	        								} ]   						
+	        						},
+	        						{
+	            						func : 'cl_set_feed_page_number',
+	        							params : []   						
+	        						}
+	        						
+	        					]
+	        				}, 
+						}";
+   				    $metadata = remove_whitespaces($metadata);*/
+   	?> 
+<div class="topic_list">
+    <ul>
+        <li class="showolder">
+            <div class="btn-light">
+                <a id="show_more_post" title="click to view more activities from this user" 
+                href="/user/<?php echo $this->act;?>?uid=<?php echo $this->uid;?>&page=2" 
+                name="/user/<?php echo $this->act;?>?uid=<?php echo $this->uid;?>"
+                class="cl_ajax"
+                _cl_get_metadata="cl_more_post_and_append"
+                >Show more</a>
+            </div>
+        </li>
+    </ul>
+</div>

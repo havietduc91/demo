@@ -1,0 +1,20 @@
+<h1>Register</h1> 
+<?php if (isset($this->err)) :?>
+      <?php echo $this->err;?>
+<?php endif;?>
+<?php if (isset($this->successMsg)) :?>
+      <?php echo $this->successMsg;?>
+<?php endif;?>
+<br/>
+<?php /*
+<a href="/user/oauth?login=facebook">Facebook</a> |
+<a href="/user/oauth?login=twitter">Twitter</a>
+*/?>
+<?php //echo $this->form;?>
+<?php 
+	$form = new User_Form_Register();
+	$form->build();
+	$form->setAction('/user/register')
+	->setAttrib('class', 'cl_ajax');
+	echo $form;
+?>

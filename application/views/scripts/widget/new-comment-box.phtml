@@ -1,0 +1,34 @@
+<?php 
+if (!isset($this->form))
+{
+    $formClass = ucwords($this->comment_node_type) . "_Form_Comment";
+    $form = new $formClass();
+    $data = array(
+        'pid' => 0,
+        'nid' => $this->row['id'],
+    );
+   	$form->build($data);
+   	$this->form = $form;
+}
+?>
+<?php echo $form;?>
+
+<?php 
+/*
+ 
+<form id="comment_form" method="post" action="/<?echo $this->comment_node_type;?>/comment"  class="cl_ajax">
+	<input type='hidden' name='id' value='' />
+	<input type='hidden' name='pid' value='0' />
+    <input type='hidden' name='nid' value='<?php echo $this->row['id'] ?>' />
+    
+	<div>
+    (Standard shortcuts are similar to Microsoft Office: Ctrl + B for bold text,etc...) <br/>
+    <textarea id="content" name="content" rows="5" class='isEditor' ></textarea>
+	</div>
+    <div class="clearfix" style="margin:10px 0;"></div>
+    <input class="btn-primary btn" id="submit_comment" type="submit" name="_cl_submit" value="Add new comment"> 
+    <a id="cancel_update" href='javascript:void(0);' style='display:none'>Cancel Update</a>
+    <a href='javascript:;' class='cancel-reply' style='display:none'>Cancel Reply</a>
+</form>
+ */
+?>

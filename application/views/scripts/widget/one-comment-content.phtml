@@ -1,0 +1,56 @@
+<?php 
+    $c = $this->c;
+    $lu = Zend_Registry::get('user');
+?>
+
+    
+    <div class="<?php echo $this->zebraClass;?> comment">
+    	<b>
+        <a name='<?php echo $c['id'];?>' href="/user/<?php echo $c['u']['id'];?>">    
+        <?php 
+        /* 
+         <img width="30" height="30" src="<?php echo display_avatar($c['u']['avatar']);?>" />  
+         */
+        ?>
+        	<?php echo $c['u']['name']?>
+        </a>, <?php echo compare_dates_task($c['ts']);?>
+        </b>
+        
+        <div class='comment_content'>
+        <?php echo isset($c['fcontent']) ? $c['fcontent']:$c['content'];?>
+        </div>
+        
+        <?php if(isset($c['attachments']) && count($c['attachments']) > 0) :?>
+        <div>
+        	<ul class="attachment-list">
+        	<?php foreach ($c['attachments'] as $att) :?>
+        		<li class="span">
+        			<input type="checkbox" 
+        				   attachmenttype="comment"
+        				   cid="<?php echo $c['id'];?>"
+        				   id="<?php echo $att['id'];?>" 
+        				   class="remove-attachment"   
+        				   checked <?php if($c['u']['id'] != $lu['id']) :?>disabled<?php endif;?>/>
+            			   
+            			<a href="/<?php echo $this->comment_node_type;?>/download?tid=<?php echo $c['node']['id'];?>&id=<?php echo $att['id'];?>" class="">
+            				<?php echo $att['name'];?> <i class="icon-download-alt"></i>
+            			</a>
+        		</li>
+        	<?php endforeach;?>
+        	</ul>
+    	</div>    	
+    	<div style='clear:both'></div>
+        <?php endif;?>
+        
+        <div style="margin: 10px 0;">
+        <a href="javascript:;" name="<?php echo $c['id'];?>" class="btn-reply">reply</a>
+        <?php if ($this->commentEditable) :?>
+        | <a href='#new_comment' class='edit_comment'>edit</a> |
+        <a href='/<?php echo $this->comment_node_type;?>/update-comment?nid=<?php echo $this->row['id'];?>&id=<?php echo $c['id'];?>&_cl_step=is_spam' class='cl_ajax'>spam</a> |
+    	<a class='cl_ajax' _cl_ajax_confirm='yes' _cl_get_metadata='hide_my_parent:3' href='/<?php echo $this->comment_node_type;?>/del-comment?id=<?php echo $c['id'];?>' class="Delete">delete</a> 
+        <?php endif;?>
+        
+        </div>
+        
+    </div>
+    

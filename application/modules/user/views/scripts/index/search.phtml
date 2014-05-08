@@ -1,0 +1,119 @@
+<?php 
+    $lu = Zend_Registry::get('user');
+    $r = Cl_Dao_User_Role::getInstance()->findAll();
+    if ($r['success'])
+        $roles = $r['result'];
+?>
+
+<form>
+<div class='span3'>
+    <div class='search_form well'>
+    <?php 
+        echo $this->form->getElement('lname');
+        echo $this->form->getElement('name');
+        //'id','lname', 'name','mail','status', 'oauth.twitter.name','oauth.facebook.name'
+        ?>
+    </div>
+</div>
+
+<div class='span3'>
+    <div class='search_form well'>
+    <?php
+    echo $this->form->getElement('page');    
+    echo $this->form->getElement('status');
+    echo $this->form->getElement('items_per_page');
+    ?>
+    </div>
+</div>    
+
+<div class='span3'>
+    <div class='search_form well'>
+    <?php
+    echo $this->form->getElement('oauth__twitter__name');
+    echo $this->form->getElement('oauth__facebook__name');
+    ?>
+    </div>
+</div>    
+<div class='span3'>
+    <div class='search_form well'>
+    <?php
+    echo $this->form->getElement('id');
+    echo $this->form->getElement('_cl_submit');
+    ?>
+    </div>
+</div>    
+
+
+</form>
+
+<div class='span12'>
+
+<?php if (isset($this->list)) :?>
+	Total <?php echo $this->total;?>
+	<?php if($this->total > 0) :?>
+	    <?php echo $this->render("widget/pagination.phtml");?>
+	<?php endif;?>
+	
+	<a href="/<?php echo $this->module?>/bulk-delete" class="cl_ajax btn btn-xs"
+		_cl_get_metadata="delete_bulk"  
+	>Delete all</a>
+	<div class="clear"></div>
+	<br/>
+<table class="table table-striped table-bordered table-condensed">
+	<thead>
+		<tr>
+			<th><input type="checkbox" class="checkall"/></th>
+			<th>ID</th>
+			<th>Name</th>
+			<th>Email</th>
+			<th>Role</th>
+			<th>status</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php foreach($this->list as $row) :?>
+		<tr id="<?php echo $row['id'];?>">
+			<td><input type="checkbox" value="<?php echo $row['id'];?>" class="check-item" /></td>
+			<td><?php echo Cl_Utility::charBreadcumb($row['id'], 8);?>...</td>
+			<td><a href="/user/<?php echo $row['id'];?>"><?php echo $row['name'];?></a></td>
+			<td><a href="/user/<?php echo $row['id'];?>"><?php echo $row['mail'];?></a></td>
+			<td>
+			<form class="cl_ajax" method="POST" action="/user/update?_cl_step=assign_roles">
+			    <input type="hidden" name="id" value="<?php echo $row['id']?>" />
+			    <?php foreach ($roles as $role) :?>
+			    <input name="roles[]" type="checkbox" value="<?php echo $role['name'];?>"
+			    <?php if (in_array($role['name'], $row['roles'])) echo "checked";?> > 
+			    <a href="/user/update-role?id=<?echo $role['id'];?>"><?php echo $role['name'];?></a>
+			    <?php endforeach;?>
+			    <br/>
+			    <input name="submit" type="submit" value="update" class="btn btn-xs">
+			</form>
+			</td>			
+			<td>
+					<span <?php if ($row['status'] == 'banned') echo "style='display:none'"?> >
+					Active<br/>
+					<a href='/user/update?id=<?php echo $row['id'];?>&_cl_step=block_user&status=banned' 
+					    _cl_get_metadata="hide_my_parent_show_next_uncle" class='btn btn-xs cl_ajax' _cl_ajax_confirm="yes">Block</a>
+					</span>
+					<span <?php if ($row['status'] != 'banned') echo "style='display:none'"?> >
+					Banned<br/>
+					<a href='/user/update?id=<?php echo $row['id'];?>&_cl_step=unblock_user&status=activated' 
+					    _cl_get_metadata="hide_my_parent_show_prev_uncle" class='btn btn-xs cl_ajax' _cl_ajax_confirm="yes">Unblock</a>
+					</span>
+			</td>			
+			<td>
+					<a href="/<?php echo $this->module;?>/update?id=<?php echo $row['id']?>" class="btn btn-xs"><i class="icon-edit"></i>Edit</a>
+					<a href="/<?php echo $this->module;?>/delete?id=<?php echo $row['id']?>" 
+						class="btn btn-xs cl_ajax" _cl_ajax_confirm="yes" _cl_get_metadata="remove_my_parent:2">
+						<i class="icon-remove"></i>Delete
+					</a>
+			</td>
+		</tr>
+		<?php endforeach;?>
+	</tbody>
+</table>
+<?php else:?>
+	Error: <?php echo $this->err;?>
+<?php endif;?>
+</div>

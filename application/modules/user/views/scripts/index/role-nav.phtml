@@ -1,0 +1,7 @@
+<?php $page = Zend_Registry::get('page');?>
+<ul class='nav nav-tabs'>
+	<li <?php if ($page == 'user/index/new-role') echo "class='active';"?>><a href="/user/new-role">New</a></li>
+	<li <?php if ($page == 'user/index/update-role') echo "class='active';"?>><a href="/user/update-role<?php if (isset($this->row['id'])) echo "?id=" . $this->row['id'];?>"">Update</a></li>
+	<li <?php if ($page == 'user/index/search-roles') echo "class='active';"?>><a href="/user/search-roles">Search</a></li>
+	<li><a href="/user/search">User search</a></li>
+</ul>

@@ -1,0 +1,27 @@
+<?php
+	$lastWeek = date('d-m-Y', $this->ts - 7 * 24 * 60 * 60);
+	$current = date('d-m-Y', $this->ts);
+?>
+These are some of the main activities that happened from <b><?php echo $lastWeek?> - <?php echo $current?></b>
+<div class="topic_list">
+	<ul>
+	<?php foreach ($this->activities as $act) :?>
+		<li>
+		  <!-- <div class="bt_close_notification">Close</div> -->
+          <div class="avatar"> <img width="50" height="50" src="<?php echo display_avatar($act['object']['u']['avatar'], 50);?>"></div>
+          <div class="topic_content">
+				<div class="name">
+					<a href="#">
+		          	<?php if ($act['action'] == 'follow') :?>
+				    <?php echo display_user_link($act['actor']['u'], true);?> followed you 
+				    at <b><?php echo date("m/d/Y", $act['ts'])?></b> : <?php echo date("H:i:s", $act['ts'])?>
+					<?php endif;?>
+				</a>
+				</div>
+
+          </div>
+          <div class="clear"></div>
+        </li>
+	<?php endforeach;?>
+	</ul>
+</div>

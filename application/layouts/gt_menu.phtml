@@ -1,0 +1,245 @@
+<?php $lu = Zend_Registry::get('user');?>
+<?php $categories = $categories = Dao_Node_Category::getInstance()->getCategoryLevelOne();?>
+<div class="header-v2">
+        <header role="banner" data-bhw="Header" class="header" data-bhw-path="Header">
+          <div class="row">
+            <div class="two columns">
+              <a class="logo-giasomot" href="/">
+              	<img alt="home" src="<?php echo ASSETS_CDN;?>/img/logo3.png"></a>
+            </div>
+            <div class="ten columns ">
+              <div class="row">
+                  <div class="eight columns search-bar-wrapper">
+                    <form id="search-bar" action='/product/search-key' class="search-bar free-text-search-enabled">
+		              <div class="rounded-input left active-search">
+		                <label for="search" class="icon-magnifying-glass"></label>
+		                <input type="search" autofocus="" 
+		            		id="search" 
+		                	placeholder="Nhập sản phẩm bạn tìm kiếm" name="key">
+                		<div class="search typeahead-response" style="display: none;"></div>
+              		   </div>
+		                <div class="rounded-input right">
+		                <label for="location" class="icon-marker"></label>
+		                <input type="text" id="location" spellcheck="false" 
+		                		placeholder="Enter"  
+		                		name="location">
+		                		<div class="location typeahead-response" 
+		                  		style="width: auto; display: none;"></div>
+		                </div>
+		              <input type="submit" class="btn-rounded btn-search" value="Go" name="submit_search">
+		            </form>
+          
+         		 </div>
+                  <div class="four columns user-wrapper">
+                      <?php if(is_guest()):?>
+                          <nav class="user-menu signed-out">
+	                              <a href="/user/login" class="first" >Đăng nhập</a>
+	                              <a href="/user/register">Đăng ký</a>
+                          </nav>
+				      <?php else:?>
+				          <div class="user-menu signed-in">
+		                      <a class="user-name icon-arrow-down-large" href="/">
+		                      	<?php echo $lu['name'];?></a>
+			                      <ul class="my-stuff">
+			                        <?php if(has_perm('sudo')):?>
+				                      	<li><a href="/site/admin" 
+				                        	id="user-admin">Quản trị</a></li>
+		                        	<?php endif;?>
+			                      	<li><a href="/user/<?php echo $lu['id'];?>" 
+			                        	id="user-groupons">Trang cá nhân</a></li>
+			                        <li><a href="/user/update?id=<?php echo $lu['id']?>&_cl_step=account" 
+			                        	id="user-account">Sửa thông tin</a></li>
+			                        <li><a href="/user/update?id=<?php echo $lu['id']?>&_cl_step=change_pass" 
+			                        	id="change_pass">Đổi mật khẩu</a></li>
+		              			    <li><a id="sign-out" class="sign-out" 
+		              			    	href="/user/logout">Đăng suất</a></li>
+			                      </ul>
+		                   </div>	
+                       <?php endif;?>
+
+                      <?php if(!is_guest()):?>
+	                      <div class="cart-widget" >
+	                      	<div class="cart-name">
+							  <a class="btn-secondary btn-small" href="/user/carts">
+							  	<span class="icon-goods"></span> Giỏ hàng</a>
+							</div>
+							<div data-bhw="ShoppingCart" class="module cart-empty-container">
+							  <div class="cart-empty-body">
+							    <div class="cart-empty-header"><b>Xem giỏ hàng</b></div>
+							    <p>Click vào đây để xem những sản phẩm hữu ích!
+							    	<a href="/"><?php echo SITE_NAME;?></a>.
+							  </p></div>
+							</div>
+						 </div>
+					 <?php endif;?>
+        		</div>
+              </div>
+            </div>
+          </div>
+        </header>
+        
+        <nav class="nav nav-scroll-top-gt">
+        	<div class='row'>
+        	<div class='twelve columns' style='padding: 0 !important;'>
+	        	<ul class="header-v3">
+	        		<li class="sub-menu">
+	        		<h3 style="font-weight: bold;color: white;">
+	        			<a href="#" style='padding: 0; color: white !important; margin-top: -3px;'>
+	        				Danh mục sản phẩm</a></h3>
+	        		
+	        			<ul>
+	        			<?php if(isset($categories)):?>
+	          	        <?php foreach ($categories as $ca):?>
+	 		             <li>
+	 		      	         <a href="<?php echo category_link($ca);?>">
+	     		      		     <?php echo $ca['name']?>
+	     		                 <?php $count_child = (isset($ca['child_category']) && count($ca['child_category']) > 0) ? count($ca['child_category']) : 0;?>
+	     		      		     <span class="counter">(<?php echo $count_child;?>)</span>
+	 		      		     </a>
+	 		      		     <?php if($count_child >0): ?>
+	 		      		     <ul class="child-menu">
+	 		      		           <?php foreach ($ca['child_category'] as $key => $val):?>
+	         						<li><a href="<?php echo category_link($val);?>"><?php echo $val['name']?></a></li>
+	         					   <?php endforeach; ?>
+	         			     </ul>
+	 					     <?php endif;?>
+		      		     </li>
+	                  	 <?php endforeach;?>
+	                    <?php endif;?>
+	        			</ul>
+	        		</li>
+	        		
+	          		<li class="support-menu">
+	        			<h3 style="font-weight: bold; margin-top:15px; color: white;">
+	        				Hotline: 04.632.872.72 - 0943.959.698</h3>
+	        		</li>
+	 
+	                <li class="support-menu"><a title="Giá Số Một hỗ trợ khách hàng qua Skype" 
+	                	href="skype:giasomot?call">
+	                		<img alt="" src="<?php echo ASSETS_CDN. '/somacro/noborder/Skype-icon.png'?>"
+		                		>
+	                		</a></li>
+	                <li class="support-menu"><a title="Tìm Giá Số Một trên Facebook" 
+	                	href="http://www.facebook.com/giasomot">
+	                		<img alt="" src="<?php echo ASSETS_CDN. '/somacro/noborder/Facebook-icon.png'?>"
+		                		>
+	                		</a></li>
+	                <li class="support-menu"><a title="Kênh Youtube - Giá Số Một" 
+	                	href="http://www.youtube.com/giasomot">
+	                		<img alt="" src="<?php echo ASSETS_CDN. '/somacro/noborder/Youtube-icon.png'?>"
+			                		>
+	                			</a></li>
+	                <li class="support-menu"><a title="Khách hàng góp ý" 
+	                	href="/feedback/new">
+	                		<img alt="" src="<?php echo ASSETS_CDN. '/somacro/noborder/user-comments-icon.png'?>"
+	                		>
+	                		</a>
+	        		</li>
+	        	</ul>
+        	</div>
+        	</div>
+        </nav>
+        
+        <?php /*
+        <nav class="subnav">
+        	<?php $i = 0;?>
+	        <?php if(isset($categories) && count($categories) > 0):?>
+	        	 <?php foreach ($categories as $ca):?>
+	        	 		<?php 
+	        	 			$child_cates = (isset($ca['child_category']) && count($ca['child_category']) > 0) ? $ca['child_category'] : array();
+	        	 			//v($child_cates);	
+	        	 		?>
+	        	 		
+	        	 		<?php if(count($child_cates) > 0):?>
+			               <nav class="subnav-flyout all-tab-flyout row parent-id-<?php echo $ca['id'];?>" 
+			               		parent-id='<?php echo $ca['id'];?>'
+			               		style="display: none;">
+					            <div class="categories">
+					            	<div class="column">
+					            	  <?php $countChild = 1;?>
+						              <?php foreach ($child_cates as $child_cate):?>
+						              	<?php if($countChild % 6 == 0):?>
+						              		 </div>
+						              		 <div class="column">
+						              	<?php endif;?>
+							              	<a id="all-deals" href="<?php echo category_link($child_cate);?>">
+							                  <span class="title"><?php echo $child_cate['name'];?></span>
+							                  <span class="count"></span>
+							                </a>
+						              	<?php $countChild ++;?>
+						              <?php endforeach;?>
+					                 </div>
+					   		  </div>
+					          
+					          <div class="megamind">
+					              <div class="widget">
+					                <a href="#">
+					                <span>
+					                  <img src="https://img.grouponcdn.com/deal/jhuX7u2chHHm2e26jxEmwS/BOG_Subnav-440x420">
+					                </span>
+					                </a>
+					              </div>
+					      		  <div class="widget">
+					                <a href="#">
+					                <span>
+					                  <img src="https://img.grouponcdn.com/deal/xiXuesdTMpuDDyMidfkBnF/mu_local-eventsactivities_jpg-440x420">
+					                </span>
+					                </a>
+					              </div>
+					          </div>
+				          	</nav>
+				          <?php endif;?>
+				          <?php $i ++;?>
+	        	   	   <?php endforeach;?>
+	        <?php endif;?>
+        </nav>
+        */?>
+      </div>
+      <div style='clear: both;'></div>
+<?php $this->inlineScript()->captureStart();?>
+	$(function(){
+		var timerId = null;
+		$('.menu-category-hover').hover( function(){
+			$('.subnav-flyout').hide();
+			$this = $(this);
+			var cate_id = $this.attr('cate-id');
+			
+			$obj = $('.parent-id-'+cate_id);
+			$obj.show();
+		});
+		
+		$('.menu-category-hover').mouseout( function(){
+			$this = $(this);
+			var cate_id = $this.attr('cate-id');
+			
+			$obj = $('.parent-id-'+cate_id);
+			timerId = setTimeout(function(){
+				$obj.fadeOut('slow');}, 2000
+			);
+		});
+		
+		$('.subnav-flyout').mouseover(function(){
+			$(this).show();
+			 if(timerId){
+		        clearTimeout(timerId);
+		        timerId = null;
+		     }
+		});
+		
+		$('.subnav-flyout').mouseout(function(){
+			$(this).hide();
+		});
+		
+		$('.user-wrapper').mouseover(function(){
+			$('nav ul').css({
+		        	'z-index': '0'
+	        	});
+		});
+		
+		$('.user-wrapper').mouseout(function(){
+			$('nav ul').css({
+		        	'z-index': '999'
+	        	});
+		});
+	});
+<?php $this->inlineScript()->captureEnd();?>

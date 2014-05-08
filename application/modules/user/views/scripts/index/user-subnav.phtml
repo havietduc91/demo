@@ -1,0 +1,13 @@
+<?php $user = $this->row;
+	$lu = Zend_Registry::get('user');
+	$step = get_value('_cl_step', '');
+?>
+<?php $page = Zend_Registry::get('page');?>
+<ul class="nav nav-pills">
+      <li class='<?php if ($page == 'user/index/view') echo 'active';?>'><a href="/user/<?php echo $user['id'];?>">Overview</a></li>
+      <li class='<?php if ($page == 'user/index/update' && (in_array($step, array('account', 'avatar', 'change_pass')))) echo 'active';?>'><a href="/user/update?id=<?php echo $user['id'];?>&_cl_step=account">Edit Acccount</a></li>
+      <?php if(in_array('root', $lu['roles'])) :?>
+      <li ><a href="/user/search">Search</a></li>
+      <?php endif?>
+      <li class='<?php if ($page == 'update/index/update' && ($stesp == 'setting_user')) echo 'active';?>'><a href="/user/update?id=<?php echo $user['id'];?>&_cl_step=setting_user">Settings</a></li>
+</ul>

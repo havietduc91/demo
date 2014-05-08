@@ -1,0 +1,24 @@
+<?php if(isset($this->post)):?>
+<?php 
+    $ext = $this->post['tags']['im'][0]['ext'];
+    $this->post['isViewPost'] = true;
+    $this->post['close_popup'] = false;
+?>
+<!--
+    <div class="pop_add_content col_left">
+        <a href="javascript:;" onclick="disablePopup()" class="btn_close_pop" title="Close">X</a>
+    	<div class="photo-title">
+    		<h1><a href="<?php //echo get_post_link($this->post);?>" class="post_title"><?php //echo $this->post['name'];?></a></h1>
+    	</div>
+        <div class="photo"><img src="<?php //echo display_avatar($this->imageId . '.' . $ext, 10000, 'item');?>" style="max-width: 600px; max-height: 400px;"></div>
+        <div class="topic_list">
+		    <ul>
+		        <li>
+		        <?php //echo $this->partial('post/partials/post.phtml',null,$this->post);?>
+		        </li>
+		    </ul>
+		</div>
+        <div class="clear"></div>
+    </div>-->
+<?php echo $this->partial('post/partials/post.phtml',null,$this->post);?>
+<?php endif;?>

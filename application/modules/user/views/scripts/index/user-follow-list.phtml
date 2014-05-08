@@ -1,0 +1,111 @@
+<?php
+$lu = Zend_Registry::get('user');
+$viewuser = Zend_Registry::get('viewuser');
+if ($lu['id'] == $viewuser['id'])
+    $subject = "Your friends";
+else
+    $subject = display_user_link($viewuser, false, '')."'s friends";
+?>
+<div class="titleListFollowings"><h2><?php echo $subject?></h2></div>
+<?php /*
+<div class="friendslist_bar">
+    <div class="friendslist_title">Friends</div>
+    <div class="friendslist_search">
+        <input name="" type="text" class="search_tb" />
+        <a href="#" class="btn_act search">Search</a>
+    </div>
+</div>
+*/?>
+<div class="clear"></div>
+<div class="friendslist_tab">
+    <ul>
+        <?php foreach (array('f' => 'following', 'u' => 'followers') as $k => $fl) :?>
+        <li>
+            <a href="/user/<?php echo $fl;?>?id=<?php echo $this->uid;?>" class="<?php if($this->rel == $k) echo 'selected';?>">
+                <?php echo ucwords($fl);?><span>(<?php echo $this->{'total-' . $fl};?>)</span>
+            </a>
+        </li>
+        <?php endforeach;?>
+    </ul>
+</div>
+<div class="friendslist_listing">
+    <ul>
+        <?php 
+            $num = round(FOLLOW_LIMIT/2); 
+            $i = 0;
+            $page = 3;//round(USER_FRIEND_CACHE_LIMIT / FOLLOW_LIMIT) * 3;
+        ?>
+        <?php for($k = 1; $k <= $page; $k++) :?>
+        <?php if($k > 1 && !isset($this->list[$num + $k])) break;?>
+            <div class="page<?php echo $k;?>" <?php if($k > 1):?>style='display:none'<?php endif;?>>
+            <?php for($n = $i * $num; $n < $k * $num; $n++) :?>
+                <?php if(isset($this->list[$n * 2])) :?>
+                    <li>
+                        <?php for($j = ($n * 2); $j < ($n + 1) * 2; $j++) :?>
+                            <?php if(isset($this->list[$j])) :?>
+                                <?php $ufl = $this->list[$j];?>
+                                <?php echo $this->partial('index/partials/follow.phtml', array('ufl' => $ufl, 'rel' => $this->rel));?>
+                            <?php endif;?>
+                        <?php endfor;?>
+                        <div class="clear"></div>
+                    </li>
+                <?php endif;?>
+            <?php endfor;?>
+            <?php $i++;?>
+            </div>
+        <?php endfor;?>
+    </ul>
+</div>
+
+<?php if( $this->totalCache > USER_FRIEND_CACHE_LIMIT) :?>
+    <div class="showmore showolder">
+        <div class="btn-light">
+        <?php
+        /*
+            $metadata = "{
+				callbacks : {
+					'before' : [
+						{
+    						func : 'cl_before_pagination_friends_list'
+						}
+					],
+                    'success' : [
+						{
+    						func : 'cl_more_post_and_append',
+							params : [
+                                {
+                                    selectors : ['.friendslist_listing ul'],
+                                    where : 'append'
+                                }
+                            ]						
+						}
+					]
+                 }
+             }";
+            $metadata = remove_whitespaces($metadata);*/
+        ?>
+        <a href="/user/<?php echo $this->action;?>?id=<?php echo $this->uid;?>" 
+           name="/user/<?php echo $this->action;?>?id=<?php echo $this->uid;?>" 
+           class="cl_ajax"
+           _cl_get_metadata="cl_more_user_friend_list"
+           >Show more</a>
+        </div>
+    </div>
+<?php endif;?>
+<?php
+    $this->placeholder('addstuffbox')->captureStart();
+    	echo $this->render("/widget/add-stuff-box.phtml");
+    $this->placeholder('addstuffbox')->captureEnd();
+    
+    $this->placeholder('user-follow')->captureStart();
+    echo $this->render('/widget/list-cached-friends.phtml');
+    $this->placeholder('user-follow')->captureEnd();
+    
+    $this->placeholder('user-cache-items')->captureStart();
+    echo $this->render('/widget/list-user-cached-items.phtml');
+    $this->placeholder('user-cache-items')->captureEnd();
+    
+	$this->placeholder('suggest-items')->captureStart();
+	echo $this->render("widget/suggest-items.phtml");
+	$this->placeholder('suggest-items')->captureEnd();
+?>

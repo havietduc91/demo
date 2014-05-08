@@ -1,0 +1,31 @@
+<?php if(isset($this->emails)) :?>
+<?php $emails = array_reverse($this->emails);?>
+<div class="span12">
+	<h3>Choose primary email address.</h3>
+	<p>You have many email address. Please choose a primary email address.</p>
+	<form action="/user/update?id=<?php echo $this->uid;?>&_cl_step=mail" 
+		method="POST" class="cl_ajax form-inline" cl_ajax_success="choose_primary_email">
+		<select name='mail'>
+			<?php foreach($emails as $mail) :?>
+			<option value="<?php echo $mail['handle'];?>"><?php echo $mail['handle'];?></option>
+			<?php endforeach;?>
+		</select>
+		<input type="hidden" name="mail" id="mail" value="<?php echo $emails[0]['handle'];?>"/>
+		<input type="submit" name="submit" value="Submit" class="btn btn-primary" />
+	</form>
+</div>
+<?php endif;?>
+
+<?php $this->inlineScript()->captureStart();?>
+$(function(){
+	$("select[name='mail']").on("change", function(e){
+		$("input#mail").val($(this).val());
+	});
+	
+	CL['funcs']['choose_primary_email'] = function($form, json)
+	{
+		alert_success('Email has been updated successful !');
+		window.location.reload();
+	}
+});
+<?php $this->inlineScript()->captureEnd();?>

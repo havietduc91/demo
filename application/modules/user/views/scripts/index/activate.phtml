@@ -1,0 +1,26 @@
+<div class='span12'>
+<?php if(isset($this->msg)) :?>
+<div class='alert alert-success'>
+    <?php echo $this->msg;?>
+    </div>
+
+<?php else :?>
+    <div class='alert alert-error'>
+    <?php echo $this->err;?>
+    </div>
+    <?php if (!isset($this->is_activated)) :?>
+    <form action="/user/activate" method="POST">
+    Enter your activation code :<br/>
+    <input name='activation_code' value='' type='text'/>
+    
+    <br/>
+    Don't know your activation code? Click <a href="/user/resend-activation-code">here</a> to get activation code
+    sent to your email
+    
+    <br/>
+    <input name='submit' value='Activate my account' type='submit'/>
+    </form>
+    <?php endif;?>
+<?php endif;?>
+
+</div>

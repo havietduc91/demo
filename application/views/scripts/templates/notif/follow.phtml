@@ -1,0 +1,9 @@
+<?php 
+$userToSend = $this->userToSend;
+$activity = $this->activity;
+?>
+Hello <b><?php echo $userToSend['name']?></b>,
+
+<p> <b><a href='<?php echo get_user_link($activity['actor']['u'], true);?>'> @<?php echo $activity['actor']['u']['name']?> <a/></b> 
+is now following you on <a href='<?php echo SITE_URL?>'>stuffowners.com</a></p>
+<?php echo $this->render('templates/notif/email-footer.phtml');?>

@@ -1,0 +1,39 @@
+<?php 
+$col = 5; $k = 0;
+/*
+$metadata="{
+			callbacks : {
+				'success' : [
+					{
+						func : 'associate_item_success_popup',
+					}
+					]
+				}
+			}";
+$metadata = remove_whitespaces($metadata);*/
+?>
+<?php for($row = 1; $row < 5; $row++):?>
+<?php if($row > 1 && !isset($this->items[($col * $k) + 1])) break;?>
+<li>
+    <?php for($i = $k * $col; $i < $row * $col; $i++):?>
+        <?php if(!isset($this->items[$i])) break;?>
+        <?php $img = $this->items[$i];?>
+        <div class="col1">
+            <a class="popup_view_photo" href="/user/gallery?id=<?php echo $this->uid;?>&image_id=<?php echo $img['id']?>&popup=1" _cl_get_metadata="associate_item_success_popup" post_title="">
+                <img src="<?php echo display_avatar($img['id'] . "." . $img['ext'], 130, 'item');?>" width="130" height="130" border="0" />
+                <?php if(isset($img['name'])) echo word_breadcumb($img['name'], 5);?>
+            </a>
+            <p>Tagged Product<?php if(count($img['tags']['i'] > 1))  echo 's';?></p>
+            <div class="item_avatar">
+                <?php foreach ($img['tags']['i'] as $key => $it) :?>
+                	<a href="<?php echo get_item_link($it);?>" class="item item_link">
+                		<img src="<?php echo display_avatar($it['avatar'], 50);?>" width="20" />
+                	</a>
+                <?php endforeach;?>
+            </div>
+        </div>
+    <?php endfor;?>
+    <?php $k++;?>
+    <div class="clear"></div>
+</li>
+<?php endfor;?>

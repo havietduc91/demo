@@ -1,0 +1,12 @@
+<?php if (isset($this->successMsg)) :?>
+<div class="alert alert-success">
+    <button class="close" data-dismiss="alert">×</button>
+    <strong>OK!</strong> <?php echo $this->successMsg;?>
+</div>
+<?php elseif (isset($this->err)) :?>
+<div class="alert alert-error">
+    <button class="close" data-dismiss="alert">×</button>
+    <strong>Error!</strong> <?php echo $this->err;?>
+</div>
+<?php endif;?>
+<?php echo $this->form;?>

@@ -1,0 +1,138 @@
+<?php /*<div class="box-login">
+    <h2>User Login</h2>
+    <div>
+    <?php if(isset($this->err))
+    		echo $this->err;
+    ?>
+    </div>
+    <div class="topbar">
+    <div class="snbox">
+             <a href="/user/oauth?login=facebook" rel="windowCallUnload" class="fb cl_ajax popupwindow">Login with Facebook</a>
+             <a href="/user/oauth?login=twitter" rel="windowCallUnload" class="tw cl_ajax popupwindow">Login with Twitter</a>
+         </div>
+	</div>
+<?php if (APPLICATION_ENV == 'development' || isset($_REQUEST['f'])) :?>	
+	<div class='clear'></div>     
+	<h3>or login with your user name</h3>     
+    <?php echo $this->form;?>
+<?php endif;?>    
+</div>
+*/?>
+	<?php $sso = array('google', 'facebook', 'twitter', 'yahoo');?>
+	<div class="well login-container">
+        	<div class="login-provider">
+        		<h3>Đăng nhập demo với</h3>
+        		<?php foreach($sso as $s) :?>
+        		<div class="img-container btn">
+        			<a href="/user/oauth?login=<?php echo $s?>">
+	    				<img width="180" height="61" src="<?php echo ASSETS_CDN?>fun/img/<?php echo $s;?>-logo-large.png" alt="<?php echo $s;?>">
+	    			</a>
+        		</div>
+        		<div class="clearfix clear" style="margin: 5px 0;"></div>
+        		<?php endforeach;?>
+        	</div>
+        	<div class="vertical-separator">
+        		<span class="separator-text">HOẶC</span>
+        	</div>
+        	<?php /*
+        	<div class="logo">
+	        <img width="140" height="75" class="tree" src="<?php echo ASSETS_CDN;?>edx/img/VietEd_24.png">
+	        </div>
+	        */?>
+        	<div class="loginForm">
+	        	<div id='login_form'>
+		        	<h3>Đăng nhập với tài khoản demo</h3>
+		        	Quên mật khẩu? <a href="/user/forgot-password" id='remind_password'>Nhận mật khẩu mới qua email</a>
+		        	<?php 
+	        	    $form = new User_Form_Login();
+	                $form->build();
+	                $form->setAction('/user/login')
+	                    ->setAttrib('class', 'cl_ajax');
+	                $form->getElement('_cl_submit')->setAttrib('class', 'btn-primary btn btn-large');
+	                echo $form;
+	        	?>
+	        	<div class="clearfix clear"></div>
+        	</div>
+        	
+        	<div id='remind_password_form' style='display:none'>
+    		<h3>Thiết lập lại mật khẩu</h3>
+        	<b><a href='/user/login' id='login'>Đăng nhập</a></b>
+        	<?php 
+        	    $form = new User_Form_RemindPassword();
+                $form->build();
+                $form->setAction('/user/forgot-password')
+                    ->setAttrib('class', 'cl_ajax')
+                    ->setAttrib('cl_ajax_success', 'remind_pass_success')
+                	->setAttrib('cl_ajax_error', 'remind_pass_error');
+                echo $form;
+        	?>        	
+        	</div>
+        </div>
+  </div>
+       <?php /*
+        <div class="span6">
+            <h1>Đăng nhập</h1>
+            <h3> Đăng nhập luôn với </h3>
+            <div style="padding-top:10px;padding-bottom:10px">
+    			<a href="/user/oauth?login=yahoo" class="btn btn-large">
+    				<i class = "icon-sm-yahoo"></i> Yahoo
+    			</a>&nbsp;&nbsp;&nbsp;
+    			<a href="/user/oauth?login=google" class="btn btn-large">
+    				<i class = "icon-google-plus" style="color:#C3391C"></i> Google
+    			</a> &nbsp;&nbsp;&nbsp;
+    			<a href="/user/oauth?login=twitter" class="btn btn-large" style="font-weight:bold;">
+    				<i class = "icon-twitter" style="color:#00BEF6"></i> Twitter
+    			</a>
+    			&nbsp;&nbsp;&nbsp;
+    			<a href="/user/oauth?login=facebook" class="btn btn-large">
+    				<i class = "icon-facebook" style="color:#3B5998"></i> Facebook
+    			</a>
+    			<hr/>
+            </div>
+
+		    <span style="color:#0088CC">Hoặc nếu bạn có tài khoản của VietEd, hãy đăng nhập dưới đây</span>
+		    <hr/>
+            
+        	<div id='login_form' class="well">
+        	<h3>Đăng nhập</h3>
+        	Quên mật khẩu? <a href="/user/forgot-password" id='remind_password'>Nhận mật khẩu mới qua email</a>
+        	<?php 
+        	    $form = new User_Form_Login();
+                $form->build();
+                $form->setAction('/user/login')
+                    ->setAttrib('class', 'cl_ajax');
+                $form->getElement('_cl_submit')->setAttrib('class', 'btn-primary btn btn-large');
+                echo $form;
+        	?>
+        	</div>
+        	
+        	<div id='remind_password_form' style='display:none' class="well">
+    		<h3>Thiết lập lại mật khẩu</h3>
+        	<b><a href='/user/login' id='login'>Đăng nhập</a></b>
+        	<?php 
+        	    $form = new User_Form_RemindPassword();
+                $form->build();
+                $form->setAction('/user/forgot-password')
+                    ->setAttrib('class', 'cl_ajax');
+                echo $form;
+        	?>        	
+        	
+        	</div>
+        </div>
+		*/?>
+        <?php $this->inlineScript()->captureStart();?>
+	$(document).ready(function(){
+	
+	    $("#login").click(function(e){
+	    	e.preventDefault();
+	    	$("#login_form").show();
+	    	$("#remind_password_form").hide();
+	    });
+	   
+	    $("#remind_password").click(function(e){
+	    	e.preventDefault();
+	    	$("#login_form").hide();
+	    	$("#remind_password_form").show();
+	    });
+	});
+<?php $this->inlineScript()->captureEnd();?>

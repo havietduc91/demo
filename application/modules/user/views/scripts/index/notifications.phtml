@@ -1,0 +1,36 @@
+<h1>User notifications</h1>
+<?php if (!isset($this->activities) || count($this->activities) == 0) :?>
+You have no new notifications
+<?php else:?>
+<div class="topic_list">
+	<ul class="nav nav-list">
+	<?php echo $this->partial("index/partials/notifications.phtml", array('activities' => $this->activities, 'notifType' => $this->notifType))?>
+	</ul>
+</div>
+<?php endif;?>
+<div class="clear"></div>
+
+<?php $this->inlineScript()->captureStart();?>
+$(function(){
+		//	mark notification as read
+    	$('.mark-notif').on('click', function(e){
+        	e.preventDefault();
+        	var that = $(this);
+        	var url = $(this).attr('href');
+    		$.ajax({
+    		 	   type: "POST",
+    		 	   url: url,
+    		       dataType: 'json',
+    		 	   success: function(msg){
+    		 	   	  if(msg.success) {
+    		 		      that.closest('li').fadeOut();
+    		 		  }
+    		 		  else {
+    		 		      alert('error');
+    		 		  }
+    			}
+    		});
+    		return false;
+    	});
+});
+<?php $this->inlineScript()->captureEnd();?>

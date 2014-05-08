@@ -1,0 +1,19 @@
+<?php if (is_guest()) :?>
+<?php echo $this->render('index/guest_home.phtml');?>
+<?php else:?>
+    <?php $lu = Zend_Registry::get('user');?>
+    <h2>List samx data</h2>
+    <?php if(isset($this->list)) :?>
+        <?php foreach($this->list as $row) :?>
+            <div class="row">
+                <div class="span12">
+                    <h3><a href="/samx/<?php echo $row['id'];?>"><?php echo $row['name'];?></a></h3>
+                    <article><?php echo $row['content'];?></article>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        <?php endforeach;?>
+    <?php else:?>
+    Home for logged in user here. List of lessons and stuff here
+    <?php endif;?>
+<?php endif;?>

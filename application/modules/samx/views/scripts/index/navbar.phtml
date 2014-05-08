@@ -1,0 +1,13 @@
+<?php $page = Zend_Registry::get('page');?>
+<ul class='nav nav-pills'>
+	<li <?php if ($page == 'samx/index/new') echo "class='active';"?>><a href="/samx/new">New</a></li>
+	<? if (isset($this->row)) :?>    
+	<li <?php if ($page == 'samx/index/update') echo "class='active';"?>><a href="/samx/update<?php if (isset($this->row['id'])) echo "?id=" . $this->row['id'];?>"">Update</a></li>
+	<?php endif;?>    
+	<li <?php if ($page == 'samx/index/search') echo "class='active';"?>><a href="/samx/search">Search</a></li>
+    <li <?php if ($page == 'samx/index/search-comment') echo "class='active';"?>><a href="/samx/search-comment">Search Comment</a></li>
+	<? if (isset($this->row)) :?>    
+	<li <?php if ($page == 'samx/index/view') echo "class='active';"?>><a href="/samx/<?php if (isset($this->row['id'])) echo "" . $this->row['id'];?>">View</a></li>
+	<?php endif;?>
+</ul>
+<div class='separator'></div>

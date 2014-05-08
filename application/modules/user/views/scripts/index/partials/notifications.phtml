@@ -1,0 +1,134 @@
+<?php if (isset($this->activities)) :?>
+	<?php
+		$value_today = date('d-m-Y', time());
+		$value_yesterday = date('d-m-Y', time()-(24*60*60));  
+		$today = false;
+		$yesterday = false;
+		$older = false;
+	?>
+<!-- 	<li class="dropdown-divider"></li> -->
+    <?php foreach ($this->activities as $k => $act) :?>
+    	<?php $classIsRead = isset($act['unread']) ?  'class="noti_unread alert-info"' : '';?>
+    <?php 
+        $avatar = isset($act['actor']['u']['avatar']) ?  $act['actor']['u']['avatar'] : DEFAULT_AVATAR_URL;
+        if ($act['action'] == 'follow')
+        {
+            $text = "<span class='blueName'>" . $act['actor']['u']['name'] . "</span> followed <span>you</span>";
+            $link = get_user_link($act['actor']['u']) . "?__mnt={$act['id']}&act=follow&actor={$act['actor']['u']['id']}";
+        }
+        elseif ($act['action'] == 'requires_verify_email')
+        {
+            $text = "<span class='blueName'>You</span> haven't verified your email yet. Click to verify";
+            $link = "/user/verify-email?uid=" . $act['object']['u']['id'];
+            $avatar = SYSTEM_AVATAR_URL;
+        }
+        elseif ($act['action'] == 'invite_friends')
+        {
+            $text = "<span class='blueName'>You</span> haven't invited any friends. Click to invite";
+            $link = "/index/invite-friends?";
+            $avatar = SYSTEM_AVATAR_URL;
+        }
+        elseif ($act['action'] == 'require_email')
+        {
+        	$text = "<span class='blueName'>You</span> haven't added email address. Click to add email";
+        	$link = "/user/update?_cl_step=account&id=" . $act['object']['u']['id'];
+        	$avatar = SYSTEM_AVATAR_URL;
+        }
+        elseif($act['action'] == 'add_staff')
+        {
+            $text = "<span class='blueName'>You</span> have been added as a teacher of <span class='blueName'>" . word_breadcumb($act['object']['c']['name'],10) . "course</span>";
+            $link = "/course/" . $act['object']['c']['id'] . '?__mnt=' . $act['id']; 
+        }
+        elseif($act['action'] == 'approve_lesson')
+        {
+        	$text = "<span class='blueName'>" . $act['actor']['u']['name'] . "</span> have been <b>approved</b> " . word_breadcumb($act['object']['l']['name'],10) . " lesson.";
+        	$link = "/lesson/" . $act['object']['l']['id'] . "?__mnt=" . $act['id'];
+        }
+        elseif($act['action'] == 'reject_lesson')
+        {
+            $text = "Lesson \"<b>{$act['object']['l']['name']}</b>\" has been <b>approved</b>";
+        	$link = "/lesson/" . $act['object']['l']['id'] . "?__mnt=" . $act['id'];
+        }
+        elseif($act['action'] == 'approve_course')
+        {
+        	$text = "Course \"<b>{$act['object']['c']['name']}</b>\" has been <b>approved</b>";
+        	$link = "/course/" . $act['object']['c']['id'] . "?__mnt=" . $act['id'];
+        }
+        elseif($act['action'] == 'reject_course')
+        {
+        	$text = "Course \"<b>{$act['object']['c']['name']}</b>\" has been <b>rejected</b>";
+        	$link = "/course/" . $act['object']['c']['id'] . "?__mnt=" . $act['id'];
+        }
+        elseif($act['action'] == 'approve_teacher')
+        {
+        	$text = "<span class='blueName'>You</span> have been <b>approved</b> as a teacher";
+        	$link = "/user/" . $act['object']['u']['id'] . "?__mnt=" . $act['id'];
+        }
+        elseif($act['action'] == 'reject_teacher')
+        {
+        	$text = "<span class='blueName'>You</span> have been <b>rejected</b> as a teacher";
+        	$link = "/user/" . $act['object']['u']['id'] . "?__mnt=" . $act['id'];
+        }
+        elseif($act['action'] == 'new_comment')
+        {
+        	$text = "<span class='blueName'>" .$act['actor']['u']['name'] . "</span> have been <b>commented</b> to " . word_breadcumb($act['object']['c']['name'], 10);
+        	$link = "/quora/" . $act['object']['c']['id'] . "?__mnt=" . $act['id'];
+        }
+        elseif($act['action'] == 'approve_answer')
+        {
+        	$text = "<span class='blueName'>" .$act['actor']['u']['name'] . "</span> have been <b>approved</b> your comment ";
+        	
+        	$link = node_link('take', $act['context']['q']) . "?__mnt=" . $act['id'];
+        }
+        elseif($act['action'] == 'add_student')
+        {
+        	$text = "<span class='blueName'>" .$act['actor']['u']['name'] . "</span> have been <b>invited</b> to " . $act['context']['co']['name'] . " Course";
+        	$link = "/course/" . $act['context']['co']['id'] . '?__mnt=' . $act['id'];
+        }
+        elseif($act['action'] == 'invite_promotion') {
+        	$text = "<span class='blueName'>You</span> have been <b>awarded " . get_conf('invitation_credit', 10). "</b> tokens for inviting <b>" . $act['actor']['u']['name'] . "</b>";
+        	$link = "/user/" . $act['actor']['u']['id'] . '?__mnt=' . $act['id'];
+        }
+        
+        //TODO: add other actions here
+        elseif($act['action'] == 'request_u_marking')
+        {
+        	$text = "<span class='blueName'>" .$act['actor']['u']['name'] . "</span> <b>requested</b> you mark an exercise";
+        	$link = node_link('take', $act['context']['tk']) . "?__mnt=" . $act['id'];
+        }
+        else
+        {
+            $text = "TODO for this action {$act['action']}";
+            $link = "/error.html";
+        }        
+        
+        ?>
+        <?php $link .= "&type=" . $this->notifType . "&action=" . $act['action'];// . "&activity_id=" . $act['id'];?>
+        <li <?php echo $classIsRead;?>>
+        		<div class="pull-left content">
+		        	<a href="<?php echo $link;?>" class="notif-summary">
+				        <div class="<?php if(isset($this->is_ajax)) :?>span4 first<?php endif;?>">
+				            <?php /*<img class="avatar" width="40" height="40" src="<?php if(SYSTEM_AVATAR_URL != $avatar) echo display_avatar($avatar); else echo $avatar;?>" />*/?>
+				            <?php echo $text;?>
+				            <?php if (is_ajax()):?><br/><?php endif;?>
+				            <small class="metadata"><i class="icon-time"></i>&nbsp;<?php echo compare_dates($act['ts']);?></small>
+				        </div>
+		            </a>
+		        </div>
+        	<?php if(!isset($this->is_ajax)) :?>
+        		<div class="pull-right">
+            		<a class="mark-notif" href="/user/notifications?activity_id=<?php echo $act['id'];?>&action=<?php echo $act['action'];?>&type=<?php echo $this->notifType;?>&__mnt=<?php echo $act['id'];?>"><i class="icon-ok"></i></a>
+            	</div>
+            <?php endif;?>
+	        <div class="clear"></div>
+	        <div class="divider"></div>
+        </li>
+        <?php if(isset($this->is_ajax) && $k >= 4) break;?>
+        
+    <?php endforeach;?>
+    <?php if(isset($this->is_ajax)) :?>
+	    <li class="notif-view-all" style="text-align:center;background:#ddd;">
+	        <a class="viewall" href="/user/notifications?type=<?php echo $this->notifType;?>">View all <b><?php echo $this->total;?></b> notifications</a>
+	    </li>
+    <?php endif;?>
+<?php endif;?>

@@ -1,0 +1,47 @@
+<div class='row'>
+<?php 
+    $isPreview = is_preview();
+?>
+<?php if (!$isPreview) :?>
+<div class='col-md-12'>
+<?php echo $this->render('index/navbar.phtml');?>
+</div>
+<?php endif;?>
+
+<?php if (isset($this->row)):?>
+<?php 
+    $row = $this->row;
+    $lu = Zend_Registry::get('user');
+?>
+<script type="text/javascript">
+CL.NID = "<?php echo $row['id']; ?>";
+</script>
+
+<div <?php if (!$isPreview) :?>class='col-md-9'<?php endif;?>>
+    <h3><?php echo $row['name']?></h3>
+    <b>Status</b> : <?php Echo $row['status'];?>
+    <br/>
+    <?php echo $row['content'];?>
+    
+    <?php endif;?>
+    
+    <?php if (!$isPreview) :?>
+    <div><br/><br/><h3>Comments</h3></div>
+    <?php 
+        $this->comment_node_type = 'samx';
+        if($lu['id'] != GUEST_ID)
+            $this->can_comment = true;
+        else 
+            $this->can_comment = false;
+        echo $this->render("widget/comments-wrapper.phtml");
+    ?>
+    <?php endif;?>
+</div>
+<?php $this->inlineScript()->captureStart();?>
+$(function(){
+    url = $(location).attr('href');
+    var id = url.substr(url.indexOf("#") + 1);
+    $("#" + id + ">.comment").css({'background' : 'yellow'});
+});
+<?php $this->inlineScript()->captureEnd();?>
+</div>

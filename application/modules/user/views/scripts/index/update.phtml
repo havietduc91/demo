@@ -1,0 +1,40 @@
+<?php
+ 
+$lu = $this->row;
+$step = get_value('_cl_step', '');
+?>
+	<?php echo $this->render('index/user-subnav.phtml');?>
+	<ul class="nav nav-pills">
+		<li class='<?php if ($step == 'account') echo 'active';?>'><a href="/user/update?id=<?php echo $lu['id'];?>&_cl_step=account">Account</a></li>
+		<li class='<?php if ($step == 'avatar') echo 'active';?>'><a href="/user/update?id=<?php echo $lu['id'];?>&_cl_step=avatar">Avatar</a></li>
+		<li class='<?php if ($step == 'change_pass') echo 'active';?>'><a href="/user/update?id=<?php echo $lu['id'];?>&_cl_step=change_pass">Change Password</a></li>
+	</ul>
+	<?php if($step == 'avatar'):?>
+	<?php endif;?>
+	<?php echo $this->form;?>
+
+<?php $this->inlineScript()->captureStart();?>
+CL.formStep = '<?php echo $steps;?>';
+CL.uid = '<?php echo $lu['id'];?>';
+CL.CODENAME = '<?php echo CODENAME;?>';
+<?php $this->inlineScript()->captureEnd();?>
+<?php $this->inlineScript()->captureStart();?>
+	$(function(){
+		$('form').ajaxForm(
+		{
+			success: function(data, statusText, xhr, $form){
+				if (data.success)
+				{
+					alert_success("Success!");
+					$form.parent().find('span').html($form.find("input:text").val());
+					$form.parent().find("span,.edit").show();
+                    $('a.cancel').trigger('click');
+				}
+				else
+					alert_error("error " + data.err);
+			}
+		}
+		);
+	});
+<?php $this->inlineScript()->captureEnd();?>
+
