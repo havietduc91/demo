@@ -4,6 +4,7 @@
  */
 //define('POST_PAGE_SIZE', 30);
 define('SITE_URL', 'http://demo.local');
+define('SITE_NAME', 'Cover Video');
 //define('SITE_URL', 'http://www.oakq.com');
 define('SAND_ASSETS_CDN', 'http://sandassets.local/');
 define('ASSETS_CDN', 'http://demo.local/assets/');

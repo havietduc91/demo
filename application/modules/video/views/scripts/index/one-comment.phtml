@@ -1,0 +1,66 @@
+<?php 
+    $c = $this->c;d($c);
+    $lu = Zend_Registry::get('user');
+    if (isset($this->relationships[$c['id']])) 
+        $relationship = $this->relationships[$c['id']];
+    else 
+        $relationship = array();
+   
+    $voted = false;
+    foreach ($relationship as $rel)
+    {
+        if ($rel['rt'] == 1 && $rel['stt'] == 1)
+        {
+            $voted = true;
+        }
+    }
+    if ($c['pid'] == '')
+        $c['pid'] = 0;
+?>
+<?php $wrapperClass = ($c['pid'] != 0) ? "comment-child" : "root-child";?>
+<div class="<?echo $wrapperClass;?> comment_wrapper" name="<?php echo $c['id']?>" id="<?php echo $c['id'];?>">
+    <div class='clearfix' style='border-top:1px solid #dddddd;margin-top:5px;padding-bottom:10px;'></div>
+    <div class="voteWrapper">
+        <?php 
+        $votes = isset($c['counter']['vote']) ? $c['counter']['vote']: 0;
+        ?>
+        <?php if (!$voted) :?>
+    	<a class="cl_ajax" votes="<?php echo $votes;?>" _cl_get_metadata="vote_comment_success" href="/user/relate?id=<?php echo $c['id'];?>&object=comment_<?php echo $this->comment_node_type;?>&rt=1"><i class="icon-arrow-up" title="Vote up"></i></a>
+    	<?php else:?>
+    	<a class="cl_ajax" votes="<?php echo $votes;?>" _cl_get_metadata="unvote_comment_success" href="/user/unrelate?id=<?php echo $c['id'];?>&object=comment_<?php echo $this->comment_node_type;?>&rt=1"><i class="icon-arrow-down" title="You already voted. Click to unvote"></i></a>
+    	<?php endif;?>
+    	<br/>
+    	<span class="votes" title="number of votes"><?php echo $votes;?></span>
+    	<br/>
+    	<?php //if(!in_array($c['id'], $this->answers)) :?>
+    	<a href="/<?php echo $this->comment_node_type;?>/update?id=<?php echo $this->row['id'];?>&_cl_step=is_answer&is_answer=<?php echo $c['id'];?>" class="cl_ajax" title="Is answer">
+    	<i class="icon-star"></i>
+    	</a>
+    	<?php //endif;?>
+    	<?php 
+    	/*
+    	
+    	<br/>
+        <?php if (!$voted) :?>
+    	<a class="cl_ajax" href="/user/relate?id=<?php echo $c['id'];?>&object=comment_<?php echo $this->comment_node_type;?>&rt=1"><i class="icon-arrow-down" title="Vote down"></i></a>
+    	<?php else:?>
+    	<i class="icon-arrow-down" title="Vote down"></i>
+    	<?php endif;?>
+    	*/?>
+    </div>  
+
+    <?php echo $this->render("widget/one-comment-content.phtml");?>
+    
+    <?php if(isset($c['child_comments'])):?>
+    	<?php 
+    		$this->isChild = true;
+    		foreach($c['child_comments'] as $k => $child) {
+				$this->c = $child;
+    			echo $this->render("widget/one-comment.phtml");
+    		}
+    	?>
+    <?php else:?>
+        <?php //insert an empty comment-child div wrapper?>
+        <div class='comment-child comment_wrapper'></div>
+    <?php endif;?>
+</div>   

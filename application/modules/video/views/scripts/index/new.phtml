@@ -1,0 +1,24 @@
+<div class='row'>
+<?php echo sand_dev_info_phtml(__FILE__);?>
+
+<?php $page = Zend_Registry::get('page');
+?>
+<div class='col-md-12'>
+<?php echo $this->render('index/navbar.phtml');?>
+</div>
+<div class='col-md-6'>
+<?php if ($page == 'video/index/new'):?>
+<h1> Thêm video mới</h1>
+<?php else:?>
+<h1> Cập nhật video</h1>
+<?php endif;?>
+<?php $this->form->setAttrib('class', 'cl_ajax');?>
+<?php echo $this->form;?>
+</div>
+<div class='col-md-6'>
+<a href="#" id="preview_post_btn" class='btn btn-primary'>Xem trước</a>
+    <hr/>
+    <div id='preview_area'>
+    </div>
+</div>
+</div>

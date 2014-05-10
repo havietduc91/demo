@@ -1,22 +1,22 @@
-
-
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+<?php $lu = Zend_Registry::get('user');?>
+<div class="navbar navbar-default navbar-fixed-top" id='user_menu'>
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="/">demo.com</a>
-          <div class="nav-collapse">
-            <ul class="nav">
-              <li><a href="/">Homie</a></li>
-              <li class="active"><a href="/site/admin">Admin home</a></li>
-              <li><a href="/user/search" target="_blank">User</a></li>
-              <li><a href="/#apps">Mobile apps</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
+          </button>
+          <a class="navbar-brand" href="/"><i class='<?php echo get_icon('home', $type = 'glyph');?>'></i></a>
         </div>
-      </div>
-    </div>
+        
+        <div class="navbar-collapse collapse">
+        
+          <ul class="nav navbar-nav" id='left-main-menu' >
+				<li class="dropdown hover">
+            	 <a href="/site/admin" style='text-transform: uppercase; font-weight: bold;'>
+                    Trang quản trị</a>
+          		</li>
+              		
+				</ul>
+        </div><!--/.nav-collapse -->
+ </div>

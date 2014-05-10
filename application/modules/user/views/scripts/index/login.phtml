@@ -1,49 +1,40 @@
-<?php /*<div class="box-login">
-    <h2>User Login</h2>
-    <div>
-    <?php if(isset($this->err))
-    		echo $this->err;
-    ?>
-    </div>
-    <div class="topbar">
-    <div class="snbox">
-             <a href="/user/oauth?login=facebook" rel="windowCallUnload" class="fb cl_ajax popupwindow">Login with Facebook</a>
-             <a href="/user/oauth?login=twitter" rel="windowCallUnload" class="tw cl_ajax popupwindow">Login with Twitter</a>
-         </div>
-	</div>
-<?php if (APPLICATION_ENV == 'development' || isset($_REQUEST['f'])) :?>	
-	<div class='clear'></div>     
-	<h3>or login with your user name</h3>     
-    <?php echo $this->form;?>
-<?php endif;?>    
-</div>
-*/?>
-	<?php $sso = array('google', 'facebook', 'twitter', 'yahoo');?>
-	<div class="well login-container">
-        	<div class="login-provider">
-        		<h3>Đăng nhập demo với</h3>
-        		<?php foreach($sso as $s) :?>
-        		<div class="img-container btn">
-        			<a href="/user/oauth?login=<?php echo $s?>">
-	    				<img width="180" height="61" src="<?php echo ASSETS_CDN?>fun/img/<?php echo $s;?>-logo-large.png" alt="<?php echo $s;?>">
-	    			</a>
-        		</div>
-        		<div class="clearfix clear" style="margin: 5px 0;"></div>
-        		<?php endforeach;?>
-        	</div>
-        	<div class="vertical-separator">
-        		<span class="separator-text">HOẶC</span>
-        	</div>
-        	<?php /*
-        	<div class="logo">
-	        <img width="140" height="75" class="tree" src="<?php echo ASSETS_CDN;?>edx/img/VietEd_24.png">
-	        </div>
-	        */?>
-        	<div class="loginForm">
+<div class="row prom-night">
+  <section class="nine columns login-section">
+    <div class="module">
+      <h1 class="section-title">
+        Sign In
+        <span>
+          or
+          <a href="/user/register">
+            Sign Up
+          </a>
+        </span>
+      </h1>
+
+      <div class="module-body">
+        <div class="row">
+            <div class="facebook-login five columns">
+              <h3>
+                Sign in with your Facebook account
+              </h3>
+          
+              <p>Connect your Facebook account to sign in to Groupon.</p>
+          
+              <div class="fb-login-button">
+                <div class="facebook-login-button"></div>
+              </div>
+            </div>
+          <div class="section-spacer">
+            <span>or</span>
+          </div>
+          
+          <div class="groupon-login six columns push-one">
+          <div class="loginForm">
 	        	<div id='login_form'>
-		        	<h3>Đăng nhập với tài khoản demo</h3>
-		        	Quên mật khẩu? <a href="/user/forgot-password" id='remind_password'>Nhận mật khẩu mới qua email</a>
-		        	<?php 
+		        	<h3>Đăng nhập với tài khoản <?php echo SITE_NAME;?></h3>
+		        	Quên mật khẩu? <a href="/user/forgot-password" id='remind_password'>
+		        		Nhận mật khẩu mới qua email</a>
+	          	<?php 
 	        	    $form = new User_Form_Login();
 	                $form->build();
 	                $form->setAction('/user/login')
@@ -52,75 +43,43 @@
 	                echo $form;
 	        	?>
 	        	<div class="clearfix clear"></div>
+        		</div>
+        		
+        		<div id='remind_password_form' style='display:none'>
+		    		<h3>Thiết lập lại mật khẩu</h3>
+		        	<b><a href='/user/login' id='login'>Đăng nhập</a></b>
+		        	<?php 
+		        	    $form = new User_Form_RemindPassword();
+		                $form->build();
+		                $form->setAction('/user/forgot-password')
+		                    ->setAttrib('class', 'cl_ajax')
+		                    ->setAttrib('cl_ajax_success', 'remind_pass_success')
+		                	->setAttrib('cl_ajax_error', 'remind_pass_error');
+		                echo $form;
+		        	?>        	
+		        	</div>
         	</div>
-        	
-        	<div id='remind_password_form' style='display:none'>
-    		<h3>Thiết lập lại mật khẩu</h3>
-        	<b><a href='/user/login' id='login'>Đăng nhập</a></b>
-        	<?php 
-        	    $form = new User_Form_RemindPassword();
-                $form->build();
-                $form->setAction('/user/forgot-password')
-                    ->setAttrib('class', 'cl_ajax')
-                    ->setAttrib('cl_ajax_success', 'remind_pass_success')
-                	->setAttrib('cl_ajax_error', 'remind_pass_error');
-                echo $form;
-        	?>        	
-        	</div>
+          </div>
         </div>
-  </div>
-       <?php /*
-        <div class="span6">
-            <h1>Đăng nhập</h1>
-            <h3> Đăng nhập luôn với </h3>
-            <div style="padding-top:10px;padding-bottom:10px">
-    			<a href="/user/oauth?login=yahoo" class="btn btn-large">
-    				<i class = "icon-sm-yahoo"></i> Yahoo
-    			</a>&nbsp;&nbsp;&nbsp;
-    			<a href="/user/oauth?login=google" class="btn btn-large">
-    				<i class = "icon-google-plus" style="color:#C3391C"></i> Google
-    			</a> &nbsp;&nbsp;&nbsp;
-    			<a href="/user/oauth?login=twitter" class="btn btn-large" style="font-weight:bold;">
-    				<i class = "icon-twitter" style="color:#00BEF6"></i> Twitter
-    			</a>
-    			&nbsp;&nbsp;&nbsp;
-    			<a href="/user/oauth?login=facebook" class="btn btn-large">
-    				<i class = "icon-facebook" style="color:#3B5998"></i> Facebook
-    			</a>
-    			<hr/>
-            </div>
+      </div>
+    </div>
+  </section>
+  
+   <section class="three columns">
+    <section data-bhw="GrouponPromise" id="promise" class="module" data-bhw-path="GrouponPromise">
+      <h3 class="module-title">Our Promise To You</h3>
+  
+      <div class="module-body">
+        <p>We're confident in the businesses we feature on Groupon and back them with the Groupon Promise.</p>
+        <p>
+          <a href="/">Learn more</a>
+        </p>
+      </div>
+    </section>
+  </section>
+</div>
 
-		    <span style="color:#0088CC">Hoặc nếu bạn có tài khoản của VietEd, hãy đăng nhập dưới đây</span>
-		    <hr/>
-            
-        	<div id='login_form' class="well">
-        	<h3>Đăng nhập</h3>
-        	Quên mật khẩu? <a href="/user/forgot-password" id='remind_password'>Nhận mật khẩu mới qua email</a>
-        	<?php 
-        	    $form = new User_Form_Login();
-                $form->build();
-                $form->setAction('/user/login')
-                    ->setAttrib('class', 'cl_ajax');
-                $form->getElement('_cl_submit')->setAttrib('class', 'btn-primary btn btn-large');
-                echo $form;
-        	?>
-        	</div>
-        	
-        	<div id='remind_password_form' style='display:none' class="well">
-    		<h3>Thiết lập lại mật khẩu</h3>
-        	<b><a href='/user/login' id='login'>Đăng nhập</a></b>
-        	<?php 
-        	    $form = new User_Form_RemindPassword();
-                $form->build();
-                $form->setAction('/user/forgot-password')
-                    ->setAttrib('class', 'cl_ajax');
-                echo $form;
-        	?>        	
-        	
-        	</div>
-        </div>
-		*/?>
-        <?php $this->inlineScript()->captureStart();?>
+ <?php $this->inlineScript()->captureStart();?>
 	$(document).ready(function(){
 	
 	    $("#login").click(function(e){
@@ -136,3 +95,98 @@
 	    });
 	});
 <?php $this->inlineScript()->captureEnd();?>
+<style>
+	
+.row .nine {
+    width: 75%;
+}
+.row .nine {
+    width: 75%;
+}
+.column, .columns {
+    float: left;
+    min-height: 1px;
+    padding: 0 10px;
+    position: relative;
+}
+.column, .columns {
+    float: left;
+    min-height: 1px;
+    padding: 0 10px;
+    position: relative;
+}
+
+.module {
+    background-color: #FFFFFF;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+.section-title {
+    border-bottom: 1px solid #CCCCCC;
+    font-weight: 400;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+}
+
+.section-title span {
+    font-size: 0.55em;
+}
+.module-body {
+    padding: 0;
+}
+
+.row .five {
+    width: 41.667%;
+}
+.row .five {
+    width: 41.667%;
+}
+.column, .columns {
+    float: left;
+    min-height: 1px;
+    padding: 0 10px;
+    position: relative;
+}
+
+.prom-night .facebook-login h3 {
+    margin-bottom: 10px;
+}
+.prom-night h3 {
+    font-size: 16px;
+}
+.prom-night .section-spacer {
+    border-color: #CCCCCC;
+}
+
+.section-spacer span {
+    background: none repeat scroll 0 0 #FFFFFF;
+    color: #666666;
+    display: block;
+    font-style: italic;
+    font-weight: bold;
+    margin-left: -15px;
+    margin-top: -2em;
+    padding: 5px 0;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    width: 30px;
+}
+.row .six {
+    width: 50%;
+}
+.row .six {
+    width: 50%;
+}.push-one {
+    left: 8.333%;
+}
+#login_form {
+    margin: 0 0 0 18px;
+}
+.prom-night .groupon-login h3, .prom-night .groupon-signup h3 {
+    margin-bottom: 10px;
+}
+.prom-night h3 {
+    font-size: 16px;
+}
+</style>
