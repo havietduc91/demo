@@ -52,7 +52,10 @@ CL.DATE_FORMAT = "<?php echo substr(strtolower($format), 0, -2);?>";
 <div class="wrap">
 	<?php echo $this->render("covervd-menu.phtml");?>
 	<div class='container' style='min-height:500px;' >
+		<div class="clear"> </div>
+		<div class="content">
 	     <?php echo $this->layout()->content; ?>
+	     </div>
 	</div>
 </div>
 <?php echo $this->render('footer.phtml');?>

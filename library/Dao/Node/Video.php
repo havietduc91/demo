@@ -27,6 +27,7 @@ class Dao_Node_Video extends Cl_Dao_Node
     	return array(
     		'collectionName' => 'video',
         	'documentSchemaArray' => array(
+        		'iid' => 'int',
         		'name' => 'string', 
         		'avatar' => 'string',
         		'content' => 'string',
@@ -41,11 +42,15 @@ class Dao_Node_Video extends Cl_Dao_Node
     	            'f' => 'int', //follow
     	            'r' => 'int', //recommend
     	            'l' => 'int', //likes
+    	            'v' => 'int', //views
     	        ),
         		'url' => 'string',
+        		'ytid' => 'string',
+        		'slug' => 'string',
+        		'duration' => 'string',	
         		'ts' => 'int',
         		'status' => 'string',
-        		'status' => 'string',
+        		'is_original' => 'string',
         	)
     	);
 	}
@@ -56,6 +61,52 @@ class Dao_Node_Video extends Cl_Dao_Node
      */
 	public function beforeInsertNode($data)
 	{
+		if (!isset($data['iid']))
+		{
+			$redis = init_redis(RDB_CACHE_DB);
+			$data['iid'] = $redis->incr($this->nodeType . ":iid"); //unique node id
+		}
+		
+		$url = $data['url'];
+		parse_str( parse_url( $url, PHP_URL_QUERY ), $my_array_of_vars );
+		$data['ytid'] = $my_array_of_vars['v'];
+		
+		//Get duration
+		$url = "http://gdata.youtube.com/feeds/api/videos/". $data['ytid'];
+		$doc = new DOMDocument;
+		$doc->load($url);
+		$title = $doc->getElementsByTagName("title")->item(0)->nodeValue;
+		$data['duration'] = $doc->getElementsByTagName('duration')->item(0)->getAttribute('seconds');
+		
+		//Get views
+		$JSON = file_get_contents("https://gdata.youtube.com/feeds/api/videos/{$data['ytid']}?v=2&alt=json");
+		$JSON_Data = json_decode($JSON);
+		$views = $JSON_Data->{'entry'}->{'yt$statistics'}->{'viewCount'};
+		$data['counter']['v'] = $views;
+		
+		
+		if (isset($data['tags']) && count($data['tags']) > 0)
+		{
+			//unset  tag name 'featured' if user's not allowed
+			foreach ($data['tags'] as $k => $tag){
+				if($tag['name'] == featured_tag() && !has_perm('admin_story')){
+					unset($data['tags'][$k]);
+				}
+			}
+		
+			$r = Dao_Node_Tag::getInstance()->insertNewTags($data['tags']);
+			if (!$r['success'])
+				return $r;
+			else
+				$data['tags'] = $r['result'];
+		}
+		
+		//set slug for story
+		if (!isset($data['slug']))
+		{
+			$tempSlug = Cl_Utility::getInstance()->generateSlug($data['name']);
+			$data['slug'] = $this->generateUniqueSlug(explode('-', $tempSlug));
+		}
         return array('success' => true, 'result' => $data);
 	}
 	
@@ -147,9 +198,6 @@ class Dao_Node_Video extends Cl_Dao_Node
 	public function afterDeleteNode($row)
 	{
 	    //delete all comments
-	    $commentDao = Site_Codenamex_Dao_Comment_Video::getInstance();
-	    $where = array('node.id' => $row['id']);
-	    $commentDao->delete($where);
 	    
 	    return array('success' => true, 'result' => $row);
 	}
@@ -201,4 +249,77 @@ class Dao_Node_Video extends Cl_Dao_Node
 		*/
 	}
 	
+	public function updateView()
+	{
+		$r = $this->findAll();
+		if($r['success']){
+			$list = $r['result'];
+			foreach ($list as $video){
+				$checkYtid = true;
+				if(!isset($video['ytid']) || $video['ytid'] == ''){
+					parse_str( parse_url( $video['url'], PHP_URL_QUERY ), $my_array_of_vars );
+					$video['ytid'] = $my_array_of_vars['v'];
+					$checkYtid = false;
+				}
+				 
+				//Get views
+				$JSON = file_get_contents("https://gdata.youtube.com/feeds/api/videos/{$video['ytid']}?v=2&alt=json");
+				$JSON_Data = json_decode($JSON);
+				$views = $JSON_Data->{'entry'}->{'yt$statistics'}->{'viewCount'};
+				$where = array('id'=>$video['id']);
+				 
+				if($checkYtid){
+					$update = array('$set'=>array(
+								'counter.v' => $views,
+							)
+					);
+				}else{
+					$update = array('$set'=>array(
+								'counter.v' => $views,
+								'ytid' => $video['ytid'],
+							)
+					);
+				}
+				 
+				$this->update($where, $update);
+			}
+		}		
+	}
+	
+	public function updateDuration()
+	{
+		$r = $this->findAll();
+		if($r['success']){
+			$list = $r['result'];
+			foreach ($list as $video){
+				$checkYtid = true;
+				if(!isset($video['ytid']) || $video['ytid'] == ''){
+					parse_str( parse_url( $video['url'], PHP_URL_QUERY ), $my_array_of_vars );
+					$video['ytid'] = $my_array_of_vars['v'];
+					$checkYtid = false;
+				}
+					
+				//Get duration
+				$url = "http://gdata.youtube.com/feeds/api/videos/". $video['ytid'];
+				$doc = new DOMDocument;
+				$doc->load($url);
+				$duration = $doc->getElementsByTagName('duration')->item(0)->getAttribute('seconds');
+		
+				if($checkYtid){
+					$update = array('$set'=>array(
+							'duration' => $duration,
+						)
+					);
+				}else{
+					$update = array('$set'=>array(
+							'duration' => $duration,
+							'ytid' => $video['ytid'],
+						)
+					);
+				}
+					
+				$r = $this->update($where, $update);
+			}
+		}
+	}
 }

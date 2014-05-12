@@ -1,20 +1,27 @@
 <?php
-    // Define path to application directory
-    defined('APPLICATION_PATH')
-    || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../../application'));
-    
-    // Define application environment
-    defined('APPLICATION_ENV')
-        || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'development'));
-    
-    defined('CODENAME')
-        || define('CODENAME', (getenv('CODENAME') ? getenv('CODENAME') : 'stuff'));
+    /**
+     * Usage
+     * Sample request
+     *     /suggest.php?term=apple&node=concept to search for concept:apple => list of concepts matching apple
+     *     term can also be replaced by 'q'
+     *     THis is so that it will work with different jquery autocomplete plugins
+     */
+defined('PUBLIC_PATH')
+|| define('PUBLIC_PATH', realpath(dirname(__FILE__)));
+
+// Define path to application directory
+defined('SAND_ROOT')
+|| define('SAND_ROOT', realpath(dirname(__FILE__) . '/../../sand-core'));
+
+require_once(SAND_ROOT . '/library/init.php');
+require_once(SAND_ROOT . '/library/common.php');
+$defines = getenv('SITE') ?
+	APPLICATION_PATH . '/configs/defines.'.getenv('SITE'). '.' .APPLICATION_ENV.'.php' :
+	APPLICATION_PATH . '/configs/defines.'.APPLICATION_ENV.'.php' ;
+
         
+require_once $defines;
         
-    require_once(APPLICATION_PATH . '/../public/common/common.php');
-        
-    require_once APPLICATION_PATH . '/configs/' . CODENAME . '/defines.'.APPLICATION_ENV.'.php';
-    
     //ini_set('display_errors', 0);
     
     function autosuggest($terms, $term_prefix = RDB_DICT_PREFIX, $nodeType, $redis = null)
@@ -114,6 +121,8 @@
     $term = get_value('term', '', 'string');
     if ($term == '')
         $term = get_value('q', '', 'string');
+    if ($term == '')
+    	$term = get_value('query', '', 'string');
     
     $type = get_value('prefix', '#','string'); //# for nodes, @ for users
     $node = get_value('node', '','string');
@@ -178,6 +187,18 @@
         	        $el['slug'] = $value['slug'];
         		array_push($f, $el);
         	}
+        }
+        else //nothing found
+        {
+            if (get_value('addnew', '', 'string') !== '') //allow to dynamically add new
+            {
+                $el = array(
+                    'id' => (string) new MongoId(),
+                    'name' => $term,
+                    '_new' => true
+                );
+                array_push($f, $el);
+            }
         }
     }
     else 

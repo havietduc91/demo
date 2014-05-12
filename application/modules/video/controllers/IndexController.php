@@ -59,6 +59,8 @@ class Video_IndexController extends Cl_Controller_Action_NodeIndex
 
     public function updateAction()
     {
+    	assure_perm('sudo');
+    	$this->setLayout("admin");
         /**
          * Permission to update a node is done in 
          * $Node_Form_Update form->customPermissionFilter()
@@ -66,14 +68,16 @@ class Video_IndexController extends Cl_Controller_Action_NodeIndex
          * @NOTE: object is already filtered in Index.php, done in Cl_Dao_Node::filterUpdatedObjectForAjax()
          */
         $this->genericUpdate("Video_Form_Update", $this->daoClass ,"", "Node");
-        Bootstrap::$pageTitle = t("update_video",1);
+        Bootstrap::$pageTitle = 'Cập nhật video';
     }
 
     public function searchAction()
     {
+    	assure_perm('sudo');
+    	$this->setLayout("admin");
         assure_perm("search_video");//by default
         $this->genericSearch("Video_Form_Search", $this->daoClass, "Node");
-        Bootstrap::$pageTitle = t("search_video",1);        
+        Bootstrap::$pageTitle = 'Quản lý video';        
     }
     
     public function searchCommentAction()
@@ -88,7 +92,36 @@ class Video_IndexController extends Cl_Controller_Action_NodeIndex
     {
         //TODO Your permission here
         parent::viewAction();//no permission yet
-        Bootstrap::$pageTitle = 'Chi tiết video';
+
+        if ($row = $this->getViewParam('row')){
+	        //Get list related story 5.9.2013
+	        $list = array();
+	        $tags = array();
+	         
+	        if(isset($row['tags'])){
+	        	foreach ($row['tags'] as $tag){
+	        		$tags[] = $tag['id'];
+	        	}
+	        	
+	        	$where = array(
+	        			'status' => 'approved',
+	        			'tags.id' => array('$in' => $tags),
+	        			'iid' => array('$ne' => $row['iid'])
+	        	);
+	        
+	        	$cond['where'] = $where;
+	        	$cond['limit'] = 8;
+	        	$order= array('ts'=>-1);
+	        	$cond['order'] = $order;
+	        
+	        	$list = Dao_Node_Video::getInstance()->find($cond);
+	        	if($list){
+	        		$this->setViewParam('related', $list['result']);
+	        	}
+	        }
+        	Bootstrap::$pageTitle = $row['name'];
+        }else 
+        	Bootstrap::$pageTitle = 'Chi tiết video';
     }
     
     public function deleteNodePermissionCheck($row)
@@ -131,5 +164,16 @@ class Video_IndexController extends Cl_Controller_Action_NodeIndex
     	$this->handleAjaxOrMaster($r);
     }
     
+    public function updateViewAction()
+    {
+    	Dao_Node_Video::getInstance()->updateView();
+    	die('oki');
+    }
+    
+    public function updateDurationAction()
+    {
+    	Dao_Node_Video::getInstance()->updateDuration();
+    	die('oki');
+    }
 }
 

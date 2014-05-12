@@ -4,7 +4,7 @@ class Video_Form_New extends Cl_Form
 	public function init()
 	{
 		parent::init();
-		$this->fieldList = array(/*'avatar',*/'name', 'content', 'status', 'url', 'tags');
+		$this->fieldList = array(/*'avatar',*/'name', 'content', 'status', 'url', 'tags', 'is_original');
 		$this->setCbHelper('Video_Form_Helper');
 		
 	}
@@ -51,6 +51,14 @@ class Video_Form_New extends Cl_Form
             		),
             		'multiOptionsCallback' => array('getStatus')
             ),
+        	'is_original' => array(
+        		'type' => 'Select',
+        		'options' => array(
+        			'label' => 'Bản gốc?',
+        			'required' => true,
+        		),
+        		'multiOptionsCallback' => array('getOriginal')
+        	),
         	'avatar' => array(
         			'type' => 'Hidden',
         			'options' => array(

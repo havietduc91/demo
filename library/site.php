@@ -3,6 +3,21 @@ function node_link($type, $node)
 {
     return "/{$type}/view?id={$node['id']}";
 }
+function render_yt_embed_video($vid, $width = 420, $height = 315)
+{
+	return "<object width='$width' height='$height'>" .
+	"<param name='movie' value='http://www.youtube.com/v/{$vid}?version=3&amp;hl=en_US'>".
+	"</param>" .
+	"<param name='allowFullScreen' value='true'></param>" .
+	"<param name='allowscriptaccess' value='always'></param>" .
+	"<embed src='http://www.youtube.com/v/" . "{$vid}?version=3&amp;hl=en_US' type='application/x-shockwave-flash'".
+	"width='$width' height='$height' allowscriptaccess='always' allowfullscreen='true' wmode='transparent'
+	></embed></object>";
+}
+function featured_tag()
+{
+	return '_featured';
+}
 
 // custom functions for demo
 function display_avatar ($imgUrl, $size = 50, $atype = AS3_AVATAR_FOLDER)
