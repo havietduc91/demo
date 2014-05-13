@@ -120,6 +120,16 @@ class Video_IndexController extends Cl_Controller_Action_NodeIndex
 	        	}
 	        }
         	Bootstrap::$pageTitle = $row['name'];
+        	
+        	//Get new video
+        	$daoVideo = Dao_Node_Video::getInstance();
+        	$order = array('ts'=>-1);
+        	$cond['order'] = $order;
+        	$cond['limit'] = 3;
+        	$r = $daoVideo->find($cond);
+        	if($r['success'] && $r['count'] > 0) {
+        		$this->setViewParam('newVideos', $r['result']);
+        	}
         }else 
         	Bootstrap::$pageTitle = 'Chi tiết video';
     }

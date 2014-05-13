@@ -8,6 +8,15 @@ class Site_IndexController extends Cl_Controller_Action_Index
         if($r['success'] && $r['count'] > 0) {
         	$this->setViewParam('list', $r['result']);
         }
+        
+        //Get new video
+        $order = array('ts'=>-1);
+        $cond['order'] = $order;
+        $cond['limit'] = 3;
+        $r = $daoVideo->find($cond);
+        if($r['success'] && $r['count'] > 0) {
+        	$this->setViewParam('newVideos', $r['result']);
+        }
         Bootstrap::$pageTitle = "Tổng hợp cover hay nhất, hài nhất";
     }
 	public function errorAction()

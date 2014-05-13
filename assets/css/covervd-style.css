@@ -146,6 +146,7 @@ body{
 .grid h3{
 	margin-bottom:5px;
 	font-size: 0.9em;
+	color: #1E5DAD;
 }
 .video-watch a,.lables p a{
 	color:rgb(30, 93, 173);
@@ -213,6 +214,7 @@ body{
 	padding-bottom: 4px;
 	float:right;
 	width: 67%;
+	color: #1E5DAD;
 }
 .video1 p{
 	font-family: Arial, Helvetica, sans-serif;

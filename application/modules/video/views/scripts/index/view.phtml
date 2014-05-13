@@ -2,6 +2,7 @@
     $row = $this->row;
     $lu = Zend_Registry::get('user');
     $related = isset($this->related) ? $this->related : array();
+    $newVideos = isset($this->newVideos) ? $this->newVideos : array();
 ?>
 <script type="text/javascript">
 CL.NID = "<?php echo $row['id']; ?>";
@@ -159,5 +160,25 @@ CL.NID = "<?php echo $row['id']; ?>";
 				</div>
 			</div>
 			<div class="clear"> </div>
+	<div class="Recent-Vodeos">
+	<h3>Video mới nhất</h3>
+	<?php if(count($newVideos) > 0):?>
+		<?php foreach ($newVideos as $video):?>
+			<?php $avatar = "http://img.youtube.com/vi/{$video['ytid']}/0.jpg";?>
+			<div class="video1">
+			  <a href="<?php echo node_link('video', $video);?>">
+				<img src="<?php echo $avatar;?>" 
+					title="<?php echo $video['name'];?>" />
+				<span><?php echo $video['name'];?></span>
+				<p style='height: 40px; overflow: hidden;'><?php echo $video['content'];?> </p>
+				<div class="clear"> </div>
+			   	</a>
+			</div>
+		<?php endforeach;?>
+	<?php endif;?>
+	<div class="r-all">
+		<a href="#">Xem tất cả</a>
+	</div>
+</div>
 </div>
 <div class="clear"> </div>

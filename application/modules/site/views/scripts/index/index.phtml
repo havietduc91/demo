@@ -1,9 +1,10 @@
 <?php $lu = Zend_Registry::get('user');?>
 <?php $list = isset($this->list) ? $this->list : array();?>
+<?php $newVideos = isset($this->newVideos) ? $this->newVideos : array();?>
 <div class="left-content">
 	<div class="searchbar">
 		<div class="search-left">
-			<p>Latest Video Form VideosTube</p>
+			<p>Tổng hợp cover hay nhất, hài nhất</p>
 		</div>
 		<div class="search-right">
 			<form>
@@ -108,21 +109,23 @@
 </div>
 <div class="clear"> </div>
 <div class="Recent-Vodeos">
-	<h3>Recent-Videos</h3>
-	<div class="video1">
-		<img src="http://test.local/videostube-pack/web/images/r1.jpg" title="video2" />
-		<span>Lorem ipsum dolor sit amet,</span>
-		<p>s consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-		<div class="clear"> </div>
-	</div>
-	<div class="video1 video2">
-		<img src="http://test.local/videostube-pack/web/images/r2.jpg" title="video2" />
-		<span>Lorem ipsum dolor sit amet,</span>
-		<p>s consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-		<div class="clear"> </div>
-	</div>
+	<h3>Video mới nhất</h3>
+	<?php if(count($newVideos) > 0):?>
+		<?php foreach ($newVideos as $video):?>
+			<?php $avatar = "http://img.youtube.com/vi/{$video['ytid']}/0.jpg";?>
+			<div class="video1">
+			  <a href="<?php echo node_link('video', $video);?>">
+				<img src="<?php echo $avatar;?>" 
+					title="<?php echo $video['name'];?>" />
+				<span><?php echo $video['name'];?></span>
+				<p style='height: 40px; overflow: hidden;'><?php echo $video['content'];?> </p>
+				<div class="clear"> </div>
+			   	</a>
+			</div>
+		<?php endforeach;?>
+	<?php endif;?>
 	<div class="r-all">
-		<a href="#">View All</a>
+		<a href="#">Xem tất cả</a>
 	</div>
 </div>
 </div>
