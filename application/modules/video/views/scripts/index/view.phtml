@@ -34,18 +34,28 @@ CL.NID = "<?php echo $row['id']; ?>";
 		<div class="view-links">
 			<ul>
 				<li><h4>Chia sẻ:</h4></li>
-				<li><a href="#"><img src="http://test.local/videostube-pack/web/images/f1.png" title="facebook" /></a></li>
-				<li><a href="#"><img src="http://test.local/videostube-pack/web/images/t1.png" title="Twitter" /></a></li>
-				<li><a href="#"><img src="http://test.local/videostube-pack/web/images/s1.png" title="Google+" /></a></li>
+				<li>
+					<ul class="share-links">
+					         <div class="fb-like" 
+								data-href="<?echo SITE_URL;?><?php echo node_link('video',$row);?>"  
+		                        data-layout="button_count" 
+		                        data-action="like" 
+		                        data-show-faces="true" 
+		                        data-share="true">
+		                     </div>
+				    </ul>
+				</li>
 			</ul>
+			<?php /*
 			<ul class="comment1">
 				<li><a href="#">Bình luận(1)</a></li>
 				<li><a href="#"><img src="http://test.local/videostube-pack/web/images/re.png" title="report" /><span>Báo cáo</span></a></li>
 			</ul>
+			*/?>
 		</div>
 		<div class="views-count">
 			<?php $row['counter']['v'] = isset($row['counter']['v']) ? $row['counter']['v'] : 0;?>
-			<p><span><?php echo number_format($row['counter']['v']);?></span> Lượt xem</p>
+			<p><span title='Lượt xem được cập nhật từ trên trang youtube'><?php echo number_format($row['counter']['v']);?></span> Lượt xem</p>
 		</div>
 		<div class="clear"> </div>
 	</div>
@@ -69,6 +79,11 @@ CL.NID = "<?php echo $row['id']; ?>";
 		</ul>
 	</div>
 	<div class="clear"> </div>
+	<div class='video-details' style='margin-top: 15px;'>
+		 <div class="fb-comments" 
+	     	data-href="<?echo SITE_URL;?><?php echo node_link('video',$row);?>" data-width="815" 
+	     		data-num-posts="10"></div>
+     </div>
 	<div class="related-videos">
 		<h6>Video liên quan</h6>
 	<div class="grids">
@@ -76,9 +91,16 @@ CL.NID = "<?php echo $row['id']; ?>";
 			<?php foreach ($related as $video):?>
 				<?php $imgLink = "http://img.youtube.com/vi/{$video['ytid']}/0.jpg";?>
 				<div class="grid" style='margin-bottom: 4px;'>
-					<h3><?php echo $video['name'];?></h3>
-					<a href="#"><img src="<?php echo $imgLink;?>" title="video-name"
-						style='width: 243px;height: 152px;'></a>
+					<a href="<?php echo node_link('video', $video);?>"><h3>
+						<?php echo $video['name'];?></h3></a>
+					<a href="<?php echo node_link('video', $video);?>">
+						<img src="<?php echo $imgLink;?>" title="video-name"
+						style='width: 243px;height: 152px;'>
+						<img class="tidypics-photo-start" width="35px" height="25px" 
+							src="<?php echo ASSETS_CDN?>/img/play_youtube.png" 
+							style="left: 102px; position: absolute; top: 116px; width: 50px; 
+							height: 40px; cursor: pointer;">
+						</a>
 					<div class="time">
 						<?php $video['duration'] = isset($video['duration']) ? $video['duration'] : 0;?>
 						<span><?php echo gmdate("H:i:s", (int)$video['duration']);?></span>
@@ -92,7 +114,7 @@ CL.NID = "<?php echo $row['id']; ?>";
 							</ul>
 						</div>
 						<div class="video-watch">
-							<a href="#">Xem ngay</a>
+							<a href="<?php echo node_link('video', $video);?>">Xem ngay</a>
 						</div>
 						<div class="clear"> </div>
 						<div class="lables">

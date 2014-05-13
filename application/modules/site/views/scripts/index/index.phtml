@@ -1,19 +1,129 @@
-<?php if (is_guest()) :?>
-<?php echo $this->render('index/guest_home.phtml');?>
-<?php else:?>
-    <?php $lu = Zend_Registry::get('user');?>
-    <h2>List samx data</h2>
-    <?php if(isset($this->list)) :?>
-        <?php foreach($this->list as $row) :?>
-            <div class="row">
-                <div class="span12">
-                    <h3><a href="/samx/<?php echo $row['id'];?>"><?php echo $row['name'];?></a></h3>
-                    <article><?php echo $row['content'];?></article>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-        <?php endforeach;?>
-    <?php else:?>
-    Home for logged in user here. List of lessons and stuff here
-    <?php endif;?>
-<?php endif;?>
+<?php $lu = Zend_Registry::get('user');?>
+<?php $list = isset($this->list) ? $this->list : array();?>
+<div class="left-content">
+	<div class="searchbar">
+		<div class="search-left">
+			<p>Latest Video Form VideosTube</p>
+		</div>
+		<div class="search-right">
+			<form>
+				<input type="text"><input type="submit" value="" />
+			</form>
+		</div>
+		<div class="clear"> </div>
+	</div>
+	<div class="box">
+	<?php if(count($list) > 0):?>
+		<div class="grids">
+		<?php $k = 0;?>
+		<?php foreach ($list as $video):?>
+			<?php if($k % 3 == 0 && $k > 0):?>
+				</div>
+				<div class="clear"> </div>
+				<div class="grids">
+			<?php endif;?>
+				<?php $imgLink = "http://img.youtube.com/vi/{$video['ytid']}/0.jpg";?>
+				<div class="grid" style='margin-bottom: 4px;'>
+					<a href="<?php echo node_link('video', $video);?>"><h3>
+						<?php echo $video['name'];?></h3></a>
+					<a href="<?php echo node_link('video', $video);?>">
+						<img src="<?php echo $imgLink;?>" title="video-name"
+						style='width: 243px;height: 152px;'>
+						<img class="tidypics-photo-start" width="35px" height="25px" 
+							src="<?php echo ASSETS_CDN?>/img/play_youtube.png" 
+							style="left: 102px; position: absolute; top: 116px; width: 50px; 
+							height: 40px; cursor: pointer;">
+						</a>
+					<div class="time">
+						<?php $video['duration'] = isset($video['duration']) ? $video['duration'] : 0;?>
+						<span><?php echo gmdate("H:i:s", (int)$video['duration']);?></span>
+					</div>
+					<div class="grid-info">
+						<div class="video-share">
+							<ul>
+								<li><a href="#"><img src="http://test.local/videostube-pack/web/images/likes.png" title="links"></a></li>
+								<li><a href="#"><img src="http://test.local/videostube-pack/web/images/link.png" title="Link"></a></li>
+								<li><a href="#"><img src="http://test.local/videostube-pack/web/images/views.png" title="Views"></a></li>
+							</ul>
+						</div>
+						<div class="video-watch">
+							<a href="<?php echo node_link('video', $video);?>">Xem ngay</a>
+						</div>
+						<div class="clear"> </div>
+						<div class="lables">
+							<p>By:<a href="#"><?php echo $video['u']['name'];?></a></p>
+						</div>
+					</div>
+				</div>
+			<?php $k ++;?>
+		<?php endforeach;?>
+		</div>
+	<?php endif;?>
+	<div class="clear"> </div>
+</div>
+	<div class="clear"> </div>
+	<ul class="dc_pagination dc_paginationA dc_paginationA03">
+	  <li><a href="#" class="first">First</a></li>
+	  <li><a href="#" class="previous">Previous</a></li>
+	  <li><a href="#">1</a></li>
+	  <li><a href="#">2</a></li>
+	  <li><a href="#" class="current">3</a></li>
+	  <li><a href="#">4</a></li>
+	  <li><a href="#">5</a></li>
+	  <li><a href="#" class="next">Next</a></li>
+	  <li><a href="#" class="last">Last</a></li>
+	  
+	</ul>
+	<div class="clear"> </div>
+</div>
+<div class="right-content">
+	<div class="popular">
+		<h3>Popular Videos</h3>
+		<p><img src="http://test.local/videostube-pack/web/images/l1.png" title="likes" /> 10,000</p>
+		<div class="clear"> </div>
+	</div>
+	<div class="grid1">
+	<h3>Consectetur adipisicing elit</h3>
+	<a href="#"><img src="http://test.local/videostube-pack/web/images/g7.jpg" title="video-name" /></a>
+	<div class="time1">
+		<span>2:50</span>
+	</div>
+	
+	<div class="grid-info">
+		<div class="video-share">
+			<ul>
+				<li><a href="#"><img src="http://test.local/videostube-pack/web/images/likes.png" title="links" /></a></li>
+				<li><a href="#"><img src="http://test.local/videostube-pack/web/images/link.png" title="Link" /></a></li>
+				<li><a href="#"><img src="http://test.local/videostube-pack/web/images/views.png" title="Views" /></a></li>
+			</ul>
+		</div>
+		<div class="video-watch">
+			<a href="#">Watch Now</a>
+		</div>
+		<div class="clear"> </div>
+		<div class="lables">
+			<p>Labels:<a href="#">Lorem</a></p>
+		</div>
+	</div>
+</div>
+<div class="clear"> </div>
+<div class="Recent-Vodeos">
+	<h3>Recent-Videos</h3>
+	<div class="video1">
+		<img src="http://test.local/videostube-pack/web/images/r1.jpg" title="video2" />
+		<span>Lorem ipsum dolor sit amet,</span>
+		<p>s consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+		<div class="clear"> </div>
+	</div>
+	<div class="video1 video2">
+		<img src="http://test.local/videostube-pack/web/images/r2.jpg" title="video2" />
+		<span>Lorem ipsum dolor sit amet,</span>
+		<p>s consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+		<div class="clear"> </div>
+	</div>
+	<div class="r-all">
+		<a href="#">View All</a>
+	</div>
+</div>
+</div>
+<div class="clear"> </div>
