@@ -122,14 +122,12 @@ class Video_IndexController extends Cl_Controller_Action_NodeIndex
         	Bootstrap::$pageTitle = $row['name'];
         	
         	//Get new video
-        	$daoVideo = Dao_Node_Video::getInstance();
-        	$order = array('ts'=>-1);
-        	$cond['order'] = $order;
-        	$cond['limit'] = 3;
-        	$r = $daoVideo->find($cond);
-        	if($r['success'] && $r['count'] > 0) {
-        		$this->setViewParam('newVideos', $r['result']);
-        	}
+			$list = Dao_Node_Video::getInstance()->getVideoByType('new', 3);
+			$this->setViewParam('newVideos', $list);
+        	
+        	//Get popular video
+        	$list = Dao_Node_Video::getInstance()->getVideoByType('hot', 1);
+        	$this->setViewParam('hotVideos', $list);
         }else 
         	Bootstrap::$pageTitle = 'Chi tiết video';
     }
@@ -184,6 +182,43 @@ class Video_IndexController extends Cl_Controller_Action_NodeIndex
     {
     	Dao_Node_Video::getInstance()->updateDuration();
     	die('oki');
+    }
+    
+    public function tagAction()
+    {
+    	$tag = (string) $this->getStrippedParam('tag');
+    	$where = array('slug'=>$tag);
+    	$t = Dao_Node_Tag::getInstance()->findOne($where);
+    	if($t['success']){
+    		$this->setViewParam('tag', $t['result']);
+    		
+    		$where = array('tags.slug'=>$t['result']['slug']);
+    		if($limit != '')
+    			$cond['limit'] = $limit;
+    		else
+    			$cond['limit'] = per_page();
+    		
+    		$order = array('ts' => -1);
+    		$cond['where'] = $where;
+    		$cond['order'] = $order;
+    		$cond['page'] = $page;
+    		$cond['total'] = 1; //do count total
+    		$r = Dao_Node_Video::getInstance()->find($cond);
+    		if($r['success']){
+    			$this->setViewParam('list', $r['result']);
+    		}
+    		
+    		//Get new video
+    		$list = Dao_Node_Video::getInstance()->getVideoByType('new', 3);
+			$this->setViewParam('newVideos', $list);
+			
+			//Get popular video
+			$list = Dao_Node_Video::getInstance()->getVideoByType('hot', 2);
+			$this->setViewParam('hotVideos', $list);
+    		Bootstrap::$pageTitle = $t['result']['name'];
+    	}else{
+	    	Bootstrap::$pageTitle = 'Không tìm thất ' . $tag;
+    	}
     }
 }
 

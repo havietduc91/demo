@@ -1,7 +1,15 @@
 <?
+function per_page()
+{
+	return 10;
+}
 function node_link($type, $node)
 {
     return "/{$type}/view?id={$node['id']}";
+}
+function tag_link($tag)
+{
+	return "/tag/{$tag['slug']}";
 }
 function render_yt_embed_video($vid, $width = 420, $height = 315)
 {

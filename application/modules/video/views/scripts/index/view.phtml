@@ -3,6 +3,7 @@
     $lu = Zend_Registry::get('user');
     $related = isset($this->related) ? $this->related : array();
     $newVideos = isset($this->newVideos) ? $this->newVideos : array();
+    $hotVideos = isset($this->hotVideos) ? $this->hotVideos : array();
 ?>
 <script type="text/javascript">
 CL.NID = "<?php echo $row['id']; ?>";
@@ -74,7 +75,7 @@ CL.NID = "<?php echo $row['id']; ?>";
 			<li><h3>Tags:</h3></li>
 			<?php if(isset($row['tags']) && count($row['tags']) > 0):?>
 				<?php foreach ($row['tags'] as $tag):?><li>
-					<li title='<?php echo $tag['name'];?>'><a href="#"><?php echo $tag['name'];?></a> </li>					
+					<li title='<?php echo $tag['name'];?>'><a href="<?php echo tag_link($tag);?>"><?php echo $tag['name'];?></a> </li>					
 				<?php endforeach;?>
 			<?php endif;?>
 		</ul>
@@ -130,55 +131,8 @@ CL.NID = "<?php echo $row['id']; ?>";
 	<div class="clear"> </div>
 </div>
 <div class="right-content">
-	<div class="popular">
-		<h3>Popular Videos</h3>
-		<p><img src="http://test.local/videostube-pack/web/images/l1.png" title="likes" /> 10,000</p>
-		<div class="clear"> </div>
-	</div>
-	<div class="grid1">
-				<h3>Consectetur adipisicing elit</h3>
-				<a href="#"><img src="http://test.local/videostube-pack/web/images/g7.jpg" title="video-name" /></a>
-				<div class="time1">
-					<span>2:50</span>
-				</div>
-				
-				<div class="grid-info">
-					<div class="video-share">
-						<ul>
-							<li><a href="#"><img src="http://test.local/videostube-pack/web/images/likes.png" title="links" /></a></li>
-							<li><a href="#"><img src="http://test.local/videostube-pack/web/images/link.png" title="Link" /></a></li>
-							<li><a href="#"><img src="http://test.local/videostube-pack/web/images/views.png" title="Views" /></a></li>
-						</ul>
-					</div>
-					<div class="video-watch">
-						<a href="#">Watch Now</a>
-					</div>
-					<div class="clear"> </div>
-					<div class="lables">
-						<p>Labels:<a href="#">Lorem</a></p>
-					</div>
-				</div>
-			</div>
-			<div class="clear"> </div>
-	<div class="Recent-Vodeos">
-	<h3>Video mới nhất</h3>
-	<?php if(count($newVideos) > 0):?>
-		<?php foreach ($newVideos as $video):?>
-			<?php $avatar = "http://img.youtube.com/vi/{$video['ytid']}/0.jpg";?>
-			<div class="video1">
-			  <a href="<?php echo node_link('video', $video);?>">
-				<img src="<?php echo $avatar;?>" 
-					title="<?php echo $video['name'];?>" />
-				<span><?php echo $video['name'];?></span>
-				<p style='height: 40px; overflow: hidden;'><?php echo $video['content'];?> </p>
-				<div class="clear"> </div>
-			   	</a>
-			</div>
-		<?php endforeach;?>
-	<?php endif;?>
-	<div class="r-all">
-		<a href="#">Xem tất cả</a>
-	</div>
-</div>
+	<?php echo $this->render('/video/hot-videos.phtml');?>
+	<div class="clear"> </div>
+	<?php echo $this->render('/video/new-videos.phtml');?>
 </div>
 <div class="clear"> </div>

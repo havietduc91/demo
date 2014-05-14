@@ -1,10 +1,14 @@
 <?php $lu = Zend_Registry::get('user');?>
-<?php $list = isset($this->list) ? $this->list : array();?>
-<?php $newVideos = isset($this->newVideos) ? $this->newVideos : array();?>
+<?php 
+	$list = isset($this->list) ? $this->list : array();
+ 	$tag = isset($this->tag) ? $this->tag : array();
+ 	$newVideos = isset($this->newVideos) ? $this->newVideos : array();
+ 	$hotVideos = isset($this->hotVideos) ? $this->hotVideos : array();
+?>
 <div class="left-content">
 	<div class="searchbar">
 		<div class="search-left">
-			<p>Tổng hợp cover hay nhất, hài nhất</p>
+			<p><?php echo $tag['name'] ?> - Những bản cover hay nhất</p>
 		</div>
 		<div class="search-right">
 			<form>

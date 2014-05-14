@@ -322,4 +322,22 @@ class Dao_Node_Video extends Cl_Dao_Node
 			}
 		}
 	}
+	
+	public function getVideoByType($type, $limit){
+		$list = array();
+		if($type == 'new'){
+			$order = array('ts'=>-1);
+		}elseif ($type == 'hot'){
+			$order = array('counter.v'=>-1);
+		}
+		
+		$cond['order'] = $order;
+		$cond['limit'] = $limit;
+		$r = $this->find($cond);
+		if($r['success'] && $r['count'] > 0) {
+			$list = $r['result'];
+		}
+		
+		return $list;
+	}
 }
