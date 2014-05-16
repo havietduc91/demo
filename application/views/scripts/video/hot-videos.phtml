@@ -8,7 +8,8 @@
 	<?php foreach ($hotVideos as $video):?>
 		<?php $avatar = "http://img.youtube.com/vi/{$video['ytid']}/0.jpg";?>
 		<div class="grid1">
-			<a href="<?php echo node_link('video', $video);?>"><h3><?php echo $video['name'];?></h3></a>
+			<a href="<?php echo node_link('video', $video);?>">
+				<h3 style='color: #1E5DAD;'><?php echo $video['name'];?></h3></a>
 			<a href="<?php echo node_link('video', $video);?>"><img src="<?php echo $avatar;?>" 
 				title="<?php echo $video['name'];?>" /></a>
 			<div class="time1">

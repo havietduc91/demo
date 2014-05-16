@@ -3,11 +3,15 @@ class Site_IndexController extends Cl_Controller_Action_Index
 {
     public function indexAction()
     {
-        $daoVideo = Dao_Node_Video::getInstance();
-        $r = $daoVideo->findAll();
-        if($r['success'] && $r['count'] > 0) {
-        	$this->setViewParam('list', $r['result']);
-        }
+    	$filter = $this->getStrippedParam('filter','new');
+    	if ($filter == '')
+    		$filter = 'new';
+    	$page = $this->getStrippedParam('page',1);
+    	if ($page == '')
+    		$page = 1;
+    	
+    	$list = Dao_Node_Video::getInstance()->getVideoList($page, filter);
+        $this->setViewParam('list', $list);
         
         //Get new video
         $list = Dao_Node_Video::getInstance()->getVideoByType('new', 3);
