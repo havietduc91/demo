@@ -898,3 +898,9 @@ ul.dc_paginationA03 li a:hover, ul.dc_paginationA03 li a.current {
 		padding:0px 3px;
 	}
 }
+.disabled{
+	box-shadow: none;
+	cursor: not-allowed;
+	opacity: 0.65;
+	pointer-events: none;
+}

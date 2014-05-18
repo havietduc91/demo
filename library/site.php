@@ -1,7 +1,7 @@
 <?
 function per_page()
 {
-	return 10;
+	return 9;
 }
 function node_link($type, $node)
 {

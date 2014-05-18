@@ -1,6 +1,13 @@
-<?php $lu = Zend_Registry::get('user');?>
-<?php $list = isset($this->list) ? $this->list : array();?>
-<?php $newVideos = isset($this->newVideos) ? $this->newVideos : array();?>
+<?php 
+	$lu = Zend_Registry::get('user');
+	$newVideos = isset($this->newVideos) ? $this->newVideos : array();
+	$isWidget = (isset($this->is_widget) && $this->is_widget == 'widget') ? true:false;
+	
+	$page = isset($this->page) ? $this->page : 1;
+	$filter = isset($this->filter) ? $this->filter : 1;
+?>
+
+<?php if($isWidget == false):?>
 <div class="left-content">
 	<div class="searchbar">
 		<div class="search-left">
@@ -14,72 +21,16 @@
 		<div class="clear"> </div>
 	</div>
 	<div class="box">
-	<?php if(count($list) > 0):?>
-		<div class="grids">
-		<?php $k = 0;?>
-		<?php foreach ($list as $video):?>
-			<?php if($k % 3 == 0 && $k > 0):?>
-				</div>
-				<div class="clear"> </div>
-				<div class="grids">
-			<?php endif;?>
-				<?php $imgLink = "http://img.youtube.com/vi/{$video['ytid']}/0.jpg";?>
-				<div class="grid" style='margin-bottom: 4px;'>
-					<a href="<?php echo node_link('video', $video);?>"><h3>
-						<?php echo $video['name'];?></h3></a>
-					<a href="<?php echo node_link('video', $video);?>">
-						<img src="<?php echo $imgLink;?>" title="video-name"
-						style='width: 243px;height: 152px;'>
-						<img class="tidypics-photo-start" width="35px" height="25px" 
-							src="<?php echo ASSETS_CDN?>/img/play_youtube.png" 
-							style="left: 102px; position: absolute; top: 116px; width: 50px; 
-							height: 40px; cursor: pointer;">
-						</a>
-					<div class="time">
-						<?php $video['duration'] = isset($video['duration']) ? $video['duration'] : 0;?>
-						<span><?php echo gmdate("H:i:s", (int)$video['duration']);?></span>
-					</div>
-					<div class="grid-info">
-						<div class="video-share">
-							<ul>
-								<li><a href="#"><img src="http://test.local/videostube-pack/web/images/likes.png" title="links"></a></li>
-								<li><a href="#"><img src="http://test.local/videostube-pack/web/images/link.png" title="Link"></a></li>
-								<li><a href="#"><img src="http://test.local/videostube-pack/web/images/views.png" title="Views"></a></li>
-							</ul>
-						</div>
-						<div class="video-watch">
-							<a href="<?php echo node_link('video', $video);?>">Xem ngay</a>
-						</div>
-						<div class="clear"> </div>
-						<div class="lables">
-							<p>By:<a href="#"><?php echo $video['u']['name'];?></a></p>
-						</div>
-					</div>
-				</div>
-			<?php $k ++;?>
-		<?php endforeach;?>
-		</div>
-	<?php endif;?>
+<?php endif;?>
+		<?php echo $this->render('/widget/video-list.phtml');?>
+<?php if($isWidget == false):?>
 	<div class="clear"> </div>
-</div>
-	<div class="clear"> </div>
-	<ul class="dc_pagination dc_paginationA dc_paginationA03">
-	  <li><a href="#" class="first">First</a></li>
-	  <li><a href="#" class="previous">Previous</a></li>
-	  <li><a href="#">1</a></li>
-	  <li><a href="#">2</a></li>
-	  <li><a href="#" class="current">3</a></li>
-	  <li><a href="#">4</a></li>
-	  <li><a href="#">5</a></li>
-	  <li><a href="#" class="next">Next</a></li>
-	  <li><a href="#" class="last">Last</a></li>
-	  
-	</ul>
-	<div class="clear"> </div>
+	</div>
 </div>
 <div class="right-content">
 	<?php echo $this->render('/video/hot-videos.phtml');?>
 <div class="clear"> </div>
 	<?php echo $this->render('/video/new-videos.phtml');?>
 </div>
+<?php endif;?>
 <div class="clear"> </div>

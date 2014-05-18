@@ -342,8 +342,8 @@ class Dao_Node_Video extends Cl_Dao_Node
 	}
 	
 	public function getVideoList($page, $filter){
-		if(filter == 'hot'){
-			$order = array('ts'=>-1);
+		if($filter == 'hot'){
+			$order = array('counter.v'=>-1);
 		}else{
 			$order = array('ts'=>-1);
 		}
@@ -354,11 +354,6 @@ class Dao_Node_Video extends Cl_Dao_Node
 		$cond['total'] = 1; //do count total
 		
 		$r = $this->find($cond);
-		$list = array();
-		if($r['success'] && $r['count'] > 0) {
-			$list = $r['result'];
-		}
-		
-		return $list;
+		return $r;
 	}
 }

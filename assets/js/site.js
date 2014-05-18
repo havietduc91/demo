@@ -90,6 +90,44 @@ $(function(){ // document ready
 		  });
 		  return false;
 	}
+	
+	var loaded = 0;
+	var isloading = false;
+	if (CL.page === 'site/index/index')
+    {
+	    //video list load more
+	    $(window).scroll(function(e){
+	        if  ($(window).scrollTop() == $(document).height() - $(window).height()){
+	            if (loaded < 2 && !isloading)
+	            {
+	                //$('#nav-footer').remove();
+	                var url = $('#next-page').attr('data-href-widget');
+	                if(url != '#/widget'){
+	                    $("#nav-footer").hide();
+	                    $('#loading').show();
+	                    isloading = true;
+	                    $.ajax({
+	                        url : url,
+	                        data : {
+	                            _cl_modal_ajax : 1
+	                        },
+	                        success : function(data){
+	                            isloading = false;
+	                            loaded ++;
+	                            $("#nav-footer").remove();
+	                            $(data.result.content).insertBefore("#loading");
+	                            $('#loading').hide();
+	                        }
+	                    });	
+	                }
+	            }
+	            else
+	            {
+	                // do noting
+	            }
+	        }
+	    });
+    }
 
 });
 /** End * */

@@ -10,15 +10,20 @@ class Site_IndexController extends Cl_Controller_Action_Index
     	if ($page == '')
     		$page = 1;
     	
-    	$list = Dao_Node_Video::getInstance()->getVideoList($page, filter);
-        $this->setViewParam('list', $list);
+    	$this->setViewParam('is_widget', $this->getStrippedParam('is_widget'));
+    	$this->setViewParam('page', $page);
+    	$this->setViewParam('filter', $filter);
+    	$ret = Dao_Node_Video::getInstance()->getVideoList($page, $filter);
+        $this->setViewParam('list', $ret['result']);
+        $total = ceil($ret['total'] / per_page());
+        $this->setViewParam('total', $total);
         
         //Get new video
-        $list = Dao_Node_Video::getInstance()->getVideoByType('new', 3);
+        $list = Dao_Node_Video::getInstance()->getVideoByType('new', 2);
         $this->setViewParam('newVideos', $list);
         
         //Get popular video
-        $list = Dao_Node_Video::getInstance()->getVideoByType('hot', 3);
+        $list = Dao_Node_Video::getInstance()->getVideoByType('hot', 1);
         $this->setViewParam('hotVideos', $list);
         
         Bootstrap::$pageTitle = "Tổng hợp cover hay nhất, hài nhất";

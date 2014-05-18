@@ -1,0 +1,78 @@
+<?php 
+	$list = isset($this->list) ? $this->list : array();
+	$page = isset($this->page) ? $this->page : 1;
+	$filter = isset($this->filter) ? $this->filter : 1;
+	$isWidget = (isset($this->is_widget) && $this->is_widget == 'widget') ? true:false;
+	$total = Zend_Registry::isRegistered('total') ? Zend_Registry::get('total') : isset($this->total) ? $this->total : 1;
+?>
+<?php if(count($list) > 0):?>
+	<div class="grids">
+	<?php $k = 0;?>
+	<?php foreach ($list as $video):?>
+		<?php if($k % 3 == 0 && $k > 0):?>
+			</div>
+			<div class="clear"> </div>
+			<div class="grids">
+		<?php endif;?>
+			<?php $imgLink = "http://img.youtube.com/vi/{$video['ytid']}/0.jpg";?>
+			<div class="grid" style='margin-bottom: 4px;'>
+				<a href="<?php echo node_link('video', $video);?>"><h3>
+					<?php echo $video['name'];?></h3></a>
+				<a href="<?php echo node_link('video', $video);?>">
+					<img src="<?php echo $imgLink;?>" title="video-name"
+					style='width: 243px;height: 152px;'>
+					<img class="tidypics-photo-start" width="35px" height="25px" 
+						src="<?php echo ASSETS_CDN?>/img/play_youtube.png" 
+						style="left: 102px; position: absolute; top: 116px; width: 50px; 
+						height: 40px; cursor: pointer;">
+					</a>
+				<div class="time">
+					<?php $video['duration'] = isset($video['duration']) ? $video['duration'] : 0;?>
+					<span><?php echo gmdate("H:i:s", (int)$video['duration']);?></span>
+				</div>
+				<div class="grid-info">
+					<div class="video-share">
+						<ul>
+							<li><a href="#"><img src="http://test.local/videostube-pack/web/images/likes.png" title="links"></a></li>
+							<li><a href="#"><img src="http://test.local/videostube-pack/web/images/link.png" title="Link"></a></li>
+							<li><a href="#"><img src="http://test.local/videostube-pack/web/images/views.png" title="Views"></a></li>
+						</ul>
+					</div>
+					<div class="video-watch">
+						<a href="<?php echo node_link('video', $video);?>">Xem ngay</a>
+					</div>
+					<div class="clear"> </div>
+					<div class="lables">
+						<p>By:<a href="#"><?php echo $video['u']['name'];?></a></p>
+					</div>
+				</div>
+			</div>
+		<?php $k ++;?>
+	<?php endforeach;?>
+	</div>
+<?php endif;?>
+<div class="clear"> </div>
+<ul class="dc_pagination dc_paginationA dc_paginationA03">
+  <li style='width: 100%; text-align: center' id= "nav-footer" class='<?php if ($page == $total):?>disabled<?php Endif;?>'>
+  	<a href="/<?php echo $filter;?>/<?php echo $page + 1;?>" 
+  		id='next-page' title='Cover còn nhiều lắm, click tiếp đi nha'
+  		data-href-widget="/<?php echo $filter;?>/<?php echo $page + 1;?>/widget"
+  		class="first" 
+  		<?php if ($page == $total):?>
+  			style='background: none repeat scroll 0 0 #1E5DAD; color: #FFF !important;'
+  			<?php endif;?>>
+  			<?php if ($page == $total):?>
+  				:(( Xin lỗi bạn, chúng tôi sẽ tiếp tục cập nhật thêm dữ liệu
+  			<?php else:?>
+  			Cover còn nhiều lắm, click tiếp đi nha
+  			<?php endif;?></a></li>
+</ul>
+<div class="clear"> </div>
+<?php if (!$isWidget):?>
+	<ul class="dc_pagination dc_paginationA dc_paginationA03"
+		style='font-weight:bold;display:none;' id="loading">
+	  <li style='width: 100%; text-align: center'>
+	  	<a href='#' 
+	  		class="first">Anh Zai chờ chút nha............</a></li>
+	</ul>
+<?php endif;?>
