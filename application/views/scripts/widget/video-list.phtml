@@ -54,9 +54,17 @@
 <div class="clear"> </div>
 <ul class="dc_pagination dc_paginationA dc_paginationA03">
   <li style='width: 100%; text-align: center' id= "nav-footer" class='<?php if ($page == $total):?>disabled<?php Endif;?>'>
+  	<?php 
+  		$nextPage = $page + 1;
+  		if($page != $total):
+  			$nextWidget = "/$filter/{$nextPage}/widget";
+  		else:
+  			$nextWidget = "#/widget";
+  		endif;
+  	?>
   	<a href="/<?php echo $filter;?>/<?php echo $page + 1;?>" 
   		id='next-page' title='Cover còn nhiều lắm, click tiếp đi nha'
-  		data-href-widget="/<?php echo $filter;?>/<?php echo $page + 1;?>/widget"
+  		data-href-widget="<?php echo $nextWidget;?>"
   		class="first" 
   		<?php if ($page == $total):?>
   			style='background: none repeat scroll 0 0 #1E5DAD; color: #FFF !important;'

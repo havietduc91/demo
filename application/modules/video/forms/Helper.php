@@ -13,6 +13,12 @@ class Video_Form_Helper extends Cl_Form_NodeHelper
     	return array('success' =>true, 'result' => $ret);
     }
     
+    public function getCountry()
+    {
+    	$ret = array('domestic' => 'Trong nước', 'foreign' => 'Nước ngoài');
+    	return array('success' =>true, 'result' => $ret);
+    }
+    
     /*
     public function getItemsPerPageList($params)
     {

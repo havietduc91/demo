@@ -98,7 +98,7 @@ $(function(){ // document ready
 	    //video list load more
 	    $(window).scroll(function(e){
 	        if  ($(window).scrollTop() == $(document).height() - $(window).height()){
-	            if (loaded < 2 && !isloading)
+	            if (loaded < 1 && !isloading)
 	            {
 	                //$('#nav-footer').remove();
 	                var url = $('#next-page').attr('data-href-widget');

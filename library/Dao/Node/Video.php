@@ -50,6 +50,7 @@ class Dao_Node_Video extends Cl_Dao_Node
         		'duration' => 'string',	
         		'ts' => 'int',
         		'status' => 'string',
+        		'country' => 'string', //domestic|foreign
         		'is_original' => 'string',
         	)
     	);
@@ -342,6 +343,15 @@ class Dao_Node_Video extends Cl_Dao_Node
 	}
 	
 	public function getVideoList($page, $filter){
+		$where = array();
+		if($filter == 'domestic'){
+			$where = array('country'=> 'domestic');
+			$order = array('ts' => -1);
+		}
+		if($filter == 'foreign'){
+			$where = array('country'=> 'foreign');
+			$order = array('ts' => -1);
+		}
 		if($filter == 'hot'){
 			$order = array('counter.v'=>-1);
 		}else{
@@ -350,6 +360,7 @@ class Dao_Node_Video extends Cl_Dao_Node
 		$cond['order'] = $order;
 		$cond['limit'] = per_page();
 		
+		$cond['where'] = $where;
 		$cond['page'] = $page;
 		$cond['total'] = 1; //do count total
 		
