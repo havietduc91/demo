@@ -26,11 +26,18 @@ CL.NID = "<?php echo $row['id']; ?>";
 		<ul>
 			<li><h4>Đăng bởi:</h4></li>
 			<li><a href="#"><?php echo $row['u']['name'];?></a></li>
-			<li><a href="#"><img src="http://test.local/videostube-pack/web/images/sub.png" title="subscribe" />subscribe</a></li>
+			<li><a href="#">
+				<img src="<?php echo ASSETS_CDN?>/img/sub.png" title="subscribe" />subscribe</a></li>
+			<li> 
+				<a href="#"><img class="replay-video" width="35px" height="25px" 
+						src="<?php echo ASSETS_CDN?>/img/media-replay.png" 
+						title='Click để replay video khi video kết thúc'
+						style="width: 50px;height: 40px; cursor: pointer;">
+				</li></a>
 		</ul>
 	</div>
 	<div class="video-inner videoview">
-                <?php echo render_yt_embed_video($row['ytid'], 790, 450);?>
+		<div id="player"></div>
 	</div>
 	<div class="viwes">
 		<div class="view-links">
@@ -51,7 +58,7 @@ CL.NID = "<?php echo $row['id']; ?>";
 			<?php /*
 			<ul class="comment1">
 				<li><a href="#">Bình luận(1)</a></li>
-				<li><a href="#"><img src="http://test.local/videostube-pack/web/images/re.png" title="report" /><span>Báo cáo</span></a></li>
+				<li><a href="#"><img src="<?php echo ASSETS_CDN?>/img/re.png" title="report" /><span>Báo cáo</span></a></li>
 			</ul>
 			*/?>
 		</div>
@@ -110,9 +117,9 @@ CL.NID = "<?php echo $row['id']; ?>";
 					<div class="grid-info">
 						<div class="video-share">
 							<ul>
-								<li><a href="#"><img src="http://test.local/videostube-pack/web/images/likes.png" title="links"></a></li>
-								<li><a href="#"><img src="http://test.local/videostube-pack/web/images/link.png" title="Link"></a></li>
-								<li><a href="#"><img src="http://test.local/videostube-pack/web/images/views.png" title="Views"></a></li>
+								<li><a href="#"><img src="<?php echo ASSETS_CDN?>/img/likes.png" title="links"></a></li>
+								<li><a href="#"><img src="<?php echo ASSETS_CDN?>/img/link.png" title="Link"></a></li>
+								<li><a href="#"><img src="<?php echo ASSETS_CDN?>/img/views.png" title="Views"></a></li>
 							</ul>
 						</div>
 						<div class="video-watch">
@@ -136,3 +143,48 @@ CL.NID = "<?php echo $row['id']; ?>";
 	<?php echo $this->render('/video/new-videos.phtml');?>
 </div>
 <div class="clear"> </div>
+<?php $this->inlineScript()->captureStart();?>
+      // 2. This code loads the IFrame Player API code asynchronously.
+	var tag = document.createElement('script');
+      var playMode = '';
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+      // 3. This function creates an <iframe> (and YouTube player)
+      //    after the API code downloads.
+      var player;
+      function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+          height: '450',
+          width: '790',
+          videoId: '<?php echo $row['ytid'];?>',
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+          }
+        });
+      }
+
+      // 4. The API will call this function when the video player is ready.
+      function onPlayerReady(event) {
+        event.target.playVideo();
+      }
+
+      // 5. The API calls this function when the player's state changes.
+      //    The function indicates that when playing a video (state=1),
+      //    the player should play for six seconds and then stop.
+      var done = false;
+      function onPlayerStateChange(event) {
+    	  if(player.getPlayerState() == 0 && playMode == 'replay'){
+    		  player.playVideo();
+    	  }
+      }
+      function stopVideo() {
+        player.stopVideo();
+      }
+	$('.replay-video').on('click', function(){
+		playMode = 'replay';
+		player.playVideo();
+	});
+<?php $this->inlineScript()->captureEnd();?>
