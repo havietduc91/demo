@@ -6,7 +6,7 @@ class Video_Form_Search extends Cl_Form_Search
 	{
 		parent::init();
 		$this->method= "GET";
-		$this->fieldList = array('name', 'status');
+		$this->fieldList = array('name', 'status', 'ac_name');
     	$this->setCbHelper('Video_Form_Helper');
     	//$this->setDisplayInline();
 	}
@@ -37,6 +37,14 @@ class Video_Form_Search extends Cl_Form_Search
     		'options' => array(
     			'label' => "Video name",
 	    		'filters' => array('StringTrim', 'StripTags')
+    		),
+    		'op' => '$like',
+    	),
+    	'ac_name' => array(
+    		'type' => 'Text',
+    		'options' => array(
+    			'label' => "Accent VN name",
+    			'filters' => array('StringTrim', 'StripTags')
     		),
     		'op' => '$like',
     	),

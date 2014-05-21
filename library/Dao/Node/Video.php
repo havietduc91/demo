@@ -29,6 +29,7 @@ class Dao_Node_Video extends Cl_Dao_Node
         	'documentSchemaArray' => array(
         		'iid' => 'int',
         		'name' => 'string', 
+        		'ac_name' => 'string',
         		'avatar' => 'string',
         		'content' => 'string',
     	        'content_uf' => 'string', //unfiltered content where <span class='item'> is converted to proper item links 
@@ -85,6 +86,7 @@ class Dao_Node_Video extends Cl_Dao_Node
 		$views = $JSON_Data->{'entry'}->{'yt$statistics'}->{'viewCount'};
 		$data['counter']['v'] = $views;
 		
+		$data['ac_name'] = ac_item($data['name']); //accent name vietnamese
 		
 		if (isset($data['tags']) && count($data['tags']) > 0)
 		{
@@ -119,6 +121,9 @@ class Dao_Node_Video extends Cl_Dao_Node
     /******************************UPDATE****************************/
     public function beforeUpdateNode($where, $data, $currentRow)
     {
+    	if(isset($data['$set']['name']) && $data['$set']['name'] != $currentRow['name']){
+    		$data['$set']['ac_name'] = ac_item($data['$set']['name']); //accent name vietnamese    		
+    	}
         /*
          * You have $data['$set']['_cl_step'] and $data['$set']['_u'] available
          */

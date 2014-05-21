@@ -500,7 +500,7 @@ body{
 /*---footer----*/
 .box1 {
 	float: left;
-	width: 16%;
+	width: 23%;
 	margin: 0 4% 0 0;
 }
 .box1 h4{
@@ -908,7 +908,7 @@ ul.dc_paginationA03 li a:hover, ul.dc_paginationA03 li a.current {
 .box2{
 	float: left;
 	margin: 0 4% 0 0;
-	width: 75%;
+	width: 67%;
 }
 /*---footer----*/
 .box2 h4{
