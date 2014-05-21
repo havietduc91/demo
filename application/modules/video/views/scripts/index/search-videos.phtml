@@ -5,18 +5,19 @@
 	
 	$page = isset($this->page) ? $this->page : 1;
 	$filter = isset($this->filter) ? $this->filter : 1;
-	$name = get_value('name');
+	$ac_name = get_value('ac_name');
 ?>
 
 <?php if($isWidget == false):?>
 <div class="left-content">
 	<div class="searchbar">
 		<div class="search-left">
-			<p>Kết quả tìm kiếm - <?php echo $name;?></p>
+			<p>Kết quả tìm kiếm - <?php echo $ac_name;?></p>
 		</div>
 		<div class="search-right">
 			<form action='<?php echo SITE_URL?>/video/search-videos'>
-				<input id="name" class="form-control" type="text" value="" name="ac_name">
+				<input id="name" class="form-control" type="text" value="" 
+					placeholder='Nhập video bạn muốn tìm?' name="ac_name">
 				<input id="_cl_step" type="hidden" value="" name="_cl_step">
 				<input id="items_per_page" type="hidden" value="-1" name="items_per_page">
 				<input id="_cl_submit" class="btn btn-large btn-primary" type="hidden"

@@ -82,8 +82,28 @@ class Video_IndexController extends Cl_Controller_Action_NodeIndex
     
     public function searchVideosAction()
     {
-    	$name = get_value('name','');
-    	$this->genericSearch("Video_Form_Search", $this->daoClass, "Node");
+    	$name = get_value('ac_name','');
+    	$ac_name = ac_item($name);
+    	
+    	$form = new Video_Form_Search();
+    	$data = array(
+    		'ac_name' => $ac_name,
+    	);
+    	 
+    	$form->build($data);
+    	$conditions = $form->buildSearchConditions();
+    	 
+    	$conditions['total'] = 1;
+    	 
+    	$dao = Dao_Node_Video::getInstance();
+    	$r = $dao->findNode($conditions, true);
+    	if($r['success'] && $r['total'] > 0){
+    		$videos = $r['result'];
+    	}else{
+    		$videos = array();
+    	}
+    	
+    	$this->setViewParam('list', $videos);
     	
     	//Get new video
     	$list = Dao_Node_Video::getInstance()->getVideoByType('new', 2);
