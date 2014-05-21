@@ -80,6 +80,22 @@ class Video_IndexController extends Cl_Controller_Action_NodeIndex
         Bootstrap::$pageTitle = 'Quản lý video';        
     }
     
+    public function searchVideosAction()
+    {
+    	$name = get_value('name','');
+    	$this->genericSearch("Video_Form_Search", $this->daoClass, "Node");
+    	
+    	//Get new video
+    	$list = Dao_Node_Video::getInstance()->getVideoByType('new', 2);
+    	$this->setViewParam('newVideos', $list);
+    	
+    	//Get popular video
+    	$list = Dao_Node_Video::getInstance()->getVideoByType('hot', 1);
+    	$this->setViewParam('hotVideos', $list);
+    	
+    	Bootstrap::$pageTitle = 'Tìm kiếm cover video - ' . $name;
+    }
+    
     public function searchCommentAction()
     {
         assure_perm("search_video");//by default

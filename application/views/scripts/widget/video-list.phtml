@@ -52,8 +52,8 @@
 	</div>
 <?php endif;?>
 <div class="clear"> </div>
-<ul class="dc_pagination dc_paginationA dc_paginationA03">
-  <li style='width: 100%; text-align: center' id= "nav-footer" class='<?php if ($page == $total):?>disabled<?php Endif;?>'>
+<ul class="dc_pagination dc_paginationA dc_paginationA03" id= "nav-footer">
+  <li style='width: 100%; text-align: center' class='<?php if ($page == $total):?>disabled<?php Endif;?>'>
   	<?php 
   		$nextPage = $page + 1;
   		if($page != $total):

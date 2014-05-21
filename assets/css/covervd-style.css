@@ -78,6 +78,7 @@ body{
 .search-right{
 	float:right;
 	background:#fff;
+	width: 200px;
 }
 .search-right input[type="text"],.search-right input[type="submit"]{
 	border:none;
@@ -903,4 +904,32 @@ ul.dc_paginationA03 li a:hover, ul.dc_paginationA03 li a.current {
 	cursor: not-allowed;
 	opacity: 0.65;
 	pointer-events: none;
+}
+.box2{
+	float: left;
+	margin: 0 4% 0 0;
+	width: 75%;
+}
+/*---footer----*/
+.box2 h4{
+	font-family: 'Ropa Sans', sans-serif;
+	font-size: 1em;
+	color:#fff;
+	border-bottom: 1px dashed silver;
+	padding: 6px 0;
+	margin-bottom: 4px;
+}
+.box2 ul li{
+	display:inherit;
+	float: left;
+	margin-right: 68px;
+}
+.box2 ul li a{
+	font-family: 'Ropa Sans', sans-serif;
+	font-size: 1em;
+	color: rgb(153, 192, 241);
+	line-height: 2em;
+}
+.box2 ul li a:hover{
+	color:#fff;
 }

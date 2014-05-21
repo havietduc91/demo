@@ -5,18 +5,18 @@
 	
 	$page = isset($this->page) ? $this->page : 1;
 	$filter = isset($this->filter) ? $this->filter : 1;
+	$name = get_value('name');
 ?>
 
 <?php if($isWidget == false):?>
 <div class="left-content">
 	<div class="searchbar">
 		<div class="search-left">
-			<p>Tổng hợp cover hay nhất, hài nhất</p>
+			<p>Kết quả tìm kiếm - <?php echo $name;?></p>
 		</div>
 		<div class="search-right">
 			<form action='<?php echo SITE_URL?>/video/search-videos'>
-				<input id="name" placeholder='Nhập video bạn muốn tìm?'
-					class="form-control" type="text" value="" name="name">
+				<input id="name" class="form-control" type="text" value="" name="name">
 				<input id="_cl_step" type="hidden" value="" name="_cl_step">
 				<input id="items_per_page" type="hidden" value="-1" name="items_per_page">
 				<input id="_cl_submit" class="btn btn-large btn-primary" type="hidden"
@@ -27,7 +27,13 @@
 	</div>
 	<div class="box">
 <?php endif;?>
-		<?php echo $this->render('/widget/video-list.phtml');?>
+        <?php if(isset($this->list) && count($this->list) > 0):?>
+			<?php echo $this->render('/widget/video-list.phtml');?>
+		<?php else:?>
+			<div style='min-height: 30px;'></div>
+			<?php echo $this->render('/widget/video-not-found.phtml');?>	
+				
+		<?php endif;?>
 <?php if($isWidget == false):?>
 	<div class="clear"> </div>
 	</div>
