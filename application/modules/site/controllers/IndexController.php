@@ -3,7 +3,9 @@ class Site_IndexController extends Cl_Controller_Action_Index
 {
     public function indexAction()
     {
-    	$filter = $this->getStrippedParam('filter','new');
+    	$filter = $this->getStrippedParam('filter','');
+    	$this->setViewParam('active_filter', $filter);
+    	$this->setViewParam('is_home', true);
     	if ($filter == '')
     		$filter = 'new';
     	$page = $this->getStrippedParam('page',1);
