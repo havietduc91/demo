@@ -34,11 +34,13 @@ CL.NID = "<?php echo $row['id']; ?>";
 			<li><a href="#">
 				<img src="<?php echo ASSETS_CDN?>/img/sub.png" title="subscribe" />subscribe</a></li>
 			<li> 
-				<a href="#"><img class="replay-video" width="35px" height="25px" 
-						src="<?php echo ASSETS_CDN?>/img/media-replay.png" 
+				<a href="#">
+					<img class="replay-video linkopacity" width="35px" height="25px" 
+						src="<?php echo ASSETS_CDN?>/img/2-replay.jpg" 
 						title='Luôn replay khi clip kết thúc'
 						style="width: 50px;height: 40px; cursor: pointer;">
-				</li></a>
+					</a>
+				</li>
 		</ul>
 	</div>
 	<div class="video-inner videoview" style='min-height: 440px;'>
@@ -191,7 +193,26 @@ CL.NID = "<?php echo $row['id']; ?>";
         player.stopVideo();
       }
 	$('.replay-video').on('click', function(){
+		$('.linkopacity').addClass('active');
 		playMode = 'replay';
 		player.playVideo();
 	});
 <?php $this->inlineScript()->captureEnd();?>
+<style>
+.linkopacity
+{
+	opacity:0.5;
+	filter:alpha(opacity=50); /* For IE8 and earlier */
+}
+.linkopacity:hover
+{
+	opacity:1.0;
+	filter:alpha(opacity=100); /* For IE8 and earlier */
+}
+.linkopacity.active
+{
+	opacity:1.0;
+	filter:alpha(opacity=100); /* For IE8 and earlier */
+}
+</style>
+	
