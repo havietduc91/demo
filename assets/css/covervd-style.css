@@ -54,6 +54,9 @@ body{
 .top-nav ul li.active{
 	background: none repeat scroll 0 0 #133F8F;
 }
+.top-nav ul li:hover{
+	background: none repeat scroll 0 0 #133F8F;
+}
 .top-nav ul li:first-child{
 	border:none;
 }
@@ -136,6 +139,9 @@ body{
 	border: 1px solid rgb(230, 230, 230);
 	float:left;
 }
+.grid:hover{
+	box-shadow: 0 1px 5px #888;
+}
 .grid2 {
 	width: 30.326%;
 }
@@ -202,6 +208,9 @@ body{
 	border-top:none;
 	padding:10px;
 }
+.grid1:hover{
+	box-shadow: 0 1px 5px #888;
+}
 /*----video1----*/
 .video1 img{
 	float:left;
@@ -230,6 +239,9 @@ body{
 	margin-top: 10px;
 	border: 1px solid rgb(230, 230, 230);
 	padding: 10px;
+}
+.video1:hover {
+	box-shadow: 0 1px 5px #888;
 }
 .video1 img{
 	cursor:pointer;

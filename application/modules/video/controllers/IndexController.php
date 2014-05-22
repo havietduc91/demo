@@ -82,6 +82,7 @@ class Video_IndexController extends Cl_Controller_Action_NodeIndex
     
     public function searchVideosAction()
     {
+    	$page = $this->getStrippedParam('page',1);
     	$name = get_value('ac_name','');
     	$ac_name = ac_item($name);
     	
@@ -93,10 +94,13 @@ class Video_IndexController extends Cl_Controller_Action_NodeIndex
     	$form->build($data);
     	$conditions = $form->buildSearchConditions();
     	 
+    	$conditions['page'] = $page;
+    	$conditions['limit'] = per_page();
     	$conditions['total'] = 1;
     	 
     	$dao = Dao_Node_Video::getInstance();
     	$r = $dao->findNode($conditions, true);
+
     	if($r['success'] && $r['total'] > 0){
     		$videos = $r['result'];
     	}else{
@@ -104,6 +108,10 @@ class Video_IndexController extends Cl_Controller_Action_NodeIndex
     	}
     	
     	$this->setViewParam('list', $videos);
+    	$total = ceil($r['total'] / per_page());
+    	$this->setViewParam('total', $total);
+    	$this->setViewParam('page', $page);
+    	$this->setViewParam('ac_name', $ac_name);
     	
     	//Get new video
     	$list = Dao_Node_Video::getInstance()->getVideoByType('new', 2);

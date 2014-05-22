@@ -98,48 +98,50 @@ CL.NID = "<?php echo $row['id']; ?>";
 	     	data-href="<?echo SITE_URL;?><?php echo node_link('video',$row);?>" data-width="815" 
 	     		data-num-posts="10"></div>
      </div>
-	<div class="related-videos">
-		<h6>Video liên quan</h6>
-	<div class="grids">
-		<?php if(count($related) > 0):?>
-			<?php foreach ($related as $video):?>
-				<?php $imgLink = "http://img.youtube.com/vi/{$video['ytid']}/0.jpg";?>
-				<div class="grid" style='margin-bottom: 4px;'>
-					<a href="<?php echo node_link('video', $video);?>"><h3>
-						<?php echo $video['name'];?></h3></a>
-					<a href="<?php echo node_link('video', $video);?>">
-						<img src="<?php echo $imgLink;?>" title="video-name"
-						style='width: 243px;height: 152px;'>
-						<img class="tidypics-photo-start" width="35px" height="25px" 
-							src="<?php echo ASSETS_CDN?>/img/play_youtube.png" 
-							style="left: 102px; position: absolute; top: 116px; width: 50px; 
-							height: 40px; cursor: pointer;">
-						</a>
-					<div class="time">
-						<?php $video['duration'] = isset($video['duration']) ? $video['duration'] : 0;?>
-						<span><?php echo gmdate("H:i:s", (int)$video['duration']);?></span>
+     <?php if(count($related) > 0):?>
+		<div class="related-videos">
+			<h6>Video liên quan</h6>
+		<div class="grids">
+			<?php if(count($related) > 0):?>
+				<?php foreach ($related as $video):?>
+					<?php $imgLink = "http://img.youtube.com/vi/{$video['ytid']}/0.jpg";?>
+					<div class="grid" style='margin-bottom: 4px;'>
+						<a href="<?php echo node_link('video', $video);?>"><h3>
+							<?php echo $video['name'];?></h3></a>
+						<a href="<?php echo node_link('video', $video);?>">
+							<img src="<?php echo $imgLink;?>" title="video-name"
+							style='width: 243px;height: 152px;'>
+							<img class="tidypics-photo-start" width="35px" height="25px" 
+								src="<?php echo ASSETS_CDN?>/img/play_youtube.png" 
+								style="left: 102px; position: absolute; top: 116px; width: 50px; 
+								height: 40px; cursor: pointer;">
+							</a>
+						<div class="time">
+							<?php $video['duration'] = isset($video['duration']) ? $video['duration'] : 0;?>
+							<span><?php echo gmdate("H:i:s", (int)$video['duration']);?></span>
+						</div>
+						<div class="grid-info">
+							<div class="video-share">
+								<ul>
+									<li><a href="#"><img src="<?php echo ASSETS_CDN?>/img/likes.png" title="links"></a></li>
+									<li><a href="#"><img src="<?php echo ASSETS_CDN?>/img/link.png" title="Link"></a></li>
+									<li><a href="#"><img src="<?php echo ASSETS_CDN?>/img/views.png" title="Views"></a></li>
+								</ul>
+							</div>
+							<div class="video-watch">
+								<a href="<?php echo node_link('video', $video);?>">Xem ngay</a>
+							</div>
+							<div class="clear"> </div>
+							<div class="lables">
+								<p>By:<a href="#"><?php echo $video['u']['name'];?></a></p>
+							</div>
+						</div>
 					</div>
-					<div class="grid-info">
-						<div class="video-share">
-							<ul>
-								<li><a href="#"><img src="<?php echo ASSETS_CDN?>/img/likes.png" title="links"></a></li>
-								<li><a href="#"><img src="<?php echo ASSETS_CDN?>/img/link.png" title="Link"></a></li>
-								<li><a href="#"><img src="<?php echo ASSETS_CDN?>/img/views.png" title="Views"></a></li>
-							</ul>
-						</div>
-						<div class="video-watch">
-							<a href="<?php echo node_link('video', $video);?>">Xem ngay</a>
-						</div>
-						<div class="clear"> </div>
-						<div class="lables">
-							<p>By:<a href="#"><?php echo $video['u']['name'];?></a></p>
-						</div>
-					</div>
-				</div>
-			<?php endforeach;?>
-		<?php endif;?>
+				<?php endforeach;?>
+			<?php endif;?>
+			</div>
 		</div>
-	</div>
+	<?php endif;?>
 	<div class="clear"> </div>
 </div>
 <div class="right-content">
