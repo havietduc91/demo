@@ -257,76 +257,76 @@ class Dao_Node_Video extends Cl_Dao_Node
 	
 	public function updateView()
 	{
-		$r = $this->findAll();
-		if($r['success']){
-			$list = $r['result'];
-			foreach ($list as $video){
-				$checkYtid = true;
-				if(!isset($video['ytid']) || $video['ytid'] == ''){
-					parse_str( parse_url( $video['url'], PHP_URL_QUERY ), $my_array_of_vars );
-					$video['ytid'] = $my_array_of_vars['v'];
-					$checkYtid = false;
-				}
-				 
-				//Get views
-				$JSON = file_get_contents("https://gdata.youtube.com/feeds/api/videos/{$video['ytid']}?v=2&alt=json");
-				$JSON_Data = json_decode($JSON);
-				$views = $JSON_Data->{'entry'}->{'yt$statistics'}->{'viewCount'};
-				$where = array('id'=>$video['id']);
-				 
-				if($checkYtid){
-					$update = array('$set'=>array(
-								'counter.v' => $views,
-							)
-					);
-				}else{
-					$update = array('$set'=>array(
-								'counter.v' => $views,
-								'ytid' => $video['ytid'],
-							)
-					);
-				}
-				 
-				$this->update($where, $update);
-			}
-		}		
+		//$cond = array('where' => array());
+		$cond['dao_class'] = 'Dao_Video';
+		$this->doBatchJobs($cond, 0, array('updateViewForOneVideo'));
+	}
+	
+	public function updateViewForOneVideo($video){
+		$checkYtid = true;
+		if(!isset($video['ytid']) || $video['ytid'] == ''){
+			parse_str( parse_url( $video['url'], PHP_URL_QUERY ), $my_array_of_vars );
+			$video['ytid'] = $my_array_of_vars['v'];
+			$checkYtid = false;
+		}
+		 
+		//Get views
+		$JSON = file_get_contents("https://gdata.youtube.com/feeds/api/videos/{$video['ytid']}?v=2&alt=json");
+		$JSON_Data = json_decode($JSON);
+		$views = $JSON_Data->{'entry'}->{'yt$statistics'}->{'viewCount'};
+		$where = array('id'=>$video['id']);
+		 
+		if($checkYtid){
+			$update = array('$set'=>array(
+						'counter.v' => $views,
+					)
+			);
+		}else{
+			$update = array('$set'=>array(
+						'counter.v' => $views,
+						'ytid' => $video['ytid'],
+					)
+			);
+		}
+		 
+		$this->update($where, $update);
 	}
 	
 	public function updateDuration()
 	{
-		$r = $this->findAll();
-		if($r['success']){
-			$list = $r['result'];
-			foreach ($list as $video){
-				$checkYtid = true;
-				if(!isset($video['ytid']) || $video['ytid'] == ''){
-					parse_str( parse_url( $video['url'], PHP_URL_QUERY ), $my_array_of_vars );
-					$video['ytid'] = $my_array_of_vars['v'];
-					$checkYtid = false;
-				}
-					
-				//Get duration
-				$url = "http://gdata.youtube.com/feeds/api/videos/". $video['ytid'];
-				$doc = new DOMDocument;
-				$doc->load($url);
-				$duration = $doc->getElementsByTagName('duration')->item(0)->getAttribute('seconds');
-		
-				if($checkYtid){
-					$update = array('$set'=>array(
-							'duration' => $duration,
-						)
-					);
-				}else{
-					$update = array('$set'=>array(
-							'duration' => $duration,
-							'ytid' => $video['ytid'],
-						)
-					);
-				}
-					
-				$r = $this->update($where, $update);
-			}
+		//$cond = array('where' => array());
+		$cond['dao_class'] = 'Dao_Video';
+		$this->doBatchJobs($cond, 0, array('updateDurationForOneVideo'));
+	}
+	
+	public function updateDurationForOneVideo($video){
+		$checkYtid = true;
+		if(!isset($video['ytid']) || $video['ytid'] == ''){
+			parse_str( parse_url( $video['url'], PHP_URL_QUERY ), $my_array_of_vars );
+			$video['ytid'] = $my_array_of_vars['v'];
+			$checkYtid = false;
 		}
+			
+		//Get duration
+		$url = "http://gdata.youtube.com/feeds/api/videos/". $video['ytid'];
+		$doc = new DOMDocument;
+		$doc->load($url);
+		$duration = $doc->getElementsByTagName('duration')->item(0)->getAttribute('seconds');
+
+		if($checkYtid){
+			$update = array('$set'=>array(
+					'duration' => $duration,
+				)
+			);
+		}else{
+			$update = array('$set'=>array(
+					'duration' => $duration,
+					'ytid' => $video['ytid'],
+				)
+			);
+		}
+			
+		$r = $this->update($where, $update);
 	}
 	
 	public function getVideoByType($type, $limit){
