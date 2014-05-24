@@ -166,11 +166,11 @@ class Video_IndexController extends Cl_Controller_Action_NodeIndex
         	Bootstrap::$pageTitle = $row['name'];
         	
         	//Get new video
-			$list = Dao_Node_Video::getInstance()->getVideoByType('new', 3);
+			$list = Dao_Node_Video::getInstance()->getVideoByType('new', 3, $row['ts']);
 			$this->setViewParam('newVideos', $list);
         	
         	//Get popular video
-        	$list = Dao_Node_Video::getInstance()->getVideoByType('hot', 1);
+        	$list = Dao_Node_Video::getInstance()->getVideoByType('hot', 1, $row['ts']);
         	$this->setViewParam('hotVideos', $list);
         }else 
         	Bootstrap::$pageTitle = 'Chi tiết video';

@@ -329,16 +329,18 @@ class Dao_Node_Video extends Cl_Dao_Node
 		$r = $this->update($where, $update);
 	}
 	
-	public function getVideoByType($type, $limit){
+	public function getVideoByType($type, $limit, $ts){
 		$list = array();
 		if($type == 'new'){
-			$order = array('ts'=>-1);
+			$order = array('ts'=>1);
 		}elseif ($type == 'hot'){
 			$order = array('counter.v'=>-1);
 		}
+		$where = array('ts' => array('$gt' => $ts));
 		
 		$cond['order'] = $order;
 		$cond['limit'] = $limit;
+		$cond['where'] = $where;
 		$r = $this->find($cond);
 		if($r['success'] && $r['count'] > 0) {
 			$list = $r['result'];

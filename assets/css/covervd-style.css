@@ -80,22 +80,23 @@ body{
 }
 .search-left{
 	float:left;
+	background:#fff;
+	width: 295px;
+	height: 28px;
 }
 .search-right{
 	float:right;
-	background:#fff;
-	width: 200px;
 }
-.search-right input[type="text"],.search-right input[type="submit"]{
+.search-left input[type="text"],.search-left input[type="submit"]{
 	border:none;
 	outline:none;
 }
-.search-right input[type="text"]{
+.search-left input[type="text"]{
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 0.8em;
 	color: rgb(155, 155, 155);
 }
-.search-left p{
+.search-right p{
 	font-size: 1em;
 	font-family: 'Ropa Sans', sans-serif;
 	padding-top: 4px;
@@ -105,9 +106,11 @@ body{
 	background:rgb(30, 93, 173);
 	padding: 12px;
 }
-.search-right input[type="submit"]{
-	background: url(../images/search.png) 0px 0.6px;
-	width: 22px;
+.search-left input[type="submit"]{
+	background: url(../img/search-5.png);
+	background-repeat: no-repeat;
+	width: 26px;
+	height: 26px;
 	cursor:pointer;
 }
 .video-share ul li{

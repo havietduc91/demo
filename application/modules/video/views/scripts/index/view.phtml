@@ -12,17 +12,10 @@ CL.NID = "<?php echo $row['id']; ?>";
 <div class="inner-page">
 	<div class="searchbar">
 		<div class="search-left">
-			<p>Chi tiết video</p>
+			<?php echo $this->render('/widget/search-box.phtml');?>
 		</div>
 		<div class="search-right">
-			<form action='<?php echo SITE_URL?>/video/search-videos'>
-				<input id="name" class="form-control" type="text" value=""
-					placeholder='Nhập video bạn muốn tìm?' name="ac_name">
-				<input id="_cl_step" type="hidden" value="" name="_cl_step">
-				<input id="items_per_page" type="hidden" value="-1" name="items_per_page">
-				<input id="_cl_submit" class="btn btn-large btn-primary" type="hidden"
-					 value="Submit" name="_cl_submit">
-			</form>
+			<p>Chi tiết video</p>
 		</div>
 		<div class="clear"> </div>
 	</div>
