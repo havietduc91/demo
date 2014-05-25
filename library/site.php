@@ -1,4 +1,8 @@
 <?
+function get_default_perms()
+{
+	return array('new_video', 'vote_video');
+}
 function per_page()
 {
 	return 9;

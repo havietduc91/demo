@@ -19,7 +19,7 @@ CL.NID = "<?php echo $row['id']; ?>";
 		</div>
 		<div class="clear"> </div>
 	</div>
-	<div class="title">
+	<div class="title margin-left">
 		<h3><?php echo $row['name'];?> </h3>
 		<ul>
 			<li><h4>Đăng bởi:</h4></li>
@@ -36,10 +36,10 @@ CL.NID = "<?php echo $row['id']; ?>";
 				</li>
 		</ul>
 	</div>
-	<div class="video-inner videoview" style='min-height: 440px;'>
+	<div class="video-inner videoview margin-left" style='min-height: 440px;'>
 		<div id="player"></div>
 	</div>
-	<div class="viwes">
+	<div class="viwes margin-left">
 		<div class="view-links">
 			<ul>
 				<li><h4>Chia sẻ:</h4></li>
@@ -69,7 +69,7 @@ CL.NID = "<?php echo $row['id']; ?>";
 		<div class="clear"> </div>
 	</div>
 	<div class="clear"> </div>
-	<div class="video-details">
+	<div class="video-details margin-left">
 		<ul>
 			<li><p>Được tải lên  <a href="#"><?php echo date('Y-m-d H:i:s', $row['ts']);?></a>
 				 bỏi <a href="#"><?php echo $row['u']['name'];?></a></p></li>
@@ -77,7 +77,7 @@ CL.NID = "<?php echo $row['id']; ?>";
 		</ul>
 	</div>
 	<div class="clear"> </div>
-	<div class="tags">
+	<div class="tags margin-left">
 		<ul>
 			<li><h3>Tags:</h3></li>
 			<?php if(isset($row['tags']) && count($row['tags']) > 0):?>
@@ -88,13 +88,13 @@ CL.NID = "<?php echo $row['id']; ?>";
 		</ul>
 	</div>
 	<div class="clear"> </div>
-	<div class='video-details' style='margin-top: 15px;'>
+	<div class='video-details margin-left' style='margin-top: 15px;'>
 		 <div class="fb-comments" 
 	     	data-href="<?echo SITE_URL;?><?php echo node_link('video',$row);?>" data-width="815" 
 	     		data-num-posts="10"></div>
      </div>
      <?php if(count($related) > 0):?>
-		<div class="related-videos">
+		<div class="related-videos margin-left">
 			<h6>Video liên quan</h6>
 		<div class="grids">
 			<?php if(count($related) > 0):?>
@@ -158,8 +158,8 @@ CL.NID = "<?php echo $row['id']; ?>";
       var player;
       function onYouTubeIframeAPIReady() {
         player = new YT.Player('player', {
-          height: '450',
-          width: '790',
+          height: '500',
+          width: '876',
           videoId: '<?php echo $row['ytid'];?>',
           events: {
             'onReady': onPlayerReady,
