@@ -381,4 +381,17 @@ class Dao_Node_Video extends Cl_Dao_Node
 		$r = $this->find($cond);
 		return $r;
 	}
+	
+	public function getVideosByUser($user, $page){
+		$user['id'] = '531b42070b08d1b029000000';
+		$where = array('u.id' => $user['id']);
+		
+		$cond['limit'] = per_page();
+		$cond['where'] = $where;
+		$cond['page'] = $page;
+		$cond['total'] = 1; //do count total
+		
+		$r = $this->find($cond);
+		return $r;
+	} 
 }

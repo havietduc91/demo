@@ -7,8 +7,8 @@
 <script type="text/javascript">
 CL.NID = "<?php echo $row['id']; ?>";
 </script>
-
-<div class="inner-page">
+<?php echo $this->render('/widget/user_menu.phtml');?>
+<div class="inner-page" style='margin-left: 212px; width: 54%;'>
 	<div class="searchbar">
 		<div class="search-left">
 			<?php echo $this->render('/widget/search-box.phtml');?>
@@ -18,10 +18,12 @@ CL.NID = "<?php echo $row['id']; ?>";
 		</div>
 		<div class="clear"> </div>
 	</div>
+	
+	<?php echo $this->render('/widget/user-video-list.phtml');?>
 </div>
 <div class="right-content">
 	<?php echo $this->render('/video/hot-videos.phtml');?>
 	<div class="clear"> </div>
 	<?php echo $this->render('/video/new-videos.phtml');?>
 </div>
-<div class="clear"> </div>	
+<div class="clear"> </div>

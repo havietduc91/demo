@@ -1,0 +1,53 @@
+<?php 
+	$list = $this->list;
+?>
+<div class="box">
+	<div class="grids">
+		<?php if(count($list) > 0):?>
+			<?php foreach ($list as $video):?>
+				<?php $imgLink = "http://img.youtube.com/vi/{$video['ytid']}/0.jpg";?>
+				<div class="grid grid3" style='margin-bottom: 4px;'>
+					<a href="<?php echo node_link('video', $video);?>">
+						<h3 style='font-size: 1.2em;'>
+							<?php echo $video['name'];?></h3></a>
+					<a href="<?php echo node_link('video', $video);?>">
+						<img src="<?php echo $imgLink;?>" title="video-name"
+						style='height: 389px; width: 689px;'>
+						<img class="tidypics-photo-start" width="35px" height="25px" 
+							src="<?php echo ASSETS_CDN?>/img/play_youtube.png" 
+							style="position: absolute; cursor: pointer; top: 50%; 
+								width: 80px; height: 60px; left: 47%;">
+						</a>
+					<div class="time" style='right: 12px; bottom: 56px;'>
+						<?php $video['duration'] = isset($video['duration']) ? $video['duration'] : 0;?>
+						<span><?php echo gmdate("H:i:s", (int)$video['duration']);?></span>
+					</div>
+					<div class="grid-info">
+						<div class="video-share">
+							<ul>
+								<li><a href="#"><img src="<?php echo ASSETS_CDN?>/img/likes.png" title="links"></a></li>
+								<li><a href="#"><img src="<?php echo ASSETS_CDN?>/img/link.png" title="Link"></a></li>
+								<li><a href="#"><img src="<?php echo ASSETS_CDN?>/img/views.png" title="Views"></a></li>
+							</ul>
+						</div>
+						<div class="video-watch">
+							<a href="<?php echo node_link('video', $video);?>">Xem ngay</a>
+						</div>
+						<div class="clear"> </div>
+						<div class="lables">
+							<p>By:<a href="#"><?php echo $video['u']['name'];?></a></p>
+						</div>
+					</div>
+				</div>
+			<?php endforeach;?>
+		<?php endif;?>
+	</div>
+</div>
+	
+<style>
+.grid3{
+	width: 96%;
+	margin: 0 0 7px !important;
+	padding: 12px !important;
+}
+</style>
