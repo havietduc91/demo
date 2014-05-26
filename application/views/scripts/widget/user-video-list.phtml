@@ -1,5 +1,10 @@
 <?php 
-	$list = $this->list;
+	$list = isset($this->list) ? $this->list : array();
+	$page = isset($this->page) ? $this->page : 1;
+	$filter = isset($this->filter) ? $this->filter : 1;
+	$ac_name = isset($this->ac_name) ? $this->ac_name : '';
+	$isWidget = (isset($this->is_widget) && $this->is_widget == 'widget') ? true:false;
+	$total = Zend_Registry::isRegistered('total') ? Zend_Registry::get('total') : isset($this->total) ? $this->total : 1;
 ?>
 <div class="box">
 	<div class="grids">
@@ -43,11 +48,42 @@
 		<?php endif;?>
 	</div>
 </div>
-	
-<style>
-.grid3{
-	width: 96%;
-	margin: 0 0 7px !important;
-	padding: 12px !important;
-}
-</style>
+
+<ul class="dc_pagination dc_paginationA dc_paginationA03" id= "nav-footer">
+  <li style='width: 100%; text-align: center' class='<?php if ($page == $total):?>disabled<?php Endif;?>'>
+  	<?php 
+  		$nextPage = $page + 1;
+  		if($page != $total):
+  			$nextWidget = "/$filter/{$nextPage}/widget";
+  		else:
+  			$nextWidget = "#/widget";
+  		endif;
+  		
+  		if(isset($this->is_search) && $this->is_search){
+			$url = "/video/search-videos?ac_name={$ac_name}&items_per_page=-1&_cl_submit=Submit&page={$nextPage}";
+		}else{
+	  		$url = "/{$filter}/{$nextPage}"; 
+		}
+  	?>
+  	<a href="<?php echo $url;?>" 
+  		id='next-page' title='Cover còn nhiều lắm, click tiếp đi nha'
+  		data-href-widget="<?php echo $nextWidget;?>"
+  		class="first" 
+  		<?php if ($page == $total):?>
+  			style='background: none repeat scroll 0 0 #1E5DAD; color: #FFF !important;'
+  			<?php endif;?>>
+  			<?php if ($page == $total):?>
+  				:(( Xin lỗi bạn, chúng tôi sẽ tiếp tục cập nhật thêm dữ liệu
+  			<?php else:?>
+  			Cover còn nhiều lắm, click tiếp đi nha
+  			<?php endif;?></a></li>
+</ul>
+<div class="clear"> </div>
+<?php if (!$isWidget):?>
+	<ul class="dc_pagination dc_paginationA dc_paginationA03"
+		style='font-weight:bold;display:none;' id="loading">
+	  <li style='width: 100%; text-align: center'>
+	  	<a href='#' 
+	  		class="first">Anh Zai chờ chút nha............</a></li>
+	</ul>
+<?php endif;?>
