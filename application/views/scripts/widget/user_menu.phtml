@@ -1,15 +1,18 @@
+<?php 
+	$lu = Zend_Registry::get('user');
+	$avatar = (isset($lu['avatar']) && $lu['avatar'] != '') ? $lu['avatar'] : default_avatar('user');
+?>
 <div style="" class="zml">
 	<div class="zml_inner" style="">
 		<div class="zml_toparea lmsection_heading">
 			<div class="infouser">
-				<a href="http://me.zing.vn/u/vietduc_angelboy" title="Hà Việt Đức" class="profileavt">
-					<img src="http://d.1.s50.avatar.zdn.vn/avatar_files/d/5/7/d/vietduc_angelboy_50_14.jpg" alt="Hà Việt Đức">
+				<a href="<?php echo user_link($lu);?>" title="<?php echo $lu['name'];?>" class="profileavt">
+					<img src="<?php echo $avatar;?>" alt="<?php echo $lu['name'];?>">
 				</a>
 				<div class="profilename">
-					<a data-username="vietduc_angelboy" data-uid="18099010" class="mevip" href="http://me.zing.vn/u/vietduc_angelboy">
+					<a class="mevip" href="<?php echo user_link($lu);?>">
 						<span>
-							<strong class="textname">Hà Việt Đức</strong>
-							<!--<span class="levelicon"><strong class="levelsprt icolevel lv0"></strong></span>-->
+							<strong class="textname"><?php echo $lu['name'];?></strong>
 						</span>
 					</a>
 				</div>
@@ -19,37 +22,51 @@
 		<div class="zmmenu">
 			<ul class="mhome">
 				<li>
-					<a href="/h/vietduc_angelboy" id="lm_news">
-						<strong><span class="zmenuico_wrapper">
-							<span class="mhome_icn zmenuico"></span></span>Clip của bạn</strong>
+					<a href="/user/my-clip" id="lm_news"
+						title='Clip của bạn'>
+						<strong>
+							<span class="zmenuico_wrapper">
+								<span class="mhome_icn zmenuico"></span>
+							</span>Clip của bạn</strong>
 					</a>
 				</li>
 				
 				<li>
-					<a href="/jpt/?_src=m" id="lm_photo">
-						<strong><span class="zmenuico_wrapper">
-							<span class="mphoto_icn zmenuico"></span></span>Ảnh đại diện</strong>
+					<a href="/user/update?id=<?php echo $lu['id'];?>&_cl_step=avatar" id="lm_photo"
+						title='Ảnh đại diện'>
+						<strong>
+							<span class="zmenuico_wrapper">
+								<span class="mphoto_icn zmenuico"></span>
+							</span>Ảnh đại diện</strong>
 					</a>
 				</li>
 				
 				<li>
-					<a href="/zbc?_src=m" id="lm_blog">
-						<strong><span class="zmenuico_wrapper">
-							<span class="mblog_icn zmenuico"></span></span>Cài đặt</strong>
+					<a href="/user/update?id=<?php echo $lu['id'];?>&_cl_step=account" id="lm_blog"
+						title='Cập nhật tài khoản'>
+						<strong>
+							<span class="zmenuico_wrapper">
+								<span class="mblog_icn zmenuico"></span>
+							</span>Cập nhật tài khoản</strong>
+					</a>
+				</li>
+				<li>
+					<a href="/user/update?id=<?php echo $lu['id'];?>&_cl_step=backgound" id="lm_appstore"
+						title='Ảnh bìa'>
+						<strong>
+							<span class="zmenuico_wrapper">
+								<span class="mappstore_icn zmenuico"></span>
+							</span>Ảnh bìa</strong>
 					</a>
 				</li>
 				
 				<li>
-					<a href="http://appstore.zing.vn/?_src=m&amp;t=ls" id="lm_appstore">
-						<strong><span class="zmenuico_wrapper">
-							<span class="mappstore_icn zmenuico"></span></span>Ảnh bìa</strong>
-					</a>
-				</li>
-				
-				<li>
-					<a href="http://me.zing.vn/u/lm?src=11" id="lm_mobile">
-						<strong><span class="zmenuico_wrapper">
-							<span class="mmobileapp_icn zmenuico"></span></span>Playist</strong>
+					<a href="/user/favourite" id="lm_mobile"
+						title='Clip ưa thích'>
+						<strong>
+							<span class="zmenuico_wrapper">
+								<span class="mmobileapp_icn zmenuico"></span>
+							</span>Clip ưa thích</strong>
 					</a>
 				</li>
 		

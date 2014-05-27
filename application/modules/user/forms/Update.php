@@ -18,17 +18,57 @@ class User_Form_Update extends Cl_Form_User_Update
     protected function _customFormFieldsConfig()
     { 
         return array(
-        /*
-	    	'verify' => array(
-	    		'type' => 'Text',
-	    		'options' => array(
-	    			'label' => "Verify",
-	    			'class' => 'user-name',
-	    			//'required' => true,
-		    		'filters' => array('StringTrim', 'StripTags')
-	    		),
-	    	),
-	    	*/
+        	'name' => array(
+        		'type' => 'Text',
+        		'options' => array(
+        			'label' => 'Tên hiển thị',
+        			'class' => 'user-name',
+        		    'placeholder' => 'John Smith',
+        			//'required' => true,
+    	    		'filters' => array('StringTrim', 'StripTags'),
+            		'validators' => array (
+            				'NotEmpty' ,
+            				array('StringLength', false, array(0, 30))
+            		)
+        		),
+        	),
+        	'lname' => array(
+        		'type' => 'Text',
+        		'options' => array(
+        			'label' => 'Tên đăng nhập',
+        			'class' => 'user-name',
+        		    'placeholder' => 'john.doe@example.com',
+        			//'required' => true,
+    	    		'filters' => array('StringTrim', 'StripTags')
+        		),
+        	),
+        	'mail' => array(
+        		'type' => 'Text',
+        		'options' => array(
+        			'label' => 'Email',
+        			//'order' => 2,
+        			'required' => true,
+        			'filters' => array('StringTrim', 'StripTags'),
+        			'validators' => array(
+        				array(
+        					'validator'   => 'Regex',
+        					'breakChainOnFailure' => false,
+        					'options'     => array(
+        						'pattern' => '/^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+$/',
+        						'messages' => array(
+        							Zend_Validate_Regex::NOT_MATCH =>t('email_is_not_valid',1)
+        						)
+        					)
+        				),
+        				array(
+	        				'validator' => 'StringLength',
+	        				'options' => array(
+	        					'min' => 6
+	        				)
+        				)
+        			),
+        		),
+        	),
     	);
     }
 }

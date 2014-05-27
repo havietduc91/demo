@@ -1,4 +1,17 @@
 <?
+/**return link of a user**/
+function user_link($u = null, $absolute_url = false)
+{
+	if ($u == null)
+		$u = Zend_Registry::get('user');
+	$url = "/user/" . $u['iid'] . '-' .$u['lname'];
+	if ($absolute_url)
+	{
+		return SITE_URL . $url;
+	}
+	else
+		return $url;
+}
 function get_default_perms()
 {
 	return array('new_video', 'vote_video');

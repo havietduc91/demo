@@ -30,9 +30,17 @@
 					<a href="<?php echo node_link('video', $video);?>">Xem ngay</a>
 				</div>
 				<div class="clear"> </div>
-				<div class="lables">
-					<p>Tags:<a href="#">Lorem</a></p>
-				</div>
+				<?php if(isset($video['tags']) && count($video['tags']) > 0):?>
+					<div class="lables">
+						<p>Tags:
+							<?php foreach ($video['tags'] as $tag):?>
+								<a href="<?php echo tag_link($tag);?>">
+									<?php echo $tag['name'];?>
+								</a>
+							<?php endforeach;?>
+						</p>
+					</div>
+				<?php endif;?>
 			</div>
 		</div>
 	<?php endforeach;?>
