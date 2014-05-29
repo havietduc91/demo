@@ -393,7 +393,6 @@ class Dao_Node_Video extends Cl_Dao_Node
 	}
 	
 	public function getVideosByUser($user, $page){
-		$user['id'] = '531b42070b08d1b029000000';
 		$where = array('u.id' => $user['id']);
 		
 		$cond['limit'] = per_page();
@@ -410,7 +409,6 @@ class Dao_Node_Video extends Cl_Dao_Node
 		
 		$where = array('id' => $id);
 		$r = $this->findOne($where);
-		v($r);
 		
 		if($r['success'] && $r['count'] > 0){
 			$video = array(
@@ -427,6 +425,7 @@ class Dao_Node_Video extends Cl_Dao_Node
 				'status' => $r['status'],
 				'country' => $r['result']['country'], //domestic|foreign
 				'is_original' => $r['result']['is_original'],
+				'u' => $r['result']['u']
 			);
 			
 			$playlist = isset($lu['playlist']) ? $lu['playlist'] : array();

@@ -3,77 +3,77 @@
     $user = Zend_Registry::isRegistered('viewuser') ? Zend_Registry::get('viewuser') : array();
     $newVideos = isset($this->newVideos) ? $this->newVideos : array();
     $hotVideos = isset($this->hotVideos) ? $this->hotVideos : array();
+    $playlist = isset($user['playlist']) ? $user['playlist'] : array();
+    $stringPlaylistVid = '';
+    $firstVid = '';
+    if(count($playlist) > 0){
+    	$firstVid = $playlist[0]['ytid'];
+    }
+    
+    if(count($playlist) > 1){
+    	$stringPlaylistVid = $playlist[1]['ytid'];
+    	for ($i = 2;$i < count($playlist);$i ++){
+    		$stringPlaylistVid = $stringPlaylistVid . ',' . $playlist[$i]['ytid'];
+    	}
+    }
 ?>
 <script type="text/javascript">
 CL.NID = "<?php echo $row['id']; ?>";
 </script>
 <?php echo $this->render('/widget/user_menu.phtml');?>
-<div class="inner-page" style='margin-left: 212px; width: 54%;'>
-	<div class="searchbar">
-		<div class="search-left">
-			<?php echo $this->render('/widget/search-box.phtml');?>
-		</div>
-		<div class="search-right">
-			<p>Danh sách video</p>
-		</div>
-		<div class="clear"> </div>
+<div class="inner-page" style='margin-left: 212px; width: 62%; min-height: 700px;'>
+	<?php echo $this->render('/widget/user-cover.phtml');?>
+	
+	<div class="Recent-Vodeos">
+	<h3>Clip ưa thích</h3>
+		<iframe width="100%" height="495" style='margin-top: 10px;' 
+			src="http://www.youtube.com/embed/<?php echo $firstVid;?>?playlist=<?php echo $stringPlaylistVid;?>" 
+				frameborder="0" allowfullscreen></iframe>
 	</div>
 	
-	<?php echo $this->render('/widget/user-video-list.phtml');?>
+	<div class="Recent-Vodeos">
+	<h3>Clip bạn tải lên</h3>
+		<div id="player" style='width: 100%; margin-top: 10px;'></div>
+	</div>
 </div>
-<div class="right-content">
-	<?php echo $this->render('/video/hot-videos.phtml');?>
-	<div class="clear"> </div>
+<div class="right-content" style='margin-top: 51px;width: 20%;'>
+    <?php $this->user_view = true;?>
 	<?php echo $this->render('/video/new-videos.phtml');?>
 </div>
 <div class="clear"> </div>
-
-<style>
-.zm_pfcover, .pfbxstatus
-{
-	border: 1px solid #D8D8D8;
-	margin-bottom: 15px;
-	position: relative;
-}
-.pfavatar{
-	left: 15px;
-	position: absolute;
-	top: 145px;
-	z-index: 5;
-}
-.pfavatar .bgeditavatar{
-	background: url("../images/opacity_overlay.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
-	border-radius: 30px;
-	color: #D2D2D2;
-	cursor: pointer;
-	display: block;
-	height: 16px;;
-	overflow: hidden;
-	padding: 6px;
-	position: absolute;
-	top: 3px;
-	transition: width 0.3s ease 0s;
-	width: 16px;
-	z-index: 9;
-}
-.pfavatar .bgeditavatar p{
-	transition: width 0.3s ease 0s;
-	width: 90px;
-}
-.icoeditcover, .icoeditavatar{
-	background-position: -96px -94px;
-	float: left;
-	opacity: 0.7;
-}
-.zmico{
-	display: inline-block;
-	height: 16px;
-	margin-right: 5px;
-	
-}
-.pfavatar .bgeditavatar span{
-	float: left;
-	margin-left: 3px;
-}
-
-</style>
+<?php $this->inlineScript()->captureStart();?>
+  var tag = document.createElement('script');
+  tag.src = "https://www.youtube.com/iframe_api";
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+  var player;
+  function onYouTubePlayerAPIReady() {
+    player = new YT.Player('player', {
+      height: '495',
+      width: '100%',
+     loadPlaylist:{
+        listType:'playlist',
+        list:['4Ivdp8kj_0U','4MJRS-cLozU'],
+        index:parseInt(0),
+        suggestedQuality:'small'
+     },
+      events: {
+        'onReady': onPlayerReady,
+        'onStateChange': onPlayerStateChange
+      }
+    });
+  }
+  function onPlayerReady(event) {
+    event.target.loadPlaylist(['4Ivdp8kj_0U','4MJRS-cLozU']);
+  }
+  var done = false;
+  function onPlayerStateChange(event) {
+    if (event.data == YT.PlayerState.PLAYING && !done) {
+     // setTimeout(stopVideo, 60000);
+      done = true;
+    }
+  }
+  function stopVideo() {
+    player.stopVideo();
+  }
+<?php $this->inlineScript()->captureEnd();?>

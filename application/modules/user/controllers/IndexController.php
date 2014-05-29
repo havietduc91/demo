@@ -40,13 +40,8 @@ class User_IndexController extends Cl_Controller_Action_UserIndex
 		Zend_Registry::set('viewuser', array());
 		$page = $this->getStrippedParam('page',1);
 	
-		$r = Dao_Node_Video::getInstance()->getVideosByUser($lu, $page);
-			
-		if($r['success'] && $r['total'] > 0){
-			$this->setViewParam('list', $r['result']);
-		}else{
-			$this->setViewParam('list', array());
-		}
+		$playlist = isset($lu['playlist']) ? $lu['playlist'] : array();
+		$this->setViewParam('list', $playlist);
 	
 		//Get new video
 		$list = Dao_Node_Video::getInstance()->getVideoByType('new', 3, $row['ts']);
@@ -97,7 +92,7 @@ class User_IndexController extends Cl_Controller_Action_UserIndex
 		//} 
 		
 		//Get new video
-		$list = Dao_Node_Video::getInstance()->getVideoByType('new', 3, $row['ts']);
+		$list = Dao_Node_Video::getInstance()->getVideoByType('new', 8, $row['ts']);
 		$this->setViewParam('newVideos', $list);
 		 
 		//Get popular video

@@ -509,11 +509,11 @@ body{
 	color: rgb(116, 110, 110);
 		display: block;
 	padding: 12px 0px;
-	background: url(../images/sepHor.png) repeat-x left bottom;
+	background: url(../img/sepHor.png) repeat-x left bottom;
 	padding-left:5px;
 }
 .content-sidebar li a:hover{
-	background: url(../images/sepHor.png) repeat-x left bottom;
+	background: url(../img/sepHor.png) repeat-x left bottom;
 	background-color:#eee;
 	color:rgb(30, 93, 173);
 }
@@ -554,6 +554,9 @@ body{
 	font-family: 'Titillium Web', sans-serif;
 	background: rgb(30, 93, 173);
 	margin-top:10px;
+	bottom: 0;
+/* 	position: fixed; */
+	width: 100%;
 }
 .social li img{
 	display:inline;
@@ -722,7 +725,7 @@ ul.dc_paginationA03 li a:hover, ul.dc_paginationA03 li a.current {
 	-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.50);
 	-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.50);
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.50);
-	background: #0160A4 url(../images/button-overlay.png) repeat-x;
+	background: #0160A4 url(../img/button-overlay.png) repeat-x;
 	color: #FFFFFF !important;
 	cursor: pointer;
 	display: inline-block;
@@ -976,7 +979,7 @@ ul.dc_paginationA03 li a:hover, ul.dc_paginationA03 li a.current {
     width: 209px;
 }
 .zml {
-    z-index: 36;
+/*     z-index: 36; */
     margin-top: 62px;
 }
 .zml_toparea {
@@ -1104,3 +1107,112 @@ ul.dc_paginationA03 li a:hover, ul.dc_paginationA03 li a.current {
     background-position: -1482px 0;
 }
 /************** END USER MENU****************************/
+
+/**************************** USER COVER PHOTO ************************/
+.zm_pfcover, .pfbxstatus
+{
+	border: 1px solid #D8D8D8;
+	margin-bottom: 15px;
+	position: relative;
+}
+.pfavatar{
+	left: 15px;
+	position: absolute;
+	top: 145px;
+	z-index: 5;
+}
+.pfavatar .bgeditavatar{
+	background: url("../img/opacity_overlay.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+	border-radius: 30px;
+	color: #D2D2D2;
+	cursor: pointer;
+	display: block;
+	height: 16px;;
+	overflow: hidden;
+	padding: 6px;
+	position: absolute;
+	top: 3px;
+	transition: width 0.3s ease 0s;
+	width: 16px;
+	z-index: 9;
+}
+.pfavatar .avtholder{
+	background-position: center center;
+	background-size: 140px auto;
+	border: 2px solid #FFFFFF;
+	border-radius: 100%;
+	box-shadow: 0 1px 0 0 #D7DBE1, 0 2px 0 0 #EAEBEC;
+	display: block;
+	height: 140px;
+	text-indent: -99999em;
+	width: 140px;
+	z-index: 7;
+}
+.pfavatar .bgeditavatar p{
+	transition: width 0.3s ease 0s;
+	width: 90px;
+}
+.icoeditcover, .icoeditavatar{
+	background-position: -96px -94px;
+	float: left;
+	opacity: 0.7;
+}
+.zmico{
+	display: inline-block;
+	height: 16px;
+	margin-right: 5px;
+	vertical-align: middle;
+	width: 16px;
+	
+}
+.pfavatar .bgeditavatar span{
+	float: left;
+	margin-left: 3px;
+}
+.pfctncover{
+	height: 253px;
+	overflow: hidden;
+	position: relative;
+}
+.ctneditcover{
+	background: url("../img/opacity_overlay.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+	border-radius: 3px;
+	color: #D2D2D2;
+	display: block;
+	padding: 3px 5px;
+	position: absolute;
+	right: 10px;
+	top: 10px;
+}
+.icoeditcover, .icoeditavatar{
+	background-position: -96px -94px;
+	float: left;
+	opacity: 0.7;
+}
+.zmsprt, .cticon, .zmico, .zmico.frdadd_ico{
+	background-image: url("../img/zmsprt-1.05.png");
+	background-repeat: no-repeat;
+}
+.pfctnusername{
+	background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.4) 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+	bottom: 0;
+	height: 40px;
+	left: 0;
+	position: absolute;
+	width: 100%;
+	z-index: 4;
+}
+.pfctnusername .username{
+	color: #FFF;
+	font-size: 16px;
+	font-weight: bold;
+	line-height: 40px;
+	margin-left: 170px;
+	margin-right: 5px;
+}	
+.pfctnbtn{
+	background: none repeat scroll 0 0 #FFFFFF;
+	overflow: hidden;
+	padding: 10px 10px 10px 170px;
+}	
+/*****************************END USER COVER PHOTO***************/

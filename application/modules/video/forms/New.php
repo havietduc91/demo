@@ -4,7 +4,8 @@ class Video_Form_New extends Cl_Form
 	public function init()
 	{
 		parent::init();
-		$this->fieldList = array(/*'avatar',*/'name', 'content', 'status', 'url', 'tags', 'is_original', 'country');
+		$this->fieldList = array(/*'avatar',*/'name', 'content', 'status', 'url',
+					 'tags', 'is_original', 'country');
 		$this->setCbHelper('Video_Form_Helper');
 		
 	}

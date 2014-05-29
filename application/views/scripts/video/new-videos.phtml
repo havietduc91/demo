@@ -1,4 +1,6 @@
-<?php $newVideos = isset($this->newVideos) ? $this->newVideos : array();?>
+<?php 
+	$newVideos = isset($this->newVideos) ? $this->newVideos : array();
+?>
 <div class="Recent-Vodeos">
 	<h3>Video mới nhất</h3>
 	<?php if(count($newVideos) > 0):?>
@@ -9,7 +11,9 @@
 				<img src="<?php echo $avatar;?>" 
 					title="<?php echo $video['name'];?>" />
 				<span><?php echo $video['name'];?></span>
-				<p style='height: 40px; overflow: hidden;'><?php echo $video['content'];?> </p>
+				<?php if(!isset($this->user_view) ||  !$this->user_view):?>
+				    <p style='height: 40px; overflow: hidden;'><?php echo $video['content'];?> </p>
+				<?php endif;?>
 				<div class="clear"> </div>
 			   	</a>
 			</div>

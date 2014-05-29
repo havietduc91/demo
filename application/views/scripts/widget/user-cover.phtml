@@ -1,0 +1,49 @@
+<?php $lu = Zend_Registry::get('user');?>
+<?php 
+	$avatar = (isset($lu['avatar']) && $lu['avatar'] !== '') ? $lu['avatar'] : default_avatar('user');
+	$background = (isset($lu['background']) && $lu['background'] !== '') ? $lu['background'] : default_avatar('background');
+?>
+<div class="zm_pfcover">
+	<div class="pfavatar">
+		<a href="/u/vietduc_angelboy?f=1">
+			<span class="avtholder" 
+				style="background-image:url('<?php echo $avatar;?>');">
+					<?php echo $lu['name'];?></span></a>
+		
+			<a href="/user/update?id=<?php echo $lu['id'];?>&_cl_step=avatar" 
+				class="bgeditavatar" title='Sửa avatar'>
+				<p><em class="zmsprt zmico icoeditavatar"></em></p>
+			</a>
+		
+	</div>
+	
+	<div id="idcover" class="pfctncover">
+		<img src="<?php echo $background;?>" 
+			style="-ms-interpolation-mode:bicubic;image-rendering:optimizeQuality;width: 100%; height: 256px;" 
+				id="idphotocover">
+		<a class="ctneditcover" href="/user/update?id=<?php echo $lu['id'];?>&_cl_step=background">
+			<span class="zmsprt zmico icoeditcover"></span>Sửa ảnh bìa</a>
+		<div class="pfctnusername">
+			<a href="<?php echo user_link($lu);?>" 
+				class="username">
+				<?php echo $lu['name'];?></a>
+			<span class="mevip_18099010" style="display:none"></span>
+		</div>
+	</div>
+	
+	<div class="pfctnbtn">
+		<span class="fl">
+				Lượt xem: <strong>656</strong>
+		</span>
+	</div>
+</div>
+
+<div class="zm_pfcover" style='padding: 8px;'>
+	<span class="fl">
+	    <strong>
+			Hic...chỉ choáng thôi mà làm mọi ngươi hoang mang như vậy rồi..
+			mèo xin lỗi vì đã làm cả nhà lo ..bây giờ mèo rất khoẻ còn nhăn răng cười nữa nè...hè..hè..cả 
+			nhà yên tâm nhé..mèo cảm ơn cả nhà đã luôn iu thương và lo lắng cho mèo..!!! Iu cả nhà lắm
+			</strong>
+		</span>
+</div>
