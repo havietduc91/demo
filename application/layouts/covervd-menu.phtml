@@ -7,7 +7,7 @@
 	<!----start-Logo---->
 	<div class="logo">
 		<a href="/"><img title="logo" src="<?php echo ASSETS_CDN?>/img/logo.png"
-			style='height: 55px;'></a>
+			style='height: 49px;'></a>
 	</div>
 	<!----End-Logo---->
 	<!----start-top-nav---->
@@ -23,6 +23,10 @@
 				<a href="/domestic">Trong nước</a></li>
 			<li <?php if($filter == 'foreign'):?> class='active' <?php endif;?>>
 				<a href="/foreign">Nước ngoài</a></li>
+		    <?php if($u != null && !has_perm('sudo', null, '', $u)):?>
+	    		<li>
+					<a href="<?php echo user_link($u);?>">Trang cá nhân</a></li>
+		    <?php endif;?>
 			<?php if (has_perm('sudo', null, '', $u)) :?>
 				<li><a href="/site/admin">Quản trị</a></li>
 			<?php endif;?>

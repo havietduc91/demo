@@ -4,8 +4,18 @@ class Dao_Node_Video extends Cl_Dao_Node
     public $nodeType = 'video';
     public $cSchema = array(
     		'id' => 'string',
+    		'iid' => 'int',
     		'name' => 'string',
     		'avatar' => 'string',
+    		'counter' => 'mixed',
+    		'url' => 'string',
+        	'ytid' => 'string',
+        	'slug' => 'string',
+        	'duration' => 'string',	
+        	'ts' => 'int',
+        	'status' => 'string',
+        	'country' => 'string', //domestic|foreign
+        	'is_original' => 'string',
     		//add other stuff u want
     );
         
@@ -394,4 +404,63 @@ class Dao_Node_Video extends Cl_Dao_Node
 		$r = $this->find($cond);
 		return $r;
 	} 
+	
+	public function addPlaylist($id){
+		$lu = Zend_Registry::get('user');
+		
+		$where = array('id' => $id);
+		$r = $this->findOne($where);
+		v($r);
+		
+		if($r['success'] && $r['count'] > 0){
+			$video = array(
+				'id' => $r['result']['id'],
+				'iid' => $r['result']['iid'],
+				'name' => $r['result']['name'],
+				'avatar' => $r['result']['avatar'],
+				'counter' => $r['result']['counter'],
+				'url' => $r['result']['url'],
+				'ytid' => $r['result']['ytid'],
+				'slug' => $r['result']['slug'],
+				'duration' => $r['result']['duration'],
+				'ts' => $r['result']['ts'],
+				'status' => $r['status'],
+				'country' => $r['result']['country'], //domestic|foreign
+				'is_original' => $r['result']['is_original'],
+			);
+			
+			$playlist = isset($lu['playlist']) ? $lu['playlist'] : array();
+			$boolen = true;
+			if(count($playlist) > 0){
+				foreach ($playlist as $v){
+					if($v['id'] == $id){
+						$boolen = false;
+						break;
+					}
+				}
+				
+				if($boolen){
+					$playlist[] = $video;
+				}
+			}else{
+				$playlist[] = $video;
+			}
+			
+			if($boolen){
+				$update = array('$set'=>array(
+					'playlist' => $playlist
+					)
+				);
+				
+				$where = array('id' => $lu['id']);
+				$r = Dao_User::getInstance()->update($where, $update);
+			}else{
+				$r = array('success' => false, 'err' => 'Video đã tồn tại trong danh sách ưa thích!');
+			}
+		}else{
+			$r = array('success' => false, 'err' => 'Video không tồn tại!');
+		}
+		
+		return $r;
+	}
 }

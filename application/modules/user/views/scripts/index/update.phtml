@@ -54,6 +54,10 @@ CL.CODENAME = '<?php echo CODENAME;?>';
 		}
 		);
 	});
+	var src = $('.display_avatar .img-polaroid').attr('src');
+	if(typeof src == 'undefined' || src == ''){
+		$('.display_avatar .img-polaroid').attr('src',<?php echo ASSETS_CDN.'/img/no-image.jpg';?>);
+	}
 <?php $this->inlineScript()->captureEnd();?>
 <style>
 <!--

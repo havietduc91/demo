@@ -11,6 +11,7 @@ class Dao_User extends Cl_Dao_User
 			'url' => 'string',
 			'ts' => 'int',
 			'counter' => 'mixed', // image extension
+			'playlist' => 'mixed',
 	);
 	/*
 	public function findAll($cond = array(), $convertId = true, $filter = true)
@@ -32,6 +33,22 @@ class Dao_User extends Cl_Dao_User
 	
 	protected function _configs()
 	{
+		$video = array(
+			'id' => 'string',
+			'iid' => 'int',
+			'name' => 'string',
+			'avatar' => 'string',
+			'counter' => 'mixed',
+			'url' => 'string',
+			'ytid' => 'string',
+			'slug' => 'string',
+			'duration' => 'string',
+			'ts' => 'int',
+			'status' => 'string',
+			'country' => 'string', //domestic|foreign
+			'is_original' => 'string',
+		);
+		
 		return array(
 			'collectionName' => 'users',
 			'documentSchemaArray' => array(
@@ -47,7 +64,7 @@ class Dao_User extends Cl_Dao_User
 				'birthday' => 'string',
 				'last_login' => 'int',
 				'intro' => 'string',
-					
+				'playlist' => 'mixed',
 				'token' => array(
 					array(
 						'token' => 'string',

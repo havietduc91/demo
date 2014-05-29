@@ -27,3 +27,53 @@ CL.NID = "<?php echo $row['id']; ?>";
 	<?php echo $this->render('/video/new-videos.phtml');?>
 </div>
 <div class="clear"> </div>
+
+<style>
+.zm_pfcover, .pfbxstatus
+{
+	border: 1px solid #D8D8D8;
+	margin-bottom: 15px;
+	position: relative;
+}
+.pfavatar{
+	left: 15px;
+	position: absolute;
+	top: 145px;
+	z-index: 5;
+}
+.pfavatar .bgeditavatar{
+	background: url("../images/opacity_overlay.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+	border-radius: 30px;
+	color: #D2D2D2;
+	cursor: pointer;
+	display: block;
+	height: 16px;;
+	overflow: hidden;
+	padding: 6px;
+	position: absolute;
+	top: 3px;
+	transition: width 0.3s ease 0s;
+	width: 16px;
+	z-index: 9;
+}
+.pfavatar .bgeditavatar p{
+	transition: width 0.3s ease 0s;
+	width: 90px;
+}
+.icoeditcover, .icoeditavatar{
+	background-position: -96px -94px;
+	float: left;
+	opacity: 0.7;
+}
+.zmico{
+	display: inline-block;
+	height: 16px;
+	margin-right: 5px;
+	
+}
+.pfavatar .bgeditavatar span{
+	float: left;
+	margin-left: 3px;
+}
+
+</style>

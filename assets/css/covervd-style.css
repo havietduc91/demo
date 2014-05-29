@@ -29,7 +29,11 @@ body{
 	margin:0 auto;
 }
 .header {
-	margin-bottom: 8px;
+/* 	margin-bottom: 8px; */
+	background-color: #FFF;
+	z-index: 1000;
+	width: 100%;
+	position: fixed;
 }
 .logo{
 	float:left;
@@ -45,7 +49,8 @@ body{
 	background: rgb(30, 93, 173);
 	color: rgb(218, 216, 216);
 	border-left: 1px solid rgb(47, 75, 124);
-	padding: 22px 12px;
+/* 	padding: 22px 12px; */
+	padding: 18px 10px;
 	text-align: center;
 	cursor: pointer;
 	text-transform: uppercase;
@@ -77,6 +82,7 @@ body{
 .left-content{
 	width:70%;
 	float:left;
+	margin-top: 62px;
 }
 .search-left{
 	float:left;
@@ -182,6 +188,7 @@ body{
 .right-content{
 	float:right;
 	width: 29%;
+	margin-top: 62px;
 }
 .popular h3{
 	text-align:left;
@@ -317,6 +324,7 @@ body{
 .inner-page {
 	width: 70%;
 	float: left;
+	margin-top: 62px;
 }
 .title ul li{
 	display:inline-block;
@@ -969,6 +977,7 @@ ul.dc_paginationA03 li a:hover, ul.dc_paginationA03 li a.current {
 }
 .zml {
     z-index: 36;
+    margin-top: 62px;
 }
 .zml_toparea {
     border-bottom: 1px solid #E5E5E5;
@@ -1090,5 +1099,8 @@ ul.dc_paginationA03 li a:hover, ul.dc_paginationA03 li a.current {
 	width: 96%;
 	margin: 0 0 7px !important;
 	padding: 12px !important;
+}
+.ficon_photo {
+    background-position: -1482px 0;
 }
 /************** END USER MENU****************************/

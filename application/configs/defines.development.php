@@ -90,7 +90,7 @@ define('PUBLIC_FILES_SERVER', 'local');
 
 function default_avatar($nodeType)
 {
-    return ASSETS_CDN . "/images/avatar.gif";
+    return SAND_ASSETS_CDN. "/images/avatar.gif";
 }
 
 

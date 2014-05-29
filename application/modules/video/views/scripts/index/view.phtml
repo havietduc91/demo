@@ -34,6 +34,16 @@ CL.NID = "<?php echo $row['id']; ?>";
 						style="width: 68px;height: 26px; cursor: pointer;">
 					</a>
 				</li>
+			
+			<li> 
+			<a href="/video/add-playlist?id=<?php echo $row['id'];?>" class='cl_ajax'
+				_cl_metadata='alert_success'>
+				<img class="replay-video linkopacity" 
+					src="<?php echo ASSETS_CDN?>/img/favourites-8.png" 
+					title='Thêm vào playlist ưa thích'
+					style="width: 50px;height: 30px; cursor: pointer;">
+				</a>
+			</li>
 		</ul>
 	</div>
 	<div class="video-inner videoview margin-left" style='min-height: 440px;'>

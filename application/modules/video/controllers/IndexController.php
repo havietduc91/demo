@@ -264,5 +264,15 @@ class Video_IndexController extends Cl_Controller_Action_NodeIndex
 	    	Bootstrap::$pageTitle = 'Không tìm thất ' . $tag;
     	}
     }
+    
+    public function addPlaylistAction(){
+    	$id = (string) $this->getStrippedParam('id');
+    	
+    	$r = Dao_Node_Video::getInstance()->addPlaylist($id);
+    	
+    	//TODO: thong bao dang bi sai
+    	return $r;
+    	die();
+    }
 }
 
