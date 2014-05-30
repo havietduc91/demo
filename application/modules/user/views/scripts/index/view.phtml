@@ -4,18 +4,10 @@
     $newVideos = isset($this->newVideos) ? $this->newVideos : array();
     $hotVideos = isset($this->hotVideos) ? $this->hotVideos : array();
     $playlist = isset($user['playlist']) ? $user['playlist'] : array();
-    $stringPlaylistVid = '';
-    $firstVid = '';
-    if(count($playlist) > 0){
-    	$firstVid = $playlist[0]['ytid'];
-    }
+    $uploadList = $this->uploadList;
     
-    if(count($playlist) > 1){
-    	$stringPlaylistVid = $playlist[1]['ytid'];
-    	for ($i = 2;$i < count($playlist);$i ++){
-    		$stringPlaylistVid = $stringPlaylistVid . ',' . $playlist[$i]['ytid'];
-    	}
-    }
+    $strUploadList = get_string_ytid($uploadList);
+    $strPlaylistVid = get_string_ytid($playlist);
 ?>
 <script type="text/javascript">
 CL.NID = "<?php echo $row['id']; ?>";
@@ -24,16 +16,13 @@ CL.NID = "<?php echo $row['id']; ?>";
 <div class="inner-page" style='margin-left: 212px; width: 62%; min-height: 700px;'>
 	<?php echo $this->render('/widget/user-cover.phtml');?>
 	
-	<div class="Recent-Vodeos">
-	<h3>Clip ưa thích</h3>
-		<iframe width="100%" height="495" style='margin-top: 10px;' 
-			src="http://www.youtube.com/embed/<?php echo $firstVid;?>?playlist=<?php echo $stringPlaylistVid;?>" 
-				frameborder="0" allowfullscreen></iframe>
-	</div>
-	
-	<div class="Recent-Vodeos">
-	<h3>Clip bạn tải lên</h3>
-		<div id="player" style='width: 100%; margin-top: 10px;'></div>
+	<div >
+		<div id='player'></div>
+		<?php /*
+			<iframe width="100%" height="495" style='margin-top: 10px;' 
+				src="http://www.youtube.com/embed/<?php echo $firstVid;?>?playlist=<?php echo $strPlaylistVid;?>" 
+					frameborder="0" allowfullscreen></iframe>
+		*/?>
 	</div>
 </div>
 <div class="right-content" style='margin-top: 51px;width: 20%;'>
@@ -53,7 +42,7 @@ CL.NID = "<?php echo $row['id']; ?>";
       width: '100%',
      loadPlaylist:{
         listType:'playlist',
-        list:['4Ivdp8kj_0U','4MJRS-cLozU'],
+        list:[<?php echo $strPlaylistVid;?>],
         index:parseInt(0),
         suggestedQuality:'small'
      },
@@ -64,7 +53,7 @@ CL.NID = "<?php echo $row['id']; ?>";
     });
   }
   function onPlayerReady(event) {
-    event.target.loadPlaylist(['4Ivdp8kj_0U','4MJRS-cLozU']);
+    event.target.loadPlaylist([<?php echo $strPlaylistVid;?>]);
   }
   var done = false;
   function onPlayerStateChange(event) {
@@ -76,4 +65,14 @@ CL.NID = "<?php echo $row['id']; ?>";
   function stopVideo() {
     player.stopVideo();
   }
+  
+  $("#upload_video").click(function(){
+  	  player.stopVideo();
+  	  player.loadPlaylist([<?php echo $strUploadList;?>]);
+  });
+  
+  $("#playlist_video").click(function(){
+  	  player.stopVideo();
+  	  player.loadPlaylist([<?php echo $strPlaylistVid;?>]);
+  });
 <?php $this->inlineScript()->captureEnd();?>

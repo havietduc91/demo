@@ -81,15 +81,15 @@ class User_IndexController extends Cl_Controller_Action_UserIndex
 		Zend_Registry::set('viewuser', $user);
 		$page = $this->getStrippedParam('page',1);
 		
-		//if($user != array()){
+		if($user != array()){
 			$r = Dao_Node_Video::getInstance()->getVideosByUser($user, $page);
 			
 			if($r['success'] && $r['total'] > 0){
-				$this->setViewParam('list', $r['result']);
+				$this->setViewParam('uploadList', $r['result']);
 			}else{
-				$this->setViewParam('list', array());
+				$this->setViewParam('uploadList', array());
 			}
-		//} 
+		} 
 		
 		//Get new video
 		$list = Dao_Node_Video::getInstance()->getVideoByType('new', 8, $row['ts']);

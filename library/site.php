@@ -1,4 +1,16 @@
 <?
+function get_string_ytid($list){
+	if(count($list) > 0){
+		$strListVid = "'" . $list[0]['ytid']. "'";
+		for ($i = 1;$i < count($list);$i ++){
+			$strListVid = $strListVid . ",'" . $playList[$i]['ytid']. "'";
+		}
+	}else{
+		$strListVid = '';
+	}
+	
+	return $strListVid;
+}
 /**return link of a user**/
 function user_link($u = null, $absolute_url = false)
 {

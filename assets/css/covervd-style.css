@@ -1214,5 +1214,168 @@ ul.dc_paginationA03 li a:hover, ul.dc_paginationA03 li a.current {
 	background: none repeat scroll 0 0 #FFFFFF;
 	overflow: hidden;
 	padding: 10px 10px 10px 170px;
-}	
+}
+ul.pfmenutab {
+    background: none repeat scroll 0 0 #F9F9F9;
+    display: block;
+    float: left;
+    width: 100%;
+}
+ul.pfmenutab li {
+    display: block;
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+    position: relative;
+}
+ul.pfmenutab li a.selected, ul.pfmenutab li a:hover {
+/*     border-bottom: 3px solid #249CD9; */
+	border-bottom: 3px solid #1E5DAD;
+}
+ul.pfmenutab li a {
+    border-bottom: 3px solid rgba(0, 0, 0, 0);
+    color: #444444;
+    display: block;
+    height: 37px;
+    line-height: 40px;
+    margin-bottom: -1px;
+    margin-right: 5px;
+    padding: 0 10px;
+}
+.feed_sprt.icotabarrow.pftab {
+    bottom: -4px;
+    left: 42%;
+}
+.feed_sprt.icotabarrow {
+    background-position: -128px -80px;
+    bottom: -7px;
+    height: 4px;
+    left: 45%;
+    position: absolute;
+    width: 7px;
+}
+ul.pfmenutab li span {
+    color: #888888;
+    font-size: 11px;
+    font-weight: normal;
+}
 /*****************************END USER COVER PHOTO***************/
+
+/*************************BUTTON*******************************/
+.channel-header .primary-header-actions, .channel-header-subscription-button-container{
+	float: right;
+}
+.yt-uix-button-subscription-container{
+	display: inline-block;
+	max-width: 100%;
+	white-space: nowrap;
+}
+.yt-uix-button-subscribe-branded.yt-is-buffered, .yt-uix-button-subscribe-branded:active, .yt-uix-button-subscribe-branded.yt-uix-button-toggled, .yt-uix-button-subscribe-branded.yt-uix-button-active, .yt-uix-button-subscribed-branded.external, .yt-uix-button-subscribed-branded.external[disabled], .yt-uix-button-subscribed-branded.external:active, .yt-uix-button-subscribed-branded.external.yt-uix-button-toggled, .yt-uix-button-subscribed-branded.external.yt-uix-button-active{
+	background-color: #1E5DAD;
+	color: #FFF;
+	box-shadow: 0 1px 0 rgba(0, 0, 0, 0.3) inset;	
+}
+.yt-uix-button{
+	border: 1px solid rgba(0, 0, 0, 0);
+	border-radius: 2px;
+	box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+	font-size:inline-block;
+	cursor: pointer;
+	font-size: 11px;
+	font-weight: bold;
+	height: 28px;
+	line-height: normal;
+	outline: 0 none;
+	padding: 0 10px;
+	text-decoration: none;
+	vertical-align: middle;
+	white-space: nowrap;
+	word-wrap: normal;
+}
+.yt-uix-button-icon-wrapper{
+	display: inline-block;
+	font-size: 0;
+	margin-right: 6px;
+	vertical-align: middle;
+}
+.yt-uix-button-subscribe-branded .yt-uix-button-icon-subscribe{
+	background: url("//s.ytimg.com/yts/imgbin/www-hitchhiker-vflxp8IfR.png") no-repeat scroll 0 -436px rgba(0, 0, 0, 0);
+	height: 12px;
+	width: 16px;
+}
+.yt-uix-button .yt-uix-button-icon, .yt-uix-button .yt-uix-button-arrow{
+	display: inline-block;
+	vertical-align: middle;
+}
+.yt-uix-button img, .yt-uix-button-icon-wrapper + .yt-uix-button-content{
+	vertical-align: middle;
+}
+.yt-uix-button-subscribe-branded .yt-uix-button-content, .yt-uix-button-subscribed-branded .yt-uix-button-content{
+	font-size: 12px;
+	font-weight: normal;
+}
+.yt-uix-button-subscribe-branded .yt-uix-button-content, .yt-uix-button-subscribed-branded .yt-uix-button-content, .yt-uix-button-subscribe-unbranded .yt-uix-button-content, .yt-uix-button-subscribed-unbranded .yt-uix-button-content{
+	display: inline-block;
+	max-width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	word-wrap: normal;
+}
+.yt-uix-button img, .yt-uix-button-icon-wrapper + .yt-uix-button-content{
+	vertical-align: middle;
+}
+.yt-uix-button-subscribe-branded .subscribe-label, .yt-uix-button-subscribe-branded .unavailable-label, .yt-uix-button-subscribed-branded .subscribed-label, .yt-uix-button-subscribed-branded.hover-enabled:hover .unsubscribe-label, .yt-uix-button-subscribe-unbranded .subscribe-label, .yt-uix-button-subscribe-unbranded .unavailable-label, .yt-uix-button-subscribed-unbranded .subscribed-label, .yt-uix-button-subscribed-unbranded.hover-enabled:hover .unsubscribe-label{
+	display: inline;
+}
+.subscribe-label, .subscribed-label, .unsubscribe-label, .unavailable-label, .yt-uix-button-subscribed-branded.hover-enabled:hover .subscribed-label, .yt-uix-button-subscribed-unbranded.hover-enabled:hover .subscribed-label{
+	box-sizing: border-box;
+	display: none;
+}
+.yt-uix-button-default, .yt-uix-button-default[disabled], .yt-uix-button-default[disabled]:hover, .yt-uix-button-default[disabled]:active, .yt-uix-button-default[disabled]:focus{
+	background: none repeat scroll 0 0 #F8F8F8;
+	border-color: #D3D3D3;
+	color: #333;
+}
+.yt-subscription-button-subscriber-count-branded-horizontal:before{
+	border-color: rgba(0, 0, 0, 0) #CCCCCC;
+	margin-top: 2px;
+}
+.yt-subscription-button-subscriber-count-branded-horizontal:before{
+	border-style: solid;
+	border-width: 6px 6px 6px 0;
+	content: "";
+	left: -6px;
+	position: absolute;
+	top: 3px;
+}
+.yt-subscription-button-subscriber-count-branded-horizontal:after{
+	margin-top: 2px;
+}
+.yt-subscription-button-subscriber-count-branded-horizontal:after{
+	border-color: rgba(0, 0, 0, 0) #FAFAFA;
+	border-style: solid;
+	border-width: 	5px 5px 5px 0;
+	content: -5px;
+	position: absolute;
+	top: 4px;
+}
+.yt-subscription-button-subscriber-count-branded-horizontal, .yt-subscription-button-subscriber-count-branded-vertical{
+	border: 1px solid #CCCCCC;
+	color: #777777;
+	font-size: 11px;
+	height: 22px;
+	line-height: 22px;
+	padding: 4px 6px;
+	text-align: center;
+	border-radius: 5px;
+}
+.yt-subscription-button-subscriber-count-branded-horizontal, .yt-subscription-button-subscriber-count-unbranded-horizontal{
+	background-color: #FAFAFA;
+	border-radius: 2px;
+	margin-left: 6px;
+	position: relative;
+	vertical-align: middle;
+}
+
+/*************************END BUTTON*******************************/
