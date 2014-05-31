@@ -26,23 +26,47 @@ CL.NID = "<?php echo $row['id']; ?>";
 			<li><a href="#"><?php echo $row['u']['name'];?></a></li>
 			<li><a href="#">
 				<img src="<?php echo ASSETS_CDN?>/img/sub.png" title="subscribe" />subscribe</a></li>
-			<li> 
-				<a href="#">
-					<img class="replay-video linkopacity" 
-						src="<?php echo ASSETS_CDN?>/img/2-replay.jpg" 
-						title='Luôn replay khi clip kết thúc'
-						style="width: 68px;height: 26px; cursor: pointer;">
+			<li style='float: right;'> 
+				<span class="replay-video channel-header-subscription-button-container 
+						yt-uix-button-subscription-container with-preferences"
+						title='Thêm vào playlist ưa thích'>
+					<a href="/video/add-playlist?id=<?php echo $row['id'];?>" class='cl_ajax'>				
+						<button data-style-type="branded" 
+							onclick="return false;" type="button" 
+							class="yt-uix-button yt-uix-button-size-default 
+							yt-uix-button-has-icon yt-uix-subscription-button 
+							yt-can-buffer yt-is-buffered yt-is-buffered 
+							yt-uix-button-subscribe-branded">
+						<span class="yt-uix-button-icon-wrapper">
+							<img class="yt-uix-button-icon yt-uix-button-icon-subscribe" 
+							src="<?php echo ASSETS_CDN?>/img/favourites-8.png"></span>
+							<span class="yt-uix-button-content">
+								<span aria-label="Đăng ký" class="subscribe-label">
+								Favourite</span>
+						</button>
 					</a>
-				</li>
-			
-			<li> 
-			<a href="/video/add-playlist?id=<?php echo $row['id'];?>" class='cl_ajax'
-				_cl_metadata='alert_success'>
-				<img class="replay-video linkopacity" 
-					src="<?php echo ASSETS_CDN?>/img/favourites-8.png" 
-					title='Thêm vào playlist ưa thích'
-					style="width: 50px;height: 30px; cursor: pointer;">
-				</a>
+				</span>
+				
+				<span class="replay-video channel-header-subscription-button-container 
+					yt-uix-button-subscription-container with-preferences"
+						title='Luôn replay khi clip kết thúc'>
+					<a href='javascript:void(0);'>				
+						<button data-style-type="branded" 
+							onclick="return false;" type="button" 
+							class="yt-uix-button yt-uix-button-size-default 
+							yt-uix-button-has-icon yt-uix-subscription-button 
+							yt-can-buffer yt-is-buffered yt-is-buffered 
+							yt-uix-button-subscribe-branded">
+						<span class="yt-uix-button-icon-wrapper">
+							<img class="yt-uix-button-icon yt-uix-button-icon-subscribe" 
+							src="<?php echo ASSETS_CDN;?>/img/replay-icon-2.png"></span>
+							<span class="yt-uix-button-content">
+								<span aria-label="Đăng ký" class="subscribe-label">
+								Replay</span>
+						</button>
+						</a>
+				</span>
+				
 			</li>
 		</ul>
 	</div>

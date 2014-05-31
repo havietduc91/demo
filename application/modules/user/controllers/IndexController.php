@@ -100,7 +100,7 @@ class User_IndexController extends Cl_Controller_Action_UserIndex
 		$this->setViewParam('hotVideos', $list);
 		
 		if($user != array()){
-			Bootstrap::$pageTitle = 'Trang cá nhân - ' . $user['name'];
+			Bootstrap::$pageTitle = $user['name'] . ' - Trang cá nhân';
 		}else
 			Bootstrap::$pageTitle = 'Trang cá nhân';	
 	}
@@ -122,5 +122,15 @@ class User_IndexController extends Cl_Controller_Action_UserIndex
 		$this->setViewParam('hotVideos', $list);
 		
 		Bootstrap::$pageTitle = 'Cập nhật tài khoản';
+	}
+	
+	public function subscribeAction(){
+		$id = (string) $this->getStrippedParam('id');
+		//TODO: Check guest
+		$r = Dao_User::getInstance()->addSubcribe($id);
+		 
+		//TODO: thong bao dang bi sai
+		return $r;
+		die();
 	}
 }

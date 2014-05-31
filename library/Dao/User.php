@@ -33,6 +33,18 @@ class Dao_User extends Cl_Dao_User
 	
 	protected function _configs()
 	{
+		$user = array(
+			'id' => 'string',
+			'iid' => 'int',
+			'lname' => 'string',
+			'name' => 'string',
+			'avatar' => 'string',
+			'background' => 'string',
+			'url' => 'string',
+			'ts' => 'int',
+			'counter' => 'mixed', // image extension
+		);
+		
 		$video = array(
 			'id' => 'string',
 			'iid' => 'int',
@@ -76,7 +88,7 @@ class Dao_User extends Cl_Dao_User
 						'id' => 'string',
 						'type' => 'string' //[iphone | android]
 				),
-					
+				'subscribe' => 'mixed',
 				'status' => 'string', //unactivated|activated|banned
 				'activation_code' => 'string',
 				'roles' => 'array',
@@ -302,5 +314,53 @@ class Dao_User extends Cl_Dao_User
     			}
     		}
     	}
+    }
+    
+    public function addSubcribe($id){
+    	$lu = Zend_Registry::get('user');
+    	
+    	$where = array('id' => $id);
+    	$r = $this->findOne($where);
+    	if($r['success'] && $r['count'] > 0){
+    		$user = array(
+    				'id' => $r['result']['id'],
+    				'iid' => $r['result']['iid'],
+    				'lname' => $r['result']['name'],
+    				'avatar' => $r['result']['avatar'],
+    				'background' => $r['result']['background'],
+    				'url' => $r['result']['url'],
+    				'ts' => $r['result']['ts'],
+    				'counter' => $r['result']['counter'], // image extension
+    		);
+    			
+    		$subscribe = isset($lu['subscribe']) ? $lu['subscribe'] : array();
+    		$boolen = true;
+    		if(count($subscribe) > 0){
+    			foreach ($subscribe as $u){
+    				if($u['id'] == $id){
+    					$boolen = false;
+    					break;
+    				}
+    			}
+    	
+    			if($boolen){
+    				$subscribe[] = $user;
+    			}
+    		}else{
+    			$subscribe[] = $user;
+    		}
+    			
+    		if($boolen){
+    			$update = array('$set'=>array(
+    					'subscribe' => $subscribe
+	    			)
+    			);
+    	
+    			$where = array('id' => $lu['id']);
+    			$r = Dao_User::getInstance()->update($where, $update);
+    		}
+    	}
+    	
+    	return $r;
     }
 }

@@ -24,6 +24,13 @@ CL.NID = "<?php echo $row['id']; ?>";
 					frameborder="0" allowfullscreen></iframe>
 		*/?>
 	</div>
+	
+	<div class='clear' style='margin-bottom: 20px;'></div>
+	<div>
+	 	<div class="fb-comments" 
+	     	data-href="<?php echo SITE_URL . user_link($user);?>" data-width="800" 
+	     		data-num-posts="10"></div>
+     </div>
 </div>
 <div class="right-content" style='margin-top: 51px;width: 20%;'>
     <?php $this->user_view = true;?>
