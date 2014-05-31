@@ -1267,14 +1267,14 @@ ul.pfmenutab li span {
 	color: #FFF;
 }
 .vd-button-branded:active, .vd-button-active{
-	background-image: linear-gradient(to top, #F6F6F6 0px, #FCFCFC 100%);
-	color: #999999;
-	border: 1px solid #CCCCCC;
+	background-color: #EFEFEF !important;
+	color: #D5D5D5 !important;
+	border: 1px solid #CCCCCC !important;
 }
-.vd-button-branded:hover, .vd-button-active{
-	background-image: linear-gradient(to top, #F6F6F6 0px, #FCFCFC 100%);
-	color: #999999;
-	border: 1px solid #CCCCCC;
+.vd-button-branded:hover{
+	background-color: #133F8F !important;
+	color: #FFF !important;
+	border: 1px solid #CCCCCC !important;
 }
 .vd-button{
 	border: 1px solid rgba(0, 0, 0, 0);

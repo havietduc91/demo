@@ -59,7 +59,10 @@
 			</span>
 			
 			<span class="pull-right">
-				<a href='/user/subscribe?id=<?php echo $viewuser['id'];?>' class='cl_ajax'>				
+			<?php /*
+				<a href='/user/subscribe?id=<?php echo $viewuser['id'];?>' class='cl_ajax'>
+			*/?>
+				<a href='javascript:void(0);'>				
 					<button type="button" 
 						class="vd-button vd-is-buffered vd-button-branded">
 						<span class="button-icon-wrapper">
@@ -74,7 +77,7 @@
 						</span>
 					</button>
 				</a>
-				<span class="subscribe-count">6.371</span>
+				<span class="subscribe-count" data-count='371'>371</span>
 			</span>
 		</div>
 	</div>
@@ -108,3 +111,23 @@
     width: 100%;
 }
 </style>
+<?php $this->inlineScript()->captureStart();?>
+	$(".vd-button").on('click', function(){
+		var _this = $(this);
+		if(_this.hasClass('vd-button-active')){
+			_this.removeClass('vd-button-active');
+
+			var sub_count = $(".subscribe-count").attr('data-count');
+			var new_count = parseInt(sub_count) - 1;
+			$(".subscribe-count").attr('data-count', new_count);
+			$(".subscribe-count").html(new_count);
+		}else{
+			_this.addClass('vd-button-active');
+			
+			var sub_count = $(".subscribe-count").attr('data-count');
+			var new_count = parseInt(sub_count) + 1;
+			$(".subscribe-count").attr('data-count', new_count);
+			$(".subscribe-count").html(new_count);
+		}
+	});
+<?php $this->inlineScript()->captureEnd();?>

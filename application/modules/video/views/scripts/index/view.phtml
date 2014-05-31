@@ -44,11 +44,12 @@ CL.NID = "<?php echo $row['id']; ?>";
 					</a>
 				</span>
 				
-				<span class="pull-right"
+				<span class="pull-right replay-video"
+						data-replay='0'
 						title='Luôn replay khi clip kết thúc'>
 					<a href='javascript:void(0);'>				
 						<button type="button" 
-							class="vd-button vd-is-buffered vd-button-branded">
+							class="vd-button vd-is-buffered vd-button-branded btn-replay">
 							<span class="button-icon-wrapper">
 								<img class="vd-button-icon vd-button-icon" 
 								src="<?php echo ASSETS_CDN;?>/img/replay-icon-2.png">
@@ -213,26 +214,30 @@ CL.NID = "<?php echo $row['id']; ?>";
         player.stopVideo();
       }
 	$('.replay-video').on('click', function(){
-		$('.linkopacity').addClass('active');
-		playMode = 'replay';
-		player.playVideo();
+		var _this = $(this);
+		var mode_replay = _this.attr('data-replay');
+
+		if(typeof mode_replay == 'undefined' || mode_replay == 0){
+			_this.attr('data-replay', 1);
+			playMode = 'replay';
+			player.playVideo();
+		}else{
+			_this.attr('data-replay', 0);
+			playMode = 'notReplay';
+			player.playVideo();
+		}
 	});
-<?php $this->inlineScript()->captureEnd();?>
-<style>
-.linkopacity
-{
-	opacity:0.5;
-	filter:alpha(opacity=50); /* For IE8 and earlier */
-}
-.linkopacity:hover
-{
-	opacity:1.0;
-	filter:alpha(opacity=100); /* For IE8 and earlier */
-}
-.linkopacity.active
-{
-	opacity:1.0;
-	filter:alpha(opacity=100); /* For IE8 and earlier */
-}
-</style>
 	
+<?php $this->inlineScript()->captureEnd();?>
+	
+<?php $this->inlineScript()->captureStart();?>
+	$(".vd-button").on('click', function(){
+		var _this = $(this);
+		
+		if(_this.hasClass('vd-button-active')){
+			_this.removeClass('vd-button-active');
+		}else{
+			_this.addClass('vd-button-active');
+		}
+	});
+<?php $this->inlineScript()->captureEnd();?>	
