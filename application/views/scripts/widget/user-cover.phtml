@@ -58,30 +58,24 @@
 					Lượt xem: <strong>656</strong>
 			</span>
 			
-			<span class="channel-header-subscription-button-container 
-				yt-uix-button-subscription-container with-preferences">
-					<a href='/user/subscribe?id=<?php echo $viewuser['id'];?>' class='cl_ajax'>				
-						<button data-style-type="branded" 
-							onclick="return false;" type="button" 
-							class="yt-uix-button yt-uix-button-size-default 
-							yt-uix-button-has-icon yt-uix-subscription-button 
-							yt-can-buffer yt-is-buffered yt-is-buffered 
-							yt-uix-button-subscribe-branded">
-						<span class="yt-uix-button-icon-wrapper">
-							<img class="yt-uix-button-icon yt-uix-button-icon-subscribe" 
-							src="<?php echo ASSETS_CDN;?>/img/youtube-icon-small.png"></span>
-							<span class="yt-uix-button-content">
-								<span aria-label="Đăng ký" class="subscribe-label">
-								Đăng ký</span>
-							<span aria-label="Hủy đăng ký" class="subscribed-label">
-								Đã đăng ký</span>
-							<span aria-label="Hủy đăng ký" class="unsubscribe-label">
-								Hủy đăng ký</span> </span>
-						</button>
-					</a>
-					<span class="yt-subscription-button-subscriber-count-branded-horizontal 
-						subscribed">6.371</span>
-				</span>
+			<span class="pull-right">
+				<a href='/user/subscribe?id=<?php echo $viewuser['id'];?>' class='cl_ajax'>				
+					<button type="button" 
+						class="vd-button vd-is-buffered vd-button-branded">
+						<span class="button-icon-wrapper">
+							<img class="vd-button-icon" 
+							src="<?php echo ASSETS_CDN;?>/img/youtube-icon-small.png">
+						</span>
+						
+						<span class="vd-button-content">
+							<span aria-label="Đăng ký" class="subscribe-label">
+								Đăng ký
+								</span>
+						</span>
+					</button>
+				</a>
+				<span class="subscribe-count">6.371</span>
+			</span>
 		</div>
 	</div>
 	

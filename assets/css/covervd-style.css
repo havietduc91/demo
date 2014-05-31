@@ -50,7 +50,7 @@ body{
 	color: rgb(218, 216, 216);
 	border-left: 1px solid rgb(47, 75, 124);
 /* 	padding: 22px 12px; */
-	padding: 18px 10px;
+	padding: 14px 10px;
 	text-align: center;
 	cursor: pointer;
 	text-transform: uppercase;
@@ -82,7 +82,7 @@ body{
 .left-content{
 	width:70%;
 	float:left;
-	margin-top: 62px;
+	margin-top: 54px;
 }
 .search-left{
 	float:left;
@@ -110,7 +110,7 @@ body{
 }
 .searchbar{
 	background:rgb(30, 93, 173);
-	padding: 12px;
+	padding: 8px;
 }
 .search-left input[type="submit"]{
 	background: url(../img/search-5.png);
@@ -188,7 +188,7 @@ body{
 .right-content{
 	float:right;
 	width: 29%;
-	margin-top: 62px;
+	margin-top: 54px;
 }
 .popular h3{
 	text-align:left;
@@ -208,7 +208,7 @@ body{
 .popular{
 	background:rgb(30, 93, 173);
 	padding:15.5px;
-	padding: 12.4px;
+	padding: 9.4px;
 }
 .popular p img{
 	vertical-align: text-bottom;
@@ -324,7 +324,7 @@ body{
 .inner-page {
 	width: 70%;
 	float: left;
-	margin-top: 62px;
+	margin-top: 54px;
 }
 .title ul li{
 	display:inline-block;
@@ -980,13 +980,13 @@ ul.dc_paginationA03 li a:hover, ul.dc_paginationA03 li a.current {
 }
 .zml {
 /*     z-index: 36; */
-    margin-top: 62px;
+    margin-top: 54px;
 }
 .zml_toparea {
     border-bottom: 1px solid #E5E5E5;
     background: none repeat scroll 0 0 #1E5DAD;
     overflow: hidden;
-    padding: 6px 7px;
+    padding: 2px 6px;
 }
 .infouser {
     overflow: hidden;
@@ -997,9 +997,9 @@ ul.dc_paginationA03 li a:hover, ul.dc_paginationA03 li a.current {
 }
 .profileavt img {
     border: 2px solid #FFFFFF;
-    height: 32px;
+    height: 37px;
     transition: all 0.5s ease 0s;
-    width: 32px;
+    width: 37px;
 }
 .avt_radius, .profileavt img, .zmacc_avt img {
     border-color: #EAEAEA;
@@ -1262,20 +1262,21 @@ ul.pfmenutab li span {
 /*****************************END USER COVER PHOTO***************/
 
 /*************************BUTTON*******************************/
-.channel-header .primary-header-actions, .channel-header-subscription-button-container{
-	float: right;
-}
-.yt-uix-button-subscription-container{
-	display: inline-block;
-	max-width: 100%;
-	white-space: nowrap;
-}
-.yt-uix-button-subscribe-branded.yt-is-buffered, .yt-uix-button-subscribe-branded:active, .yt-uix-button-subscribe-branded.yt-uix-button-toggled, .yt-uix-button-subscribe-branded.yt-uix-button-active, .yt-uix-button-subscribed-branded.external, .yt-uix-button-subscribed-branded.external[disabled], .yt-uix-button-subscribed-branded.external:active, .yt-uix-button-subscribed-branded.external.yt-uix-button-toggled, .yt-uix-button-subscribed-branded.external.yt-uix-button-active{
+.vd-button-branded.vd-is-buffered{
 	background-color: #1E5DAD;
 	color: #FFF;
-	box-shadow: 0 1px 0 rgba(0, 0, 0, 0.3) inset;	
 }
-.yt-uix-button{
+.vd-button-branded:active, .vd-button-active{
+	background-image: linear-gradient(to top, #F6F6F6 0px, #FCFCFC 100%);
+	color: #999999;
+	border: 1px solid #CCCCCC;
+}
+.vd-button-branded:hover, .vd-button-active{
+	background-image: linear-gradient(to top, #F6F6F6 0px, #FCFCFC 100%);
+	color: #999999;
+	border: 1px solid #CCCCCC;
+}
+.vd-button{
 	border: 1px solid rgba(0, 0, 0, 0);
 	border-radius: 2px;
 	box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
@@ -1292,28 +1293,26 @@ ul.pfmenutab li span {
 	white-space: nowrap;
 	word-wrap: normal;
 }
-.yt-uix-button-icon-wrapper{
+.button-icon-wrapper{
 	display: inline-block;
 	font-size: 0;
 	margin-right: 6px;
 	vertical-align: middle;
 }
-.yt-uix-button-subscribe-branded .yt-uix-button-icon-subscribe{
+.vd-button-branded .vd-button-icon{
 	height: 12px;
 	width: 16px;
 }
-.yt-uix-button .yt-uix-button-icon, .yt-uix-button .yt-uix-button-arrow{
+.vd-button .vd-button-icon{
 	display: inline-block;
 	vertical-align: middle;
 }
-.yt-uix-button img, .yt-uix-button-icon-wrapper + .yt-uix-button-content{
-	vertical-align: middle;
-}
-.yt-uix-button-subscribe-branded .yt-uix-button-content, .yt-uix-button-subscribed-branded .yt-uix-button-content{
+.vd-button-branded .vd-button-content{
 	font-size: 12px;
 	font-weight: normal;
 }
-.yt-uix-button-subscribe-branded .yt-uix-button-content, .yt-uix-button-subscribed-branded .yt-uix-button-content, .yt-uix-button-subscribe-unbranded .yt-uix-button-content, .yt-uix-button-subscribed-unbranded .yt-uix-button-content{
+ .vd-button-content
+{
 	display: inline-block;
 	max-width: 100%;
 	overflow: hidden;
@@ -1321,26 +1320,14 @@ ul.pfmenutab li span {
 	white-space: nowrap;
 	word-wrap: normal;
 }
-.yt-uix-button img, .yt-uix-button-icon-wrapper + .yt-uix-button-content{
+.vd-button img, .button-icon-wrapper + .vd-button-content{
 	vertical-align: middle;
 }
-.yt-uix-button-subscribe-branded .subscribe-label, .yt-uix-button-subscribe-branded .unavailable-label, .yt-uix-button-subscribed-branded .subscribed-label, .yt-uix-button-subscribed-branded.hover-enabled:hover .unsubscribe-label, .yt-uix-button-subscribe-unbranded .subscribe-label, .yt-uix-button-subscribe-unbranded .unavailable-label, .yt-uix-button-subscribed-unbranded .subscribed-label, .yt-uix-button-subscribed-unbranded.hover-enabled:hover .unsubscribe-label{
-	display: inline;
-}
-.subscribe-label, .subscribed-label, .unsubscribe-label, .unavailable-label, .yt-uix-button-subscribed-branded.hover-enabled:hover .subscribed-label, .yt-uix-button-subscribed-unbranded.hover-enabled:hover .subscribed-label{
-	box-sizing: border-box;
-	display: none;
-}
-.yt-uix-button-default, .yt-uix-button-default[disabled], .yt-uix-button-default[disabled]:hover, .yt-uix-button-default[disabled]:active, .yt-uix-button-default[disabled]:focus{
-	background: none repeat scroll 0 0 #F8F8F8;
-	border-color: #D3D3D3;
-	color: #333;
-}
-.yt-subscription-button-subscriber-count-branded-horizontal:before{
+.subscribe-count:before{
 	border-color: rgba(0, 0, 0, 0) #CCCCCC;
 	margin-top: 2px;
 }
-.yt-subscription-button-subscriber-count-branded-horizontal:before{
+.subscribe-count:before{
 	border-style: solid;
 	border-width: 6px 6px 6px 0;
 	content: "";
@@ -1348,18 +1335,7 @@ ul.pfmenutab li span {
 	position: absolute;
 	top: 3px;
 }
-.yt-subscription-button-subscriber-count-branded-horizontal:after{
-	margin-top: 2px;
-}
-.yt-subscription-button-subscriber-count-branded-horizontal:after{
-	border-color: rgba(0, 0, 0, 0) #FAFAFA;
-	border-style: solid;
-	border-width: 	5px 5px 5px 0;
-	content: -5px;
-	position: absolute;
-	top: 4px;
-}
-.yt-subscription-button-subscriber-count-branded-horizontal, .yt-subscription-button-subscriber-count-branded-vertical{
+.subscribe-count{
 	border: 1px solid #CCCCCC;
 	color: #777777;
 	font-size: 11px;
@@ -1368,13 +1344,17 @@ ul.pfmenutab li span {
 	padding: 4px 6px;
 	text-align: center;
 	border-radius: 5px;
-}
-.yt-subscription-button-subscriber-count-branded-horizontal, .yt-subscription-button-subscriber-count-unbranded-horizontal{
 	background-color: #FAFAFA;
 	border-radius: 2px;
 	margin-left: 6px;
 	position: relative;
 	vertical-align: middle;
 }
-
 /*************************END BUTTON*******************************/
+
+.pull-right{
+	float: right;
+}
+.pull-left{
+	float: right;
+}
