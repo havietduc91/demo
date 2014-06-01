@@ -6,6 +6,25 @@
     $playlist = isset($user['playlist']) ? $user['playlist'] : array();
     $uploadList = $this->uploadList;
     
+    $subscribe_user = isset($user['subscribe']) ? $user['subscribe'] : array();
+    
+    /****update current infomation of sub user******/
+    if(count($subscribe_user) > 0){
+    	$subIds = array();
+    	foreach ($subscribe_user as $u){
+    		$subIds[] = $u['id'];
+    	}
+    	
+    	$where = array('id' => array('$in' => $subIds));
+    	$cond['where'] = $where;
+    	
+    	$r = Dao_User::getInstance()->findAll($cond);
+    	if($r['success']){
+    		$subscribe_user = $r['result'];
+    	}
+    }
+    
+    
     $strUploadList = get_string_ytid($uploadList);
     $strPlaylistVid = get_string_ytid($playlist);
 ?>
@@ -23,6 +42,39 @@ CL.NID = "<?php echo $row['id']; ?>";
 				src="http://www.youtube.com/embed/<?php echo $firstVid;?>?playlist=<?php echo $strPlaylistVid;?>" 
 					frameborder="0" allowfullscreen></iframe>
 		*/?>
+		
+		<div id='subscribe_user_tab' style='display: none;'>
+		    <?php if(count($subscribe_user) > 0):?>
+				<ul class="listfans">
+			    	<?php foreach ($subscribe_user as $u):?>
+			    		<?php $avatar = (isset($u['avatar']) && $u['avatar'] != '') ? $u['avatar'] : default_avatar('user');?>
+				    	<li>
+				            <a href="<?php echo user_link($u);?>" class="avtfans">
+				            	<img alt="<?php echo $u['name'];?>" 
+				            		src="<?php echo $avatar;?>"></a>
+				            <div class="infofans">
+				                <p class="namefans">
+				                	<a href="<?php echo user_link($u);?>"><?php echo $u['name'];?></a></p>
+				                <div class="ctnbtnfans">
+				                    <p class="fl">
+				                    	<?php $count = isset($u['counter']['s']) ? $u['counter']['s'] : 0;?>
+				                        <span><?php echo $count;?> người đăng ký</span>
+				                        <span class="fpsprt icofam star lv7"></span>
+				                    </p>
+				                    <!-- p class="btnfans"><a class="zmbtn02" href="javascript:;">hâm mộ</a></p -->
+				                </div>
+				                <p class="statusfans">
+				                	<?php if(isset($u['ustatus'])) echo $u['ustatus'];?></p>
+				            </div>
+				        </li>
+			    	<?php endforeach;?>
+				</ul>
+			<?php else:?>
+				<div class='alert'>
+					Chưa theo dõi user nào!!	
+				</div>				
+		    <?php endif;?>
+		</div>
 	</div>
 	
 	<div class='clear' style='margin-bottom: 20px;'></div>
@@ -74,12 +126,33 @@ CL.NID = "<?php echo $row['id']; ?>";
   }
   
   $("#upload_video").click(function(){
+	 $('#subscribe_user_tab').hide();
+	 $('#player').show();
+  	  
   	  player.stopVideo();
   	  player.loadPlaylist([<?php echo $strUploadList;?>]);
   });
   
   $("#playlist_video").click(function(){
+	 $('#subscribe_user_tab').hide();
+	 $('#player').show();
+
+  	 player.stopVideo();
+  	 player.loadPlaylist([<?php echo $strPlaylistVid;?>]);
+  });
+  
+  $('#subscribe_user').click(function(){
   	  player.stopVideo();
-  	  player.loadPlaylist([<?php echo $strPlaylistVid;?>]);
+  	  $('#player').hide();
+  	  $('#subscribe_user_tab').show();
+  });
+  
+  $('.a_tab').click(function(){
+      var _this = $(this);
+  	  $('.a_tab').each(function(){
+  	      $(this).removeClass('selected');
+  	  });
+  	  
+  	  _this.addClass('selected');
   });
 <?php $this->inlineScript()->captureEnd();?>

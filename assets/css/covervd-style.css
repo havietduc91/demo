@@ -1196,7 +1196,6 @@ ul.dc_paginationA03 li a:hover, ul.dc_paginationA03 li a.current {
 .pfctnusername{
 	background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.4) 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
 	bottom: 0;
-	height: 40px;
 	left: 0;
 	position: absolute;
 	width: 100%;
@@ -1209,7 +1208,17 @@ ul.dc_paginationA03 li a:hover, ul.dc_paginationA03 li a.current {
 	line-height: 40px;
 	margin-left: 170px;
 	margin-right: 5px;
-}	
+	width: 40%;
+}
+.pfctnusername .ustatus{
+	color: #FFF;
+	font-size: 13px;
+	line-height: 20px;
+	margin-left: 170px;
+	margin-right: 5px;
+	width: 80%;
+	right: 0;
+}
 .pfctnbtn{
 	background: none repeat scroll 0 0 #FFFFFF;
 	overflow: hidden;
@@ -1404,4 +1413,68 @@ ul.pfmenutab li span {
 /***********************END FORM***********************************/
 span.li-home{
 	padding: 14px 0px;
+}
+/*****************************SUBSCRIBE USER***********************/
+ul.listfans {
+    display: block;
+    overflow: hidden;
+}
+ul.listfans li {
+    border: 1px solid #E1E1E1;
+    border-radius: 5px;
+    display: block;
+    float: left;
+    margin: 0 0 15px 15px;
+    padding: 10px;
+    position: relative;
+    width: 370px;
+}
+ul.listfans li:hover {
+    background: #F5F5F5;	
+}
+ul.listfans li a.avtfans {
+    display: block;
+    float: left;
+    height: 120px;
+    width: 120px;
+}
+ul.listfans li a.avtfans img {
+    border-radius: 100%;
+    height: 120px;
+    overflow: hidden;
+    width: 120px;
+}
+ul.listfans li .infofans {
+    margin-left: 135px;
+}
+ul.listfans li .namefans {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+ul.listfans li .namefans a{
+	color: #1E5DAD;
+}
+.ctnbtnfans {
+    margin-bottom: 5px;
+    overflow: hidden;
+}
+ul.listfans li span {
+    color: #888888;
+    display: block;
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+ul.listfans li .statusfans {
+    height: 62px;
+    overflow: hidden;
+    padding-top: 2px;
+}
+/*****************************END SUBSCRIBE USER*******************/
+.alert {
+    color: #3C763D;
+    border: 1px solid rgba(0, 0, 0, 0);
+    border-radius: 4px;
+    margin-bottom: 20px;
+    padding: 15px;
 }

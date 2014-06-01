@@ -11,7 +11,7 @@
 			style='height: 42px;'></a>
 		<?php if(!is_guest()):?>
 			<a href="/video/new">
-				<img title="Thêm video mới" src="<?php echo ASSETS_CDN?>/img/upload.jpeg"
+				<img title="Thêm video mới" src="<?php echo ASSETS_CDN?>/img/upload_big.jpeg"
 				style='height: 42px;'></a>
 		<?php endif;?>
 	</div>
@@ -46,7 +46,7 @@
 			<?php else:?>
 			    <?php if(!has_perm('sudo', null, '', $u)):?>
 		    		<li style='padding: 4px;'><a href="<?php echo user_link($u);?>">
-					    <img title="Đăng xuất" src="<?php echo ASSETS_CDN?>/img/user.png"
+					    <img title="Trang cá nhân" src="<?php echo ASSETS_CDN?>/img/user.png"
 								style='height: 37px;'></a></a></li>
 			    <?php endif;?>
 				<?php if (has_perm('sudo', null, '', $u)) :?>

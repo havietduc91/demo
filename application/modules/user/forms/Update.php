@@ -2,10 +2,14 @@
 class User_Form_Update extends Cl_Form_User_Update
 {
     public function setStep($step, $currentRow = null) {
-    	if($step == 'background')
+    	if($step == 'account'){
+    		$this->fieldList = array('name', 'mail', 'lname', 'ustatus');
+    	}
+    	else if($step == 'background')
     		$this->fieldList = array('background');
     	else 
         	$this->fieldList = $this->getFieldList($step);
+    	
     	parent::setStep($step, $currentRow);
     }
         
@@ -43,6 +47,16 @@ class User_Form_Update extends Cl_Form_User_Update
         		    'placeholder' => 'john.doe@example.com',
         			//'required' => true,
     	    		'filters' => array('StringTrim', 'StripTags')
+        		),
+        	),
+        	'ustatus' => array(
+        		'type' => 'Textarea',
+        		'options' => array(
+        			'label' => 'Bạn đang nghĩ gì?',
+        			'class' => 'isEditor',
+        			'placeholder' => 'Vui quá :)',
+        			//'required' => true,
+        			'filters' => array('StringTrim', 'StripTags')
         		),
         	),
         	'mail' => array(

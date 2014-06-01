@@ -12,6 +12,7 @@ class Dao_User extends Cl_Dao_User
 			'ts' => 'int',
 			'counter' => 'mixed', // image extension
 			'playlist' => 'mixed',
+			'ustatus' => 'string', //What's on your mind?
 	);
 	/*
 	public function findAll($cond = array(), $convertId = true, $filter = true)
@@ -77,6 +78,7 @@ class Dao_User extends Cl_Dao_User
 				'last_login' => 'int',
 				'intro' => 'string',
 				'playlist' => 'mixed',
+				'ustatus' => 'string', //What's on your mind?
 				'token' => array(
 					array(
 						'token' => 'string',
