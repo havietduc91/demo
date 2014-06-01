@@ -6,29 +6,56 @@
 <div class="header">
 	<!----start-Logo---->
 	<div class="logo">
-		<a href="/"><img title="logo" src="<?php echo ASSETS_CDN?>/img/logo.png"
+		<a href="/" style='margin-right: 15px;'>
+			<img title="Trang chủ" src="<?php echo ASSETS_CDN?>/img/logo.png"
 			style='height: 42px;'></a>
+		<?php if(!is_guest()):?>
+			<a href="/video/new">
+				<img title="Thêm video mới" src="<?php echo ASSETS_CDN?>/img/upload.jpeg"
+				style='height: 42px;'></a>
+		<?php endif;?>
 	</div>
 	<!----End-Logo---->
 	<!----start-top-nav---->
 	<div class="top-nav">
 		<ul>
 			<li <?php if($filter == '' && $is_home):?> class='active' <?php endif;?>>
-				<a href="/">Trang chủ</a></li>
+				<a href="/">
+					<span class='li-home'>Trang chủ</a></span></li>
 			<li <?php if($filter == 'new'):?> class='active' <?php endif;?>>
-				<a href="/new">Mới nhất</a></li>
+				<a href="/new">
+					<span class='li-home'>Mới nhất</span></a></li>
 			<li <?php if($filter == 'hot'):?> class='active' <?php endif;?>>
-				<a href="/hot">Hot nhất</a></li>
+				<a href="/hot">
+					<span class='li-home'>Hot nhất</span></a></li>
 			<li <?php if($filter == 'domestic'):?> class='active' <?php endif;?>>
-				<a href="/domestic">Trong nước</a></li>
+				<a href="/domestic">
+					<span class='li-home'>Trong nước</span></a></li>
 			<li <?php if($filter == 'foreign'):?> class='active' <?php endif;?>>
-				<a href="/foreign">Nước ngoài</a></li>
-		    <?php if($u != null && !has_perm('sudo', null, '', $u)):?>
-	    		<li>
-					<a href="<?php echo user_link($u);?>">Trang cá nhân</a></li>
-		    <?php endif;?>
-			<?php if (has_perm('sudo', null, '', $u)) :?>
-				<li><a href="/site/admin">Quản trị</a></li>
+				<a href="/foreign">
+					<span class='li-home'>Nước ngoài</span></a></li>
+			<?php if(is_guest()):?>
+				<li style='padding: 4px;'>
+					<a href="/user/login">
+				    	<img title="Đăng nhập" src="<?php echo ASSETS_CDN?>/img/login-icon.png"
+							style='height: 37px;'></a></li>
+				<li style='padding: 4px;'>
+					<a href="/user/register">
+				    	<img title="Đăng ký" src="<?php echo ASSETS_CDN?>/img/register.png"
+							style='height: 37px;'></a></li>
+			<?php else:?>
+			    <?php if(!has_perm('sudo', null, '', $u)):?>
+		    		<li style='padding: 4px;'><a href="<?php echo user_link($u);?>">
+					    <img title="Đăng xuất" src="<?php echo ASSETS_CDN?>/img/user.png"
+								style='height: 37px;'></a></a></li>
+			    <?php endif;?>
+				<?php if (has_perm('sudo', null, '', $u)) :?>
+					<li><a href="/site/admin">
+						    <span class='li-home'>Quản trị</span></a></li>
+				<?php endif;?>
+					<li style='padding: 4px;'><a href="/user/logout">
+					    <img title="Đăng xuất" src="<?php echo ASSETS_CDN?>/img/logout.png"
+								style='height: 37px;'></a></a></li>
 			<?php endif;?>
 		</ul>
 	</div>

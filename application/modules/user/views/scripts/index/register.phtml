@@ -1,20 +1,27 @@
-<h1>Register</h1> 
-<?php if (isset($this->err)) :?>
-      <?php echo $this->err;?>
-<?php endif;?>
-<?php if (isset($this->successMsg)) :?>
-      <?php echo $this->successMsg;?>
-<?php endif;?>
-<br/>
-<?php /*
-<a href="/user/oauth?login=facebook">Facebook</a> |
-<a href="/user/oauth?login=twitter">Twitter</a>
-*/?>
-<?php //echo $this->form;?>
-<?php 
-	$form = new User_Form_Register();
-	$form->build();
-	$form->setAction('/user/register')
-	->setAttrib('class', 'cl_ajax');
-	echo $form;
-?>
+<div class="inner-page">
+	<div class="searchbar">
+		<div class="search-left">
+			<?php echo $this->render('/widget/search-box.phtml');?>
+		</div>
+		<div class="search-right">
+			<p>Đăng ký</p>
+		</div>
+		<div class="clear"> </div>
+	</div>
+	<div id='vd_form'  style='min-height: 350px;'>
+		<?php 
+        	$form = new User_Form_Register();
+			$form->build();
+			$form->setAction('/user/register')
+			->setAttrib('class', 'cl_ajax');
+			echo $form;
+       ?>
+	
+	</div>
+</div>
+<div class="right-content">
+	<?php echo $this->render('/video/hot-videos.phtml');?>
+	<div class="clear"> </div>
+	<?php echo $this->render('/video/new-videos.phtml');?>
+</div>
+<div class="clear"> </div>

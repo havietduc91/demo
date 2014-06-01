@@ -101,7 +101,7 @@
     height: 256px;
     overflow: hidden;
     position: relative;
-    width: 796px;
+    width: 100%;
 }				
 .filledImage img {
     left: 0;
@@ -121,6 +121,7 @@
 			var new_count = parseInt(sub_count) - 1;
 			$(".subscribe-count").attr('data-count', new_count);
 			$(".subscribe-count").html(new_count);
+			$(".subscribe-label").attr('aria-label', "Đăng ký").html("Đăng ký");
 		}else{
 			_this.addClass('vd-button-active');
 			
@@ -128,6 +129,7 @@
 			var new_count = parseInt(sub_count) + 1;
 			$(".subscribe-count").attr('data-count', new_count);
 			$(".subscribe-count").html(new_count);
+			$(".subscribe-label").attr('aria-label', "Hủy đăng ký").html("Hủy đăng ký");
 		}
 	});
 <?php $this->inlineScript()->captureEnd();?>

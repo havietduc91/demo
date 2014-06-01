@@ -1,24 +1,62 @@
-<div class='row'>
-<?php echo sand_dev_info_phtml(__FILE__);?>
-
-<?php $page = Zend_Registry::get('page');
-?>
-<div class='col-md-12'>
-<?php echo $this->render('index/navbar.phtml');?>
-</div>
-<div class='col-md-6'>
-<?php if ($page == 'video/index/new'):?>
-<h1> Thêm video mới</h1>
+<?php if(has_perm($perm, null, '', $u)):?>
+	<div class='row'>
+	<?php echo sand_dev_info_phtml(__FILE__);?>
+	
+	<?php $page = Zend_Registry::get('page');
+	?>
+	<div class='col-md-12'>
+	<?php echo $this->render('index/navbar.phtml');?>
+	</div>
+	<div class='col-md-6'>
+	<?php if ($page == 'video/index/new'):?>
+	<h1> Thêm video mới</h1>
+	<?php else:?>
+	<h1> Cập nhật video</h1>
+	<?php endif;?>
+	<?php $this->form->setAttrib('class', 'cl_ajax');?>
+		<div id='vd_form'>
+			<?php echo $this->form;?>
+		</div>
+	</div>
+	<div class='col-md-6'>
+	<a href="#" id="preview_post_btn" class='btn btn-primary'>Xem trước</a>
+	    <hr/>
+	    <div id='preview_area'>
+	    </div>
+	</div>
+	</div>
 <?php else:?>
-<h1> Cập nhật video</h1>
+	<?php 
+	    $row = $this->row;
+	    $user = Zend_Registry::isRegistered('viewuser') ? Zend_Registry::get('viewuser') : array();
+	    $newVideos = isset($this->newVideos) ? $this->newVideos : array();
+	    $hotVideos = isset($this->hotVideos) ? $this->hotVideos : array();
+	
+	    $lu = $this->row;
+	    $step = get_value('_cl_step', '');
+	?>
+	<script type="text/javascript">
+	CL.NID = "<?php echo $row['id']; ?>";
+	</script>
+	<?php echo $this->render('/widget/user_menu.phtml');?>
+	<div class="inner-page" style='margin-left: 212px; width: 54%;'>
+		<div class="searchbar">
+			<div class="search-left">
+				<?php echo $this->render('/widget/search-box.phtml');?>
+			</div>
+			<div class="search-right">
+				<p>Thêm video mới</p>
+			</div>
+			<div class="clear"> </div>
+		</div>
+		<div id='vd_form'>
+			<?php echo $this->form;?>
+		</div>
+	</div>
+	<div class="right-content">
+		<?php echo $this->render('/video/hot-videos.phtml');?>
+		<div class="clear"> </div>
+		<?php echo $this->render('/video/new-videos.phtml');?>
+	</div>
+	<div class="clear"> </div>
 <?php endif;?>
-<?php $this->form->setAttrib('class', 'cl_ajax');?>
-<?php echo $this->form;?>
-</div>
-<div class='col-md-6'>
-<a href="#" id="preview_post_btn" class='btn btn-primary'>Xem trước</a>
-    <hr/>
-    <div id='preview_area'>
-    </div>
-</div>
-</div>

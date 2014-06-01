@@ -1,192 +1,28 @@
-<div class="row prom-night">
-  <section class="nine columns login-section">
-    <div class="module">
-      <h1 class="section-title">
-        Sign In
-        <span>
-          or
-          <a href="/user/register">
-            Sign Up
-          </a>
-        </span>
-      </h1>
-
-      <div class="module-body">
-        <div class="row">
-            <div class="facebook-login five columns">
-              <h3>
-                Sign in with your Facebook account
-              </h3>
-          
-              <p>Connect your Facebook account to sign in to Groupon.</p>
-          
-              <div class="fb-login-button">
-                <div class="facebook-login-button"></div>
-              </div>
-            </div>
-          <div class="section-spacer">
-            <span>or</span>
-          </div>
-          
-          <div class="groupon-login six columns push-one">
-          <div class="loginForm">
-	        	<div id='login_form'>
-		        	<h3>Đăng nhập với tài khoản <?php echo SITE_NAME;?></h3>
-		        	Quên mật khẩu? <a href="/user/forgot-password" id='remind_password'>
-		        		Nhận mật khẩu mới qua email</a>
-	          	<?php 
-	        	    $form = new User_Form_Login();
-	                $form->build();
-	                $form->setAction('/user/login')
-	                    ->setAttrib('class', 'cl_ajax');
-	                $form->getElement('_cl_submit')->setAttrib('class', 'btn-primary btn btn-large');
-	                echo $form;
-	        	?>
-	        	<div class="clearfix clear"></div>
-        		</div>
-        		
-        		<div id='remind_password_form' style='display:none'>
-		    		<h3>Thiết lập lại mật khẩu</h3>
-		        	<b><a href='/user/login' id='login'>Đăng nhập</a></b>
-		        	<?php 
-		        	    $form = new User_Form_RemindPassword();
-		                $form->build();
-		                $form->setAction('/user/forgot-password')
-		                    ->setAttrib('class', 'cl_ajax')
-		                    ->setAttrib('cl_ajax_success', 'remind_pass_success')
-		                	->setAttrib('cl_ajax_error', 'remind_pass_error');
-		                echo $form;
-		        	?>        	
-		        	</div>
-        	</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  
-   <section class="three columns">
-    <section data-bhw="GrouponPromise" id="promise" class="module" data-bhw-path="GrouponPromise">
-      <h3 class="module-title">Our Promise To You</h3>
-  
-      <div class="module-body">
-        <p>We're confident in the businesses we feature on Groupon and back them with the Groupon Promise.</p>
-        <p>
-          <a href="/">Learn more</a>
-        </p>
-      </div>
-    </section>
-  </section>
+<div class="inner-page">
+	<div class="searchbar">
+		<div class="search-left">
+			<?php echo $this->render('/widget/search-box.phtml');?>
+		</div>
+		<div class="search-right">
+			<p>Đăng nhập</p>
+		</div>
+		<div class="clear"> </div>
+	</div>
+	<div id='vd_form'  style='min-height: 350px;'>
+		<?php 
+        	$form = new User_Form_Login();
+            $form->build();
+            $form->setAction('/user/login')
+            	->setAttrib('class', 'cl_ajax');
+            $form->getElement('_cl_submit')->setAttrib('class', 'btn-primary btn btn-large');
+            echo $form;
+       ?>
+	
+	</div>
 </div>
-
- <?php $this->inlineScript()->captureStart();?>
-	$(document).ready(function(){
-	
-	    $("#login").click(function(e){
-	    	e.preventDefault();
-	    	$("#login_form").show();
-	    	$("#remind_password_form").hide();
-	    });
-	   
-	    $("#remind_password").click(function(e){
-	    	e.preventDefault();
-	    	$("#login_form").hide();
-	    	$("#remind_password_form").show();
-	    });
-	});
-<?php $this->inlineScript()->captureEnd();?>
-<style>
-	
-.row .nine {
-    width: 75%;
-}
-.row .nine {
-    width: 75%;
-}
-.column, .columns {
-    float: left;
-    min-height: 1px;
-    padding: 0 10px;
-    position: relative;
-}
-.column, .columns {
-    float: left;
-    min-height: 1px;
-    padding: 0 10px;
-    position: relative;
-}
-
-.module {
-    background-color: #FFFFFF;
-    margin-bottom: 20px;
-    overflow: hidden;
-}
-.section-title {
-    border-bottom: 1px solid #CCCCCC;
-    font-weight: 400;
-    margin-bottom: 15px;
-    padding-bottom: 5px;
-}
-
-.section-title span {
-    font-size: 0.55em;
-}
-.module-body {
-    padding: 0;
-}
-
-.row .five {
-    width: 41.667%;
-}
-.row .five {
-    width: 41.667%;
-}
-.column, .columns {
-    float: left;
-    min-height: 1px;
-    padding: 0 10px;
-    position: relative;
-}
-
-.prom-night .facebook-login h3 {
-    margin-bottom: 10px;
-}
-.prom-night h3 {
-    font-size: 16px;
-}
-.prom-night .section-spacer {
-    border-color: #CCCCCC;
-}
-
-.section-spacer span {
-    background: none repeat scroll 0 0 #FFFFFF;
-    color: #666666;
-    display: block;
-    font-style: italic;
-    font-weight: bold;
-    margin-left: -15px;
-    margin-top: -2em;
-    padding: 5px 0;
-    position: absolute;
-    text-align: center;
-    top: 50%;
-    width: 30px;
-}
-.row .six {
-    width: 50%;
-}
-.row .six {
-    width: 50%;
-}.push-one {
-    left: 8.333%;
-}
-#login_form {
-    margin: 0 0 0 18px;
-}
-.prom-night .groupon-login h3, .prom-night .groupon-signup h3 {
-    margin-bottom: 10px;
-}
-.prom-night h3 {
-    font-size: 16px;
-}
-</style>
+<div class="right-content">
+	<?php echo $this->render('/video/hot-videos.phtml');?>
+	<div class="clear"> </div>
+	<?php echo $this->render('/video/new-videos.phtml');?>
+</div>
+<div class="clear"> </div>

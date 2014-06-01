@@ -24,8 +24,27 @@ CL.NID = "<?php echo $row['id']; ?>";
 		<ul>
 			<li><h4>Đăng bởi:</h4></li>
 			<li><a href="#"><?php echo $row['u']['name'];?></a></li>
-			<li><a href="#">
-				<img src="<?php echo ASSETS_CDN?>/img/sub.png" title="subscribe" />subscribe</a></li>
+			<li>
+				<a href='javascript:void(0);'>				
+					<button type="button" 
+						class="vd-button vd-is-buffered vd-button-branded sub-button">
+						<span class="button-icon-wrapper">
+							<img class="vd-button-icon" 
+							src="<?php echo ASSETS_CDN;?>/img/youtube-icon-small.png">
+						</span>
+						
+						<span class="vd-button-content">
+							<span aria-label="Đăng ký" class="subscribe-label sub-label">
+								Đăng ký
+								</span>
+						</span>
+					</button>
+				</a>
+				<?php /*
+					<a href="#">
+						<img src="<?php echo ASSETS_CDN?>/img/sub.png" title="subscribe" />subscribe</a>
+				*/?>
+			</li>
 			<li style='float: right;'> 
 				<span class="pull-right"
 						title='Thêm vào playlist ưa thích'>
@@ -101,14 +120,14 @@ CL.NID = "<?php echo $row['id']; ?>";
 		<ul>
 			<li><p>Được tải lên  <a href="#"><?php echo date('Y-m-d H:i:s', $row['ts']);?></a>
 				 bỏi <a href="#"><?php echo $row['u']['name'];?></a></p></li>
-			<li><span><?php echo $row['content'];?></span></li>
+			<li><span><?php //echo $row['content'];?></span></li>
 		</ul>
 	</div>
 	<div class="clear"> </div>
 	<div class="tags margin-left">
 		<ul>
-			<li><h3>Tags:</h3></li>
 			<?php if(isset($row['tags']) && count($row['tags']) > 0):?>
+			<li><h3>Tags:</h3></li>
 				<?php foreach ($row['tags'] as $tag):?><li>
 					<li title='<?php echo $tag['name'];?>'><a href="<?php echo tag_link($tag);?>"><?php echo $tag['name'];?></a> </li>					
 				<?php endforeach;?>
@@ -118,7 +137,7 @@ CL.NID = "<?php echo $row['id']; ?>";
 	<div class="clear"> </div>
 	<div class='video-details margin-left' style='margin-top: 15px;'>
 		 <div class="fb-comments" 
-	     	data-href="<?echo SITE_URL;?><?php echo node_link('video',$row);?>" data-width="886" 
+	     	data-href="<?echo SITE_URL;?><?php echo node_link('video',$row);?>" data-width="986" 
 	     		data-num-posts="10"></div>
      </div>
      <?php if(count($related) > 0):?>
@@ -187,7 +206,7 @@ CL.NID = "<?php echo $row['id']; ?>";
       function onYouTubeIframeAPIReady() {
         player = new YT.Player('player', {
           height: '500',
-          width: '876',
+          width: '978',
           videoId: '<?php echo $row['ytid'];?>',
           events: {
             'onReady': onPlayerReady,
@@ -219,10 +238,14 @@ CL.NID = "<?php echo $row['id']; ?>";
 
 		if(typeof mode_replay == 'undefined' || mode_replay == 0){
 			_this.attr('data-replay', 1);
+			_this.attr('title', 'Hủy chức năng replay');
+			
 			playMode = 'replay';
 			player.playVideo();
 		}else{
 			_this.attr('data-replay', 0);
+			_this.attr('title', 'Luôn replay khi clip kết thúc');
+			
 			playMode = 'notReplay';
 			player.playVideo();
 		}
@@ -236,8 +259,16 @@ CL.NID = "<?php echo $row['id']; ?>";
 		
 		if(_this.hasClass('vd-button-active')){
 			_this.removeClass('vd-button-active');
+			
+			if(_this.hasClass('sub-button')){
+				$(".sub-label").attr('aria-label', "Đăng ký").html("Đăng ký");
+			}
 		}else{
 			_this.addClass('vd-button-active');
+			
+			if(_this.hasClass('sub-button')){
+				$(".sub-label").attr('aria-label', "Hủy đăng ký").html("Hủy đăng ký");
+			}
 		}
 	});
 <?php $this->inlineScript()->captureEnd();?>	

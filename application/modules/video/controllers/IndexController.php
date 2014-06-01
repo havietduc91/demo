@@ -29,10 +29,23 @@ class Video_IndexController extends Cl_Controller_Action_NodeIndex
 
     public function newAction()
     {
-    	assure_perm('sudo');
-    	$this->setLayout("admin");
+    	$u = Zend_Registry::get('user');
+    
+    	if (has_perm($perm, null, '', $u)){
+	    	assure_perm('sudo');
+	    	$this->setLayout("admin");
+    	}else{
+    		//Get new video
+    		$list = Dao_Node_Video::getInstance()->getVideoByType('new', 3, $row['ts']);
+    		$this->setViewParam('newVideos', $list);
+    			
+    		//Get popular video
+    		$list = Dao_Node_Video::getInstance()->getVideoByType('hot', 1, $row['ts']);
+    		$this->setViewParam('hotVideos', $list);
+    	}
+    	 
         $this->genericNew("Video_Form_New", "Dao_Node_Video", "Node");
-        if(isset($this->ajaxData)) {
+	    if(isset($this->ajaxData)) {
             //command the form view to rediect if success
             if (isset($this->ajaxData['result'])) //success
             {
@@ -54,6 +67,7 @@ class Video_IndexController extends Cl_Controller_Action_NodeIndex
                 }
             }
         }
+        
         Bootstrap::$pageTitle = 'Thêm video mới';
     }
 

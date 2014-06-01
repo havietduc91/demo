@@ -3,7 +3,8 @@ function get_string_ytid($list){
 	if(count($list) > 0){
 		$strListVid = "'" . $list[0]['ytid']. "'";
 		for ($i = 1;$i < count($list);$i ++){
-			$strListVid = $strListVid . ",'" . $playList[$i]['ytid']. "'";
+			if($list[$i]['ytid'] != '')
+				$strListVid = $strListVid . ",'" . $list[$i]['ytid']. "'";
 		}
 	}else{
 		$strListVid = '';
