@@ -78,15 +78,15 @@
 			*/?>
 				<a href='javascript:void(0);'>				
 					<button type="button" 
-						class="vd-button vd-is-buffered vd-button-branded">
+						class="vd-button vd-is-buffered vd-button-branded sub-button">
 						<span class="button-icon-wrapper">
 							<img class="vd-button-icon" 
 							src="<?php echo ASSETS_CDN;?>/img/youtube-icon-small.png">
 						</span>
 						
 						<span class="vd-button-content">
-							<span aria-label="Đăng ký" class="subscribe-label">
-								Đăng ký
+							<span aria-label="Chưa đăng ký" class="sub-label">
+								Chưa đăng ký
 								</span>
 						</span>
 					</button>
@@ -112,6 +112,32 @@
 </div>
 <div class="clear"> </div>
 <?php $this->inlineScript()->captureStart();?>
+	$(".vd-button").mouseover(function(){
+		var _this = $(this);
+		if(_this.hasClass('vd-button-active')){
+			if(_this.hasClass('sub-button')){
+					_this.find(".sub-label").attr('aria-label', "Hủy đăng ký").html("Hủy đăng ký");
+				}
+		}else{
+			if(_this.hasClass('sub-button')){
+				_this.find(".sub-label").attr('aria-label', "Đăng ký").html("Đăng ký");
+			}
+		}
+	});
+	
+	$(".vd-button").mouseout(function(){
+		var _this = $(this);
+		if(_this.hasClass('vd-button-active')){
+			if(_this.hasClass('sub-button')){
+					_this.find(".sub-label").attr('aria-label', "Đã đăng ký").html("Đã đăng ký");
+				}
+		}else{
+			if(_this.hasClass('sub-button')){
+				_this.find(".sub-label").attr('aria-label', "Chưa đăng ký").html("Chưa đăng ký");
+			}
+		}
+	});
+	
 	$(".vd-button").on('click', function(){
 		var _this = $(this);
 		if(_this.hasClass('vd-button-active')){
@@ -121,7 +147,7 @@
 			var new_count = parseInt(sub_count) - 1;
 			$(".subscribe-count").attr('data-count', new_count);
 			$(".subscribe-count").html(new_count);
-			$(".subscribe-label").attr('aria-label', "Đăng ký").html("Đăng ký");
+			$(".sub-label").attr('aria-label', "Chưa đăng ký").html("Chưa đăng ký");
 		}else{
 			_this.addClass('vd-button-active');
 			
@@ -129,7 +155,7 @@
 			var new_count = parseInt(sub_count) + 1;
 			$(".subscribe-count").attr('data-count', new_count);
 			$(".subscribe-count").html(new_count);
-			$(".subscribe-label").attr('aria-label', "Hủy đăng ký").html("Hủy đăng ký");
+			$(".sub-label").attr('aria-label', "Đã đăng ký").html("Đã đăng ký");
 		}
 	});
 <?php $this->inlineScript()->captureEnd();?>

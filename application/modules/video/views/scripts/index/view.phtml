@@ -34,8 +34,8 @@ CL.NID = "<?php echo $row['id']; ?>";
 						</span>
 						
 						<span class="vd-button-content">
-							<span aria-label="Đăng ký" class="subscribe-label sub-label">
-								Đăng ký
+							<span aria-label="Chưa đăng ký" class="subscribe-label sub-label">
+								Chưa đăng ký
 								</span>
 						</span>
 					</button>
@@ -50,14 +50,14 @@ CL.NID = "<?php echo $row['id']; ?>";
 						title='Thêm vào playlist ưa thích'>
 					<a href="/video/add-playlist?id=<?php echo $row['id'];?>" class='cl_ajax'>				
 						<button type="button" 
-							class="vd-button vd-is-buffered vd-button-branded">
+							class="vd-button vd-is-buffered vd-button-branded btn-favourite">
 							<span class="button-icon-wrapper">
 								<img class="vd-button-icon" 
 								src="<?php echo ASSETS_CDN?>/img/favourites-8.png">
 							</span>
 							<span class="vd-button-content">
-								<span aria-label="Đăng ký" class="subscribe-label">
-								Favourite</span>
+								<span aria-label="Clip ưa thích" class="subscribe-label">
+								Ưa thích</span>
 							</span>		
 						</button>
 					</a>
@@ -74,7 +74,7 @@ CL.NID = "<?php echo $row['id']; ?>";
 								src="<?php echo ASSETS_CDN;?>/img/replay-icon-2.png">
 							</span>
 							<span class="vd-button-content">
-								<span aria-label="Đăng ký" class="subscribe-label">
+								<span aria-label="Replay" class="subscribe-label">
 								Replay</span>
 							</span>
 						</button>
@@ -254,6 +254,32 @@ CL.NID = "<?php echo $row['id']; ?>";
 <?php $this->inlineScript()->captureEnd();?>
 	
 <?php $this->inlineScript()->captureStart();?>
+	$(".vd-button").mouseover(function(){
+		var _this = $(this);
+		if(_this.hasClass('vd-button-active')){
+			if(_this.hasClass('sub-button')){
+					_this.find(".sub-label").attr('aria-label', "Hủy đăng ký").html("Hủy đăng ký");
+				}
+		}else{
+			if(_this.hasClass('sub-button')){
+				_this.find(".sub-label").attr('aria-label', "Đăng ký").html("Đăng ký");
+			}
+		}
+	});
+	
+	$(".vd-button").mouseout(function(){
+		var _this = $(this);
+		if(_this.hasClass('vd-button-active')){
+			if(_this.hasClass('sub-button')){
+					_this.find(".sub-label").attr('aria-label', "Đã đăng ký").html("Đã đăng ký");
+				}
+		}else{
+			if(_this.hasClass('sub-button')){
+				_this.find(".sub-label").attr('aria-label', "Chưa đăng ký").html("Chưa đăng ký");
+			}
+		}
+	});
+	
 	$(".vd-button").on('click', function(){
 		var _this = $(this);
 		
@@ -261,13 +287,21 @@ CL.NID = "<?php echo $row['id']; ?>";
 			_this.removeClass('vd-button-active');
 			
 			if(_this.hasClass('sub-button')){
-				$(".sub-label").attr('aria-label', "Đăng ký").html("Đăng ký");
+				_this.find(".sub-label").attr('aria-label', "Chưa đăng ký").html("Chưa đăng ký");
+			}else if(_this.hasClass('btn-replay')){
+				_this.find(".subscribe-label").attr('aria-label', "Replay").html("Replay");
+			}else if(_this.hasClass('btn-favourite')){
+				_this.find(".subscribe-label").attr('aria-label', "Ưa thích").html("Ưa thích");
 			}
 		}else{
 			_this.addClass('vd-button-active');
 			
 			if(_this.hasClass('sub-button')){
-				$(".sub-label").attr('aria-label', "Hủy đăng ký").html("Hủy đăng ký");
+				_this.find(".sub-label").attr('aria-label', "Hủy đăng ký").html("Đã đăng ký");
+			}else if(_this.hasClass('btn-replay')){
+				_this.find(".subscribe-label").attr('aria-label', "Hủy replay").html("Hủy replay");
+			}else if(_this.hasClass('btn-favourite')){
+				_this.find(".subscribe-label").attr('aria-label', "BỎ thích").html("Bỏ thích");
 			}
 		}
 	});
