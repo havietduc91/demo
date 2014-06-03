@@ -22,7 +22,11 @@ CL.NID = "<?php echo $row['id']; ?>";
 		<div class="clear"> </div>
 	</div>
 	<div id='vd_form'>
-		<?php echo $this->form;?>
+		<?php if($step == 'avatar' || $step == 'background'):?>
+			<?php echo $this->render('/widget/update-avatar.phtml');?>
+		<?php else:?>
+			<?php echo $this->form;?>
+		<?php endif;?>
 	</div>
 </div>
 <div class="right-content">
@@ -56,7 +60,7 @@ CL.CODENAME = '<?php echo CODENAME;?>';
 	});
 	var src = $('.display_avatar .img-polaroid').attr('src');
 	if(typeof src == 'undefined' || src == ''){
-		$('.display_avatar .img-polaroid').attr('src',<?php echo ASSETS_CDN.'/img/no-image.jpg';?>);
+		$('.display_avatar .img-polaroid').attr('src',"<?php echo ASSETS_CDN.'/img/no-image.jpg';?>");
 	}
 <?php $this->inlineScript()->captureEnd();?>
 <style>

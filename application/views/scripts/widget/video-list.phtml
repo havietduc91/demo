@@ -36,7 +36,10 @@
 						<ul>
 							<li><a href="#"><img src="<?php echo ASSETS_CDN?>/img/likes.png" title="links"></a></li>
 							<li><a href="#"><img src="<?php echo ASSETS_CDN?>/img/link.png" title="Link"></a></li>
-							<li><a href="#"><img src="<?php echo ASSETS_CDN?>/img/views.png" title="Views"></a></li>
+							<li><a href="#">
+							<?php $view = isset($video['counter']['v']) ? $video['counter']['v'] : 0;?>
+								<img src="<?php echo ASSETS_CDN?>/img/views.png" 
+									title="<?php echo number_format($view);?> lượt xem"></a></li>
 						</ul>
 					</div>
 					<div class="video-watch">

@@ -1384,7 +1384,7 @@ ul.pfmenutab li span {
 	font-size: 1em;
 	padding: 15px 0 10px;
 }
-#vd_form #_cl_submit{
+#vd_form #_cl_submit, #vd_form #preview{
 	background-color:#1E5DAD;
 	border: medium none;
 	border-radius: 3px;
@@ -1477,4 +1477,22 @@ ul.listfans li .statusfans {
     border-radius: 4px;
     margin-bottom: 20px;
     padding: 15px;
+}
+.filledImage {
+    display: block;
+    height: 256px;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}				
+.filledImage img {
+    left: 0;
+    min-height: 256px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+.border-img{
+	background: none repeat scroll 0 0 #FFFFFF;
+	box-shadow: 0 0 10px #E4E4E4;
 }
