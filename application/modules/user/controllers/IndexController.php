@@ -126,13 +126,17 @@ class User_IndexController extends Cl_Controller_Action_UserIndex
 	
 	public function subscribeAction(){
 		$id = (string) $this->getStrippedParam('id');
-		//TODO: Check guest
-		$r = Dao_User::getInstance()->addSubcribe($id);
-		 
-		//TODO: thong bao dang bi sai
-		return $r;
-		die();
+
+		if(!is_guest())
+			$r = Dao_User::getInstance()->addSubcribe($id);
 	}
+	
+	public function unsubscribeAction(){
+		$id = (string) $this->getStrippedParam('id');
+		
+		if(!is_guest())
+			$r = Dao_User::getInstance()->unsubcribe($id);
+	}	
 	
 	public function loginAction(){
 		parent::loginAction();

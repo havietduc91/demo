@@ -5,6 +5,19 @@
 <?php 
 	$avatar = (isset($viewuser['avatar']) && $viewuser['avatar'] !== '') ? $viewuser['avatar'] : default_avatar('user');
 	$background = (isset($viewuser['background']) && $viewuser['background'] !== '') ? $viewuser['background'] : default_avatar('background');
+	$subscribe = isset($lu['subscribe']) ? $lu['subscribe'] : array();
+	$subscribed = false;
+	if(count($subscribe) > 0){
+		foreach ($subscribe as $u){
+			if($u['id'] == $viewuser['id']){
+				$subscribed = true;
+				break;				
+			}
+		}
+	}
+	
+	$subLink = "/user/subscribe?id={$viewuser['id']}";
+	$unsubLink = "/user/unsubscribe?id={$viewuser['id']}";
 ?>
 <div class="zm_pfcover">
 	<div class="pfavatar">
@@ -74,24 +87,34 @@
 			
 			<span class="pull-right">
 			<?php /*
-				<a href='/user/subscribe?id=<?php echo $viewuser['id'];?>' class='cl_ajax'>
-			*/?>
 				<a href='javascript:void(0);'>				
+			*/?>
+				<a href='<?php if($subscribed) 
+							       echo $unsubLink; 
+							   else 
+							   	   echo $subLink;?>' 
+			   	   class='cl_ajax sublink'>
 					<button type="button" 
-						class="vd-button vd-is-buffered vd-button-branded sub-button">
+						class="vd-button vd-is-buffered vd-button-branded sub-button
+							<?php if($subscribed):?>vd-button-active<?php endif;?>">
 						<span class="button-icon-wrapper">
 							<img class="vd-button-icon" 
 							src="<?php echo ASSETS_CDN;?>/img/youtube-icon-small.png">
 						</span>
 						
 						<span class="vd-button-content">
-							<span aria-label="Chưa đăng ký" class="sub-label">
-								Chưa đăng ký
+							<span aria-label="
+									<?php if($subscribed):?>Đã đăng ký<?php else:?>
+										Chưa đăng ký<?php endif;?>" class="sub-label">
+								<?php if($subscribed):?>Đã đăng ký<?php else:?>
+									Chưa đăng ký<?php endif;?>
 								</span>
 						</span>
 					</button>
 				</a>
-				<span class="subscribe-count" data-count='371'>371</span>
+				<?php $subCount = isset($viewuser['counter']['s']) ? $viewuser['counter']['s'] : 0;?>
+				<span class="subscribe-count" 
+					data-count='<?php echo $subCount;?>'><?php echo $subCount;?></span>
 			</span>
 		</div>
 	</div>
@@ -148,6 +171,7 @@
 			$(".subscribe-count").attr('data-count', new_count);
 			$(".subscribe-count").html(new_count);
 			$(".sub-label").attr('aria-label', "Chưa đăng ký").html("Chưa đăng ký");
+			//$(".sublink").attr('href', "<?php echo $subLink;?>");
 		}else{
 			_this.addClass('vd-button-active');
 			
@@ -156,6 +180,7 @@
 			$(".subscribe-count").attr('data-count', new_count);
 			$(".subscribe-count").html(new_count);
 			$(".sub-label").attr('aria-label', "Đã đăng ký").html("Đã đăng ký");
+			//$(".sublink").attr('href', "<?php echo $unsubLink;?>");
 		}
 	});
 <?php $this->inlineScript()->captureEnd();?>

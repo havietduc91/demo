@@ -111,6 +111,7 @@ class Dao_User extends Cl_Dao_User
 					'k' => 'float', //karma: score of user, based on how many stories, comments, votes user receiv
 					//'vote' => 'int', // number of vote | like
 					'vd' =>'int', // number of vote down | unlike
+					's' => 'int', //user's fan
 				),
 					
 				'settings' => array(
@@ -360,6 +361,52 @@ class Dao_User extends Cl_Dao_User
     	
     			$where = array('id' => $lu['id']);
     			$r = Dao_User::getInstance()->update($where, $update);
+    			
+    			//increase sub count for sub of user
+    			$userSubUpdate = array('$inc' => array('counter.s' => 1));
+    			$where = array('id' => $id);
+    			
+    			$r = Dao_User::getInstance()->update($where, $userSubUpdate);
+    		}
+    	}
+    	
+    	return $r;
+    }
+    
+    public function unsubcribe($id){
+    	$lu = Zend_Registry::get('user');
+    	
+    	$where = array('id' => $id);
+    	$r = $this->findOne($where);
+    	if($r['success'] && $r['count'] > 0){
+    		$subscribe = isset($lu['subscribe']) ? $lu['subscribe'] : array();
+    		
+    		$newSubscribe = array();
+    		$boolen = false;
+    		if(count($subscribe) > 0){
+    			foreach ($subscribe as $u){
+    				if($u['id'] == $id){
+    					$boolen = true;
+    				}else{
+    					$newSubscribe[] = $u;
+    				}
+    			}
+    		}
+    			
+    		if($boolen){
+    			$update = array('$set'=>array(
+    					'subscribe' => $newSubscribe
+	    			)
+    			);
+    	
+    			$where = array('id' => $lu['id']);
+    			$r = Dao_User::getInstance()->update($where, $update);
+    			
+    			//decrease sub count for sub of user
+    			$userSubUpdate = array('$inc' => array('counter.s' => -1));
+    			$where = array('id' => $id);
+    			 
+    			$r = Dao_User::getInstance()->update($where, $userSubUpdate);
     		}
     	}
     	

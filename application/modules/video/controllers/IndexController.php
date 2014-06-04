@@ -179,6 +179,23 @@ class Video_IndexController extends Cl_Controller_Action_NodeIndex
 	        }
         	Bootstrap::$pageTitle = $row['name'];
         	
+        	//TODO: if wasn't original video => get original video, have to upload by admin 
+        	$ori_viddeo = array();
+        	if(!isset($row['is_original']) || $row['is_original'] == 'cover'){
+        		$where = array(
+        				'status' => 'approved',
+        				'tags.id' => array('$in' => $tags),
+        				'is_original' => 'original'
+        		);
+        		
+        		$r = Dao_Node_Video::getInstance()->findOne($where);
+        		if($r['success'] && count($r['result']) > 0){
+        			$ori_viddeo = $r['result'];
+        		}
+        	}
+        	
+        	$this->setViewParam('ori_video', $ori_viddeo);
+        	
         	//Get new video
 			$list = Dao_Node_Video::getInstance()->getVideoByType('new', 3, $row['ts']);
 			$this->setViewParam('newVideos', $list);

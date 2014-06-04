@@ -1,0 +1,45 @@
+<?php $ori_video = isset($this->ori_video) ? $this->ori_video : array();?>
+<?php if($ori_video):?>
+	<div class="popular">
+		<h3>
+			<a href="/hot" style='color: #FFF;'>
+				Bản gốc</a></h3>
+		<p><img src="<?php echo ASSETS_CDN?>/img/l1.png" title="likes" /> 10,000</p>
+		<div class="clear"> </div>
+	</div>
+	<?php $avatar = "http://img.youtube.com/vi/{$ori_video['ytid']}/0.jpg";?>
+	<div class="grid1">
+		<a href="<?php echo node_link('ori_video', $ori_video);?>">
+			<h3 style='color: #1E5DAD;'><?php echo $ori_video['name'];?></h3></a>
+		<a href="<?php echo node_link('ori_video', $ori_video);?>"><img src="<?php echo $avatar;?>" 
+			title="<?php echo $ori_video['name'];?>" /></a>
+		<div class="time1">
+			<span><?php echo gmdate("H:i:s", (int)$ori_video['duration']);?></span>
+		</div>
+		
+		<div class="grid-info">
+			<div class="ori_video-share">
+				<ul>
+					<li><a href="#"><img src="<?php echo ASSETS_CDN?>/img/likes.png" title="links" /></a></li>
+					<li><a href="#"><img src="<?php echo ASSETS_CDN?>/img/link.png" title="Link" /></a></li>
+					<li><a href="#"><img src="<?php echo ASSETS_CDN?>/img/views.png" title="Views" /></a></li>
+				</ul>
+			</div>
+			<div class="ori_video-watch">
+				<a href="<?php echo node_link('ori_video', $ori_video);?>">Xem ngay</a>
+			</div>
+			<div class="clear"> </div>
+			<?php if(isset($ori_video['tags']) && count($ori_video['tags']) > 0):?>
+				<div class="lables">
+					<p>Tags:
+						<?php foreach ($ori_video['tags'] as $tag):?>
+							<a href="<?php echo tag_link($tag);?>">
+								<?php echo $tag['name'];?>
+							</a>
+						<?php endforeach;?>
+					</p>
+				</div>
+			<?php endif;?>
+		</div>
+	</div>
+<?php endif;?>

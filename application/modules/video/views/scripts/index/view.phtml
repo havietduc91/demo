@@ -4,6 +4,21 @@
     $related = isset($this->related) ? $this->related : array();
     $newVideos = isset($this->newVideos) ? $this->newVideos : array();
     $hotVideos = isset($this->hotVideos) ? $this->hotVideos : array();
+    $ori_video = isset($this->ori_video) ? $this->ori_video : array();
+    
+    $subscribe = isset($lu['subscribe']) ? $lu['subscribe'] : array();
+    $subscribed = false;
+    if(count($subscribe) > 0){
+    	foreach ($subscribe as $u){
+    		if($u['id'] == $row['u']['id']){
+    			$subscribed = true;
+    			break;
+    		}
+    	}
+    }
+    
+    $subLink = "/user/subscribe?id={$row['u']['id']}";
+    $unsubLink = "/user/unsubscribe?id={$row['u']['id']}";
 ?>
 <script type="text/javascript">
 CL.NID = "<?php echo $row['id']; ?>";
@@ -25,17 +40,28 @@ CL.NID = "<?php echo $row['id']; ?>";
 			<li><h4>Đăng bởi:</h4></li>
 			<li><a href="#"><?php echo $row['u']['name'];?></a></li>
 			<li>
-				<a href='javascript:void(0);'>				
+				<?php /*
+					<a href='javascript:void(0);'>				
+				*/?>
+				<a href='<?php if($subscribed) 
+							       echo $unsubLink; 
+							   else 
+							   	   echo $subLink;?>' 	
+			   	   	class='cl_ajax sublink'>			
 					<button type="button" 
-						class="vd-button vd-is-buffered vd-button-branded sub-button">
+						class="vd-button vd-is-buffered vd-button-branded sub-button
+							<?php if($subscribed):?>vd-button-active<?php endif;?>">
 						<span class="button-icon-wrapper">
 							<img class="vd-button-icon" 
 							src="<?php echo ASSETS_CDN;?>/img/youtube-icon-small.png">
 						</span>
 						
 						<span class="vd-button-content">
-							<span aria-label="Chưa đăng ký" class="subscribe-label sub-label">
-								Chưa đăng ký
+							<span aria-label="<?php if($subscribed):?>Đã đăng ký<?php else:?>
+										Chưa đăng ký<?php endif;?>" 
+								   class="subscribe-label sub-label">
+								<?php if($subscribed):?>Đã đăng ký<?php else:?>
+										Chưa đăng ký<?php endif;?>
 								</span>
 						</span>
 					</button>
@@ -187,6 +213,8 @@ CL.NID = "<?php echo $row['id']; ?>";
 	<div class="clear"> </div>
 </div>
 <div class="right-content">
+    <?php echo $this->render('/video/ori-video.phtml');?>
+    <div class="clear"> </div>
 	<?php echo $this->render('/video/hot-videos.phtml');?>
 	<div class="clear"> </div>
 	<?php echo $this->render('/video/new-videos.phtml');?>
@@ -288,6 +316,7 @@ CL.NID = "<?php echo $row['id']; ?>";
 			
 			if(_this.hasClass('sub-button')){
 				_this.find(".sub-label").attr('aria-label', "Chưa đăng ký").html("Chưa đăng ký");
+				//$(".sublink").attr('href', "<?php echo $subLink;?>");
 			}else if(_this.hasClass('btn-replay')){
 				_this.find(".subscribe-label").attr('aria-label', "Replay").html("Replay");
 			}else if(_this.hasClass('btn-favourite')){
@@ -298,6 +327,7 @@ CL.NID = "<?php echo $row['id']; ?>";
 			
 			if(_this.hasClass('sub-button')){
 				_this.find(".sub-label").attr('aria-label', "Hủy đăng ký").html("Đã đăng ký");
+				//$(".sublink").attr('href', "<?php echo $unsubLink;?>");
 			}else if(_this.hasClass('btn-replay')){
 				_this.find(".subscribe-label").attr('aria-label', "Hủy replay").html("Hủy replay");
 			}else if(_this.hasClass('btn-favourite')){
