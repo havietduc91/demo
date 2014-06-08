@@ -48,7 +48,7 @@ function user_link($u = null, $absolute_url = false)
 }
 function get_default_perms()
 {
-	return array('new_video', 'vote_video');
+	return array('new_video', 'vote_video', 'update_own_video', 'delete_video');
 }
 function per_page()
 {

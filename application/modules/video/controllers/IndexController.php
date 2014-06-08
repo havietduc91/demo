@@ -31,7 +31,7 @@ class Video_IndexController extends Cl_Controller_Action_NodeIndex
     {
     	$u = Zend_Registry::get('user');
     
-    	if (has_perm($perm, null, '', $u)){
+    	if(has_role('sudo')){
 	    	assure_perm('sudo');
 	    	$this->setLayout("admin");
     	}else{
@@ -79,7 +79,17 @@ class Video_IndexController extends Cl_Controller_Action_NodeIndex
     	if(!has_role_video($lu, $id))	
     		assure_perm('sudo');
     	
-    	$this->setLayout("admin");
+    	if(has_role('sudo'))
+    		$this->setLayout("admin");
+    	else{
+    		//Get new video
+    		$list = Dao_Node_Video::getInstance()->getVideoByType('new', 3, $row['ts']);
+    		$this->setViewParam('newVideos', $list);
+    		 
+    		//Get popular video
+    		$list = Dao_Node_Video::getInstance()->getVideoByType('hot', 1, $row['ts']);
+    		$this->setViewParam('hotVideos', $list);
+    	}
         /**
          * Permission to update a node is done in 
          * $Node_Form_Update form->customPermissionFilter()
@@ -330,5 +340,21 @@ class Video_IndexController extends Cl_Controller_Action_NodeIndex
     	}else
     		Bootstrap::$pageTitle = 'Quản lý clip';
     }
+    
+    public function deleteAction()
+    {
+    	$lu = Zend_Registry::get('user');
+    	 
+    	$id = $this->getStrippedParam('id');
+    	if(!has_role_video($lu, $id))
+    		assure_perm('sudo');
+    	
+    	parent::deleteAction();
+    	if ($this->ajaxData['success'])
+    	{
+    		$this->ajaxData['callback'] = 'reload_page';
+    		$this->ajaxData['data'] = array('msg' => t('successful',1));
+    	}
+    }    
 }
 
