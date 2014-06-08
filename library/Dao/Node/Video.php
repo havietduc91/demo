@@ -13,6 +13,7 @@ class Dao_Node_Video extends Cl_Dao_Node
         	'slug' => 'string',
         	'duration' => 'string',	
         	'ts' => 'int',
+    		'ats' => 'int',
         	'status' => 'string',
         	'country' => 'string', //domestic|foreign
         	'is_original' => 'string',
@@ -49,17 +50,20 @@ class Dao_Node_Video extends Cl_Dao_Node
         		'type' => 'int', // 1 => want item, 2 => own item, 3 => had item (reviews). If  9 => "uploaded photo"
         		'u' => $user, //who posted this	
         		'counter'	=>	array(
-        			'c' => 'int',
+        			'c' => 'int', //comment
     	            'f' => 'int', //follow
     	            'r' => 'int', //recommend
     	            'l' => 'int', //likes
-    	            'v' => 'int', //views
+    	            'v' => 'int', //views on page
+        			'vyt' => 'int', //views youtube
+        			'hn'=> 'float',//hotness
     	        ),
         		'url' => 'string',
         		'ytid' => 'string',
         		'slug' => 'string',
         		'duration' => 'string',	
         		'ts' => 'int',
+        		'ats' => 'int',
         		'status' => 'string',
         		'country' => 'string', //domestic|foreign
         		'is_original' => 'string',
@@ -73,6 +77,24 @@ class Dao_Node_Video extends Cl_Dao_Node
      */
 	public function beforeInsertNode($data)
 	{
+		if(isset($data['ts']) && $data['ts']){
+			$data['ats'] = $data['ts'];
+		}
+		
+		if(!isset($data['status'])) {
+			$data['status'] = 'queued';
+		}
+		if(!isset($data['counter'])){
+			$data['counter']=array('vote'=>0,
+				'c' => 0, //comment
+    	        'f' => 0, //follow
+    	        'r' => 0, //recommend
+    	        'l' => 0, //likes
+    	        'v' => 0, //views on page 
+				'vyt' => 0, //views youtube
+        		'hn'=> 0,//hotness
+			);
+		}
 		if (!isset($data['iid']))
 		{
 			$redis = init_redis(RDB_CACHE_DB);
@@ -94,7 +116,7 @@ class Dao_Node_Video extends Cl_Dao_Node
 		$JSON = file_get_contents("https://gdata.youtube.com/feeds/api/videos/{$data['ytid']}?v=2&alt=json");
 		$JSON_Data = json_decode($JSON);
 		$views = $JSON_Data->{'entry'}->{'yt$statistics'}->{'viewCount'};
-		$data['counter']['v'] = $views;
+		$data['counter']['vyt'] = $views;
 		
 		$data['ac_name'] = ac_item($data['name']); //accent name vietnamese
 		
@@ -131,6 +153,11 @@ class Dao_Node_Video extends Cl_Dao_Node
     /******************************UPDATE****************************/
     public function beforeUpdateNode($where, $data, $currentRow)
     {
+    	//set approved timestamp
+    	if ($data['$set']['_cl_step'] == 'status' && $data['$set']['status'] == 'approved'){
+    		$data['$set']['ats'] = time();
+    	}
+    	
     	if(isset($data['$set']['name']) && $data['$set']['name'] != $currentRow['name']){
     		$data['$set']['ac_name'] = ac_item($data['$set']['name']); //accent name vietnamese    		
     	}
@@ -288,12 +315,12 @@ class Dao_Node_Video extends Cl_Dao_Node
 		 
 		if($checkYtid){
 			$update = array('$set'=>array(
-						'counter.v' => $views,
+						'counter.vyt' => $views,
 					)
 			);
 		}else{
 			$update = array('$set'=>array(
-						'counter.v' => $views,
+						'counter.vyt' => $views,
 						'ytid' => $video['ytid'],
 					)
 			);
@@ -348,7 +375,7 @@ class Dao_Node_Video extends Cl_Dao_Node
 				$order = array('ts'=>-1);
 			}
 		}elseif ($type == 'hot'){
-			$order = array('counter.v'=>-1);
+			$order = array('counter.vyt'=>-1);
 		}
 		
 		if(isset($ts) && $ts > 0){
@@ -377,10 +404,16 @@ class Dao_Node_Video extends Cl_Dao_Node
 			$order = array('ts' => -1);
 		}
 		if($filter == 'hot'){
-			$order = array('counter.v'=>-1);
-		}else{
-			$order = array('ts'=>-1);
+			$order = array('counter.vyt'=>-1);
 		}
+		if($filter == 'vote'){
+			$where = array('status'=> 'queued');
+			$order = array('ts'=>-1);
+		}else{
+			$where = array('status'=> 'approved');
+			$order = array('ts'=>-1); //TODO:$order = array('ats'=>-1); 
+		}
+		
 		$cond['order'] = $order;
 		$cond['limit'] = per_page();
 		

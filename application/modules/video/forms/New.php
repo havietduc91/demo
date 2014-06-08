@@ -46,6 +46,7 @@ class Video_Form_New extends Cl_Form
         	),
             'status' => array(
             		'type' => 'Select',
+            		'permission' => 'root',
             		'options' => array(
             				'label' => 'Trạng thái',
             				'required' => true,

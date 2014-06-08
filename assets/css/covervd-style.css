@@ -1365,7 +1365,7 @@ ul.pfmenutab li span {
 	float: right;
 }
 .pull-left{
-	float: right;
+	float: left;
 }
 /***********************FORM***************************************/
 .fileinput-button{
@@ -1496,3 +1496,36 @@ ul.listfans li .statusfans {
 	background: none repeat scroll 0 0 #FFFFFF;
 	box-shadow: 0 0 10px #E4E4E4;
 }
+
+/**********************BUTTON EXTEND BOOTSTRAP******************************************/
+.btn-danger {
+    background-color: #D9534F !important;
+    border-color: #D43F3A !important;
+    color: #FFFFFF !important;
+}
+.btn-warning {
+    background-color: #F0AD4E !important;
+    border-color: #EEA236 !important;
+    color: #FFFFFF !important;
+}
+.btn-info {
+    background-color: #5BC0DE !important;
+    border-color: #46B8DA !important;
+    color: #FFFFFF !important;
+}
+.btn-success {
+    background-color: #5CB85C !important;
+    border-color: #4CAE4C !important;
+    color: #FFFFFF !important;
+}
+.btn-primary {
+    background-color: #428BCA !important;
+    border-color: #357EBD !important;
+    color: #FFFFFF !important;
+}
+.btn-default {
+    background-color: #FFFFFF !important;
+    border-color: #CCCCCC !important;
+    color: #333333 !important;
+}
+/**********************BUTTON EXTEND BOOTSTRAP******************************************/

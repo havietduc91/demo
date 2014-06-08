@@ -1,4 +1,25 @@
 <?
+//Check user's permission edit, delete video
+function has_role_video($lu, $id){
+	if(!$lu){
+		$lu = Zend_Registry::get('user');
+	}
+	
+	$where = array('id' => $id);
+	$r = Dao_Node_Video::getInstance()->findOne($where);
+	$v = array();
+	
+	if($r['success']){
+		$v = $r['result'];
+	}
+	
+	$uid = isset($v['u']['id']) ? $v['u']['id'] : 0;
+	if($uid == $lu['id'])
+		return true;
+	
+	return false;
+}
+
 function get_string_ytid($list){
 	if(count($list) > 0){
 		$strListVid = "'" . $list[0]['ytid']. "'";

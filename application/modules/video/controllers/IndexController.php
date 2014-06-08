@@ -73,7 +73,12 @@ class Video_IndexController extends Cl_Controller_Action_NodeIndex
 
     public function updateAction()
     {
-    	assure_perm('sudo');
+    	$lu = Zend_Registry::get('user');
+    	
+    	$id = $this->getStrippedParam('id');
+    	if(!has_role_video($lu, $id))	
+    		assure_perm('sudo');
+    	
     	$this->setLayout("admin");
         /**
          * Permission to update a node is done in 
@@ -304,6 +309,26 @@ class Video_IndexController extends Cl_Controller_Action_NodeIndex
     	//TODO: thong bao dang bi sai
     	return $r;
     	die();
+    }
+    
+    public function manageVideoAction()
+    {
+    	$lu = Zend_Registry::get('user');
+    	Zend_Registry::set('viewuser', array());
+    	$page = $this->getStrippedParam('page',1);
+    
+    	$r = Dao_Node_Video::getInstance()->getVideosByUser($lu, $page);
+    		
+    	if($r['success'] && $r['total'] > 0){
+    		$this->setViewParam('list', $r['result']);
+    	}else{
+    		$this->setViewParam('list', array());
+    	}
+    
+    	if($user != array()){
+    		Bootstrap::$pageTitle = 'Quản lý clip - ' . $user['name'];
+    	}else
+    		Bootstrap::$pageTitle = 'Quản lý clip';
     }
 }
 

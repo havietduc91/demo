@@ -161,4 +161,22 @@ class User_IndexController extends Cl_Controller_Action_UserIndex
 		$list = Dao_Node_Video::getInstance()->getVideoByType('hot', 1, $row['ts']);
 		$this->setViewParam('hotVideos', $list);
 	}
+	
+	public function searchRolesAction(){
+		$this->setLayout("admin");
+		
+		parent::searchRolesAction();
+	}
+	
+	public function newRoleAction(){
+		$this->setLayout("admin");
+		
+		parent::newRoleAction();
+	}
+	
+	public function updateRoleAction(){
+		$this->setLayout("admin");
+		
+		parent::updateRoleAction();
+	}
 }

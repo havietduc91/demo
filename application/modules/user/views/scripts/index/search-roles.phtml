@@ -1,37 +1,132 @@
-<div class='span12'>
-<?php echo $this->render('index/role-nav.phtml');?>
-</div>
-
-<div class='span12'>
-    <div class='well'>
-    <?php
-        echo ($this->form);
-    ?>
+<?php echo sand_dev_info_phtml(__FILE__);?>
+<?php 
+$school = Zend_Registry::get('dmn');
+?>
+<div class='row'>
+    <?php if (getenv('HOCVL') == '1')
+        $span = 'col-md-12';
+    else 
+        $span = 'col-md-10';
+    //echo getenv('SITE');
+        ?>
+    <?php if (getenv('HOCVL') != '1'):?>
+    <div class='col-md-2 side-menu-span2'>
+        <?php //echo $this->render('widget/school-navbar.phtml');?>
     </div>
-    <div style='clear:both'></div>
-    <?php if (isset($this->list) && count($this->list) > 0) :?>
+    <?php endif;?>
     
-    <h1>Role List</h1>    
-    <?php if($this->total > 0) :?>
-        <?php echo $this->render("widget/pagination.phtml");?>
-    <?php endif;?>
-    <table class='table'>
-    <thead>
-        <tr>
-    	    <td>Name</td><td>Perms</td><td>action</td>
-    	</tr>
-    </thead>
-    <tbody>
-    	<?php foreach ($this->list as $row) :?>
-    	<tr>
-    	<td><b><?php echo $row['name']?></b></td>
-    	<td> <?php echo implode(", ", $row['permissions']);?></td>
-    	<td><a class='cl_ajax' _cl_get_metadata='hide_my_parent:2' href='/user/delete-role?id=<?php echo $row['id']?>'>delete</a> | <a href='/user/update-role?id=<?php echo $row['id']?>'>edit</a>
-    	</td>
-    	<?php endforeach;?>
-    </tbody>
-    </table>
-    <?php else:?>
-    No match
-    <?php endif;?>
-</div>    
+    
+    <div class='<?echo $span;?>'>
+    	<?php
+    	/* 
+        <?php echo $this->render('index/role-nav.phtml');?>
+        <div class='separator-high'></div>
+        */
+    	?>
+        <div class='row'>
+            <div class='col-md-12'>
+            	<a href='#' class='toggle-dom btn btn-primary btn-sm' target-id='form-wrapper'>+/- Filter</a>
+                <div class='well well-shallow' id='form-wrapper' style="display: none;">
+                    <?php
+                        echo $this->form;
+                    ?>
+                </div>
+                
+                <div>
+				<?php $domain = Zend_Registry::get('dmn');?>
+                <h3>Domain {<?php echo $domain;?>} roles - 
+                <a href="/user/new-role?<?php if (Zend_Registry::isRegistered('dmn')):?>dmn=<?echo Zend_Registry::get('dmn');?><?php endif;?><?php if($school != ''):?>&school=<?php echo $school;?><?php endif;?>" 
+				class='modal_ajax btn btn-default btn-sm' on_modal_shown='rebind_ajax_form'
+				_cl_get_metadata="reload_page"
+				><?php echo t('add_new_role', 1);?></a>
+				</h3>    
+                
+                        <?php if (isset($this->list) && count($this->list) > 0) :?>
+                        
+                        <?php echo $this->render("widget/pagination.phtml");?>
+                        <table class='table table-striped'>
+                        <thead>
+                            <tr style='font-weight:bold;'>
+                        	    <td style='width:10%;'>Code</td>
+                        	    <td style='width:10%;'>Name</td>
+                        	    <td style='width:40%;'>Perms</td>
+                        	    <td style='width:20%;'>Roles</td>
+                        	    <td style='width:20%;'>Status</td>
+                        	    <td style='width:10%;'>Action</td>
+                        	</tr>
+                        </thead>
+                        <tbody>
+                        	<?php foreach ($this->list as $row) :?>
+                        	<tr>
+                        	<td><b>
+                        	<?php 
+                        	if ($domain != '')
+                        		echo str_replace("$domain:", '', $row['fname']);
+                        	else
+                        		echo $row['fname'];
+                        	?>
+                        	</b></td>
+                        	<td><?php echo $row['cname'];?></td>
+                        	<td> 
+                        		<?php if (isset($row['permissions'])):?>
+	                        	<div style='max-height:80px;overflow-y:scroll;'>
+	                        	<?php echo implode(", ", $row['permissions']);?>
+	                        	</div>
+	                        	<?php endif;?>
+                        	</td>
+                        	<td>
+                        	<?php if (isset($row['g'])):?>
+                        		<?php foreach ($row['g'] as $rc):?>
+                        		<div>
+                        		<?php 
+		                        	if ($domain != '')
+		                        		echo str_replace("$domain:", '', $rc);
+		                        	else
+		                        		echo $rc;
+	                        	?>
+                        		
+                        		</div>
+                        		<?php endforeach;?>
+	                       	<?php endif;?>
+                        	</td>
+<td>
+        			    <div class="btn-group">
+        			    	<a title='Private - Set to private if you do not want the normal user to apply for this position' 
+        			    		href="/user/update-role?id=<?php echo $row['id'];?>&status=private&_cl_step=status"
+        			    	class="btn btn-primary btn-xs <?php if($row['status']=='private') echo 'active';?> cl_ajax" 
+        			    	_cl_get_metadata="active_button_group"> Priv. </a>
+        			    	<a title='Public - i.e Available for public user to apply'
+        			    		href="/user/update-role?id=<?php echo $row['id'];?>&status=public&_cl_step=status" 
+        			    	class="btn btn-primary btn-xs <?php if($row['status']=='public') echo 'active';?> cl_ajax" _cl_get_metadata="active_button_group"> Public</a>
+						</div>
+</td>
+                        	
+                        	<td>
+                        	<?php //echo $domain;?>
+                        	
+                        	<a style='margin-bottom: 3px;' class='cl_ajax btn btn-danger btn-xs'
+                        	_cl_ajax_confirm='yes'
+                        	 _cl_get_metadata='hide_my_parent:2' href='/user/delete-role?id=<?php echo $row['id']?>&dmn=<?php echo $domain;?>'>delete</a>
+                        	 <br/>
+                        	 <a style='margin-bottom: 3px;' 
+                            	class='btn btn-primary btn-xs <?php /*modal_ajax*/?>'
+                            	on_modal_shown='rebind_ajax_form' 
+                            	target='_blank'
+                            	href='/user/update-role?id=<?php echo $row['id']?>&_cl_step=permissions&dmn=<?php echo $domain;?>'>edit perms</a>
+                        	 <br/>
+                        	 <a style='margin-bottom: 3px;' class='btn btn-primary btn-xs modal_ajax'
+                        	 on_modal_shown='rebind_ajax_form'
+                        	href='/user/update-role?id=<?php echo $row['id']?>&_cl_step=roles_group&dmn=<?php echo $domain;?>&dmn_type=<?php echo get_value('dmn_type', '');?>'>edit roles</a>
+	                       	
+                        	</td>
+                        	<?php endforeach;?>
+                        </tbody>
+                        </table>
+                        <?php else:?>
+                        No match
+                        <?php endif;?>
+                        </div>    
+                    </div>
+            </div>
+    </div>
+</div>

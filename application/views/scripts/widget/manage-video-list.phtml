@@ -1,0 +1,187 @@
+<?php 
+	$list = isset($this->list) ? $this->list : array();
+	$page = isset($this->page) ? $this->page : 1;
+	$filter = isset($this->filter) ? $this->filter : 1;
+	$ac_name = isset($this->ac_name) ? $this->ac_name : '';
+	$isWidget = (isset($this->is_widget) && $this->is_widget == 'widget') ? true:false;
+	$total = Zend_Registry::isRegistered('total') ? Zend_Registry::get('total') : isset($this->total) ? $this->total : 1;
+?>
+<?php if(count($list) > 0):?>
+	<div class='clear' style='margin-top: 15px;'></div>
+	<div class='manage-menu' style='margin-bottom: 56px;'>
+		<span class="pull-left">
+			<?php /*
+				<a href='javascript:void(0);'>				
+			*/?>
+				<a href='<?php if($subscribed) 
+							       echo $unsubLink; 
+							   else 
+							   	   echo $subLink;?>' 
+			   	   class='cl_ajax sublink'>
+					<button type="button" 
+						class="vd-button vd-is-buffered vd-button-branded sub-button
+							<?php if($subscribed):?>vd-button-active<?php endif;?>">
+						<span class="button-icon-wrapper">
+							<img class="vd-button-icon" 
+							src="<?php echo ASSETS_CDN;?>/img/icon_delete_small.png">
+						</span>
+						
+						<span class="vd-button-content">
+							<span aria-label="Xóa mục đã chọn" class="sub-label">
+								Xóa clip
+								</span>
+						</span>
+					</button>
+				</a>
+			</span>
+	</div>
+	<ol class='manage-video'>
+	<?php foreach ($list as $video):?>
+	<?php $imgLink = "http://img.youtube.com/vi/{$video['ytid']}/0.jpg";?>
+		<li class='video'> 
+			<div class='video-action'>
+				<span>
+					<input 
+						class="" type="checkbox" value="DoEevFsaxt0" name="video-checkbox">
+				</span>
+				<div class='image'>
+					<a href='<?php echo node_link('video', $video);?>'>
+						<img alt="" src="<?php echo $imgLink;?>">
+					</a>
+				</div>
+				<div></div>
+			</div>
+			<div class='video-info'>
+				<div class="vd-video-title">
+					<a href='<?php echo node_link('video', $video);?>'>
+						<?php echo $video['name'];?>
+					</a>
+				</div>
+				
+				<div class='vd-date-info'>
+					<?php echo gmdate('Y-m-d H:i:s', $video['ts']);?>
+				</div>
+				
+				<div class='action'>
+					<a href='/video/update?id=<?php echo $video['id'];?>'>
+						<button type="button" 
+							class="vd-button vd-is-buffered vd-button-branded sub-button btn-default
+								<?php if($subscribed):?>vd-button-active<?php endif;?>">
+							<span class="button-icon-wrapper">
+								<img class="vd-button-icon" 
+								src="<?php echo ASSETS_CDN;?>/img/edit-icon.png">
+							</span>
+							
+							<span class="vd-button-content">
+								<span aria-label="Sửa thông tin clip" class="sub-label">
+									Sửa
+									</span>
+							</span>
+						</button>
+						</a>
+						
+				<a href='/video/delete?id=<?php echo $video['id'];?>' 
+			   	   class='cl_ajax sublink'>
+					<button type="button" 
+						class="vd-button vd-is-buffered vd-button-branded sub-button btn-danger
+							<?php if($subscribed):?>vd-button-active<?php endif;?>">
+						<span class="button-icon-wrapper">
+							<img class="vd-button-icon" 
+							src="<?php echo ASSETS_CDN;?>/img/icon_delete_small.png">
+						</span>
+						
+						<span class="vd-button-content">
+							<span aria-label="Xóa mục đã chọn" class="sub-label">
+								Xóa clip
+								</span>
+						</span>
+					</button>
+				</a>
+					</div>
+			</div>
+			
+			<div class='video-analytics'>
+				<?php 
+					$view = isset($video['counter']['vyt']) ? $video['counter']['vyt'] : 0;
+					$like = isset($video['counter']['l']) ? $video['counter']['l'] : 0;
+					$comment = isset($video['counter']['c']) ? $video['counter']['c'] : 0;
+				?>
+				<ol>
+					<li title='Lượt xem của clip trên youtube'> 
+						<span class='view'>
+							<img src="<?php echo ASSETS_CDN?>//img/views.png">
+								<?php echo number_format($view);?></span>
+					</li>
+					<li title='Lượt like của clip'>
+						<span class='like'>
+							<img src="<?php echo ASSETS_CDN?>//img/likes.png">
+								<?php echo number_format($like);?></span>
+					<li title='Lượt bình luận trên clip'> 
+						<span class='comment'>
+							<img src="<?php echo ASSETS_CDN?>//img/icon-comment-small.png">
+								<?php echo number_format($comment);?></span>
+					</li>
+				</ol>
+			</div>
+		</li>
+	<?php endforeach;?>
+	</ol>
+<?php endif;?>	
+<style>
+<!--
+.video-action{
+	float: left;
+    min-width: 240px;
+}	
+.video-info{
+	overflow: hidden;
+    padding: 10px 25px;
+    width: 50%;
+}
+.manage-video li{
+	background: none repeat scroll 0 0 #FFFFFF;
+	clear: both;
+	padding: 5px;
+}
+.manage-video li.video{
+	border-top: 1px solid #D5D5D5;
+}
+.video-action span{
+	float: left;
+}
+.video-action .image{
+	float: left;
+	margin: 0 15px;
+	position: relative;
+	text-align: left;
+	width: 156px;
+}
+.video-info .vd-video-title {
+    display: inline-block;
+    max-width: 590px;
+}
+.video-info .vd-video-title a{
+	color: #1E5DAD;
+}
+.video-info .vm-video-info {
+    color: #999999;
+    display: block;
+    font-size: 11px;
+    line-height: 13px;
+    margin-top: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+}
+
+.video-analytics {
+    padding: 10px 5px 15px 10px;
+    float: right;
+    width: 205px;
+    margin-top: -62px;
+}
+.manage-menu{
+}
+-->
+</style>
