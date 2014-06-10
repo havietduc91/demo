@@ -333,8 +333,11 @@ class Video_IndexController extends Cl_Controller_Action_NodeIndex
     		$this->setViewParam('list', $r['result']);
     	}else{
     		$this->setViewParam('list', array());
+    		$r['total'] = 0;
     	}
-    
+    	
+    	$this->setViewParam('total', $r['total']);
+    	$this->setViewParam('page', $page);
     	if($user != array()){
     		Bootstrap::$pageTitle = 'Quản lý clip - ' . $user['name'];
     	}else

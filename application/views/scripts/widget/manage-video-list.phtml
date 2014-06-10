@@ -35,7 +35,7 @@
 				</a>
 			</span>
 	</div>
-	<ol class='manage-video'>
+	<ol class='manage-video' style='min-height: 460px;'>
 	<?php foreach ($list as $video):?>
 	<?php $imgLink = "http://img.youtube.com/vi/{$video['ytid']}/0.jpg";?>
 		<li class='video'> 
@@ -120,7 +120,7 @@
 								<?php echo number_format($like);?></span>
 					<li title='Lượt bình luận trên clip'> 
 						<span class='comment'>
-							<img src="<?php echo ASSETS_CDN?>//img/icon-comment-small.png">
+							<img src="<?php echo ASSETS_CDN?>//img/icon-comment.png">
 								<?php echo number_format($comment);?></span>
 					</li>
 				</ol>

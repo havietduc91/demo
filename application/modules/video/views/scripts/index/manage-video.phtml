@@ -3,6 +3,7 @@
     $user = Zend_Registry::isRegistered('viewuser') ? Zend_Registry::get('viewuser') : array();
     $newVideos = isset($this->newVideos) ? $this->newVideos : array();
     $hotVideos = isset($this->hotVideos) ? $this->hotVideos : array();
+    $this->url = '/video/manage-video'
 ?>
 <script type="text/javascript">
 CL.NID = "<?php echo $row['id']; ?>";
@@ -20,5 +21,10 @@ CL.NID = "<?php echo $row['id']; ?>";
 	</div>
 	
 	<?php echo $this->render('/widget/manage-video-list.phtml');?>
+	
+	<div class="clear"> </div>
+	<?php if($this->total > 0) :?>
+        <?php echo $this->render("widget/vd-pagination.phtml");?>
+    <?php endif;?>
 </div>
 <div class="clear"> </div>

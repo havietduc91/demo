@@ -116,7 +116,7 @@ body{
 	background: url(../img/search-5.png);
 	background-repeat: no-repeat;
 	width: 26px;
-	height: 26px;
+	height: 28px;
 	cursor:pointer;
 }
 .video-share ul li{
@@ -630,7 +630,7 @@ ul.dc_pagination li {
 	margin-left: 5px;
 	padding: 0px;
 }
-ul.dc_paginationA03 li a:hover, ul.dc_paginationA03 li a.current {
+ul.dc_paginationA03 li a:hover, ul.dc_paginationA03 li a.current, ul.dc_paginationA03 li a.active {
 	background: rgb(30, 93, 173);
 	color: #fff !important;
 	

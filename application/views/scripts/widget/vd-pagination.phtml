@@ -1,0 +1,53 @@
+<?php 
+	$url = $this->url;
+    $perPage = per_page();
+    $range = PAGE_RANGES;
+    if ($perPage != -1)
+    {
+        $page = $this->page;
+        if (is_null($page) || $page == '')
+            $page = 1;
+        if ($this->total > $perPage) {
+            $nrOfPages = floor(($this->total - 1) / $perPage) + 1;
+?>
+
+<div>
+  <ul class="pagination dc_pagination dc_paginationA dc_paginationA03">
+	<?php if ($page - $range > 1): ?>
+	  <li><a href="<?php echo $url?>/1">First</a></li>
+	  <li><a href="<?php echo $url?>/<?php echo $page - 1;?>">&laquo; Prev</a></li>
+	<?php else: ?>
+	 <!--  <li><a href="#">Prev</a></li>  -->
+	<?php endif; ?>
+	
+	<?php for ($i = $page - $range; $i <= /*$nrOfPages*/ $page + $range; $i ++) :?>
+		<?php 
+			if ($i <= 0 || $i > $nrOfPages)
+				continue;
+			if ($i == 1)
+				$l = 1;
+			else
+				$l = $i;
+		?>
+		<?php if ($i == $page) :?>
+        	<li>
+              <a class="active" href="<?php echo $url?>/<?php echo $i;?>"><?php echo $i;?></a>
+            </li>
+		<?php else:?>
+			<li><a href="<?php echo $url?>/<?php echo $l;?>"><?php echo $i;?></a></li>
+		<?php endif;?>
+	<?php endfor;?>
+	
+	<?php if ($page + $range < $nrOfPages): ?>
+	  <li><a href="<?php echo $url?>/<?php echo $page + 1;?>">
+	    Next &raquo;
+	  </a></li>
+	  <li><a href="<?php echo $url?>/<?php echo $nrOfPages;?>">Last</a></li>
+	<?php else: ?>
+		<!-- <li><a href="#">Next</a></li> -->
+	<?php endif; ?>
+  </ul>
+</div>
+
+        <?php }?>
+<?php }?>
