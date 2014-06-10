@@ -20,6 +20,7 @@ class User_IndexController extends Cl_Controller_Action_UserIndex
 			$this->setViewParam('list', array());
 		}
 		
+		$this->setViewParam('total', $r['total']);
 		//Get new video
 		$list = Dao_Node_Video::getInstance()->getVideoByType('new', 3, $row['ts']);
 		$this->setViewParam('newVideos', $list);
@@ -41,8 +42,22 @@ class User_IndexController extends Cl_Controller_Action_UserIndex
 		$page = $this->getStrippedParam('page',1);
 	
 		$playlist = isset($lu['playlist']) ? $lu['playlist'] : array();
-		$this->setViewParam('list', $playlist);
+		$item_per_page = per_page();
+		
+		$newPlaylist = array();
+		$start = ($page - 1) * $item_per_page + 1;
+		$end = $page * $item_per_page + 1;
+		
+		if($start <= count($playlist)){
+			for($i = $start;$i < $end;$i ++){
+				$newPlaylist[] = $playlist[$i];
+			}
+		}
+		
+		$this->setViewParam('list', $newPlaylist);
 	
+		$this->setViewParam('total', count($playlist));
+		$this->setViewParam('page', $page);
 		//Get new video
 		$list = Dao_Node_Video::getInstance()->getVideoByType('new', 3, $row['ts']);
 		$this->setViewParam('newVideos', $list);
