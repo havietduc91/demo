@@ -1,3 +1,4 @@
+<?php echo sand_dev_info_phtml(__FILE__);?>
 <?php 
 	$lu = Zend_Registry::get('user');
 	$avatar = (isset($lu['avatar']) && $lu['avatar'] != '') ? $lu['avatar'] : default_avatar('user');

@@ -163,11 +163,26 @@ class Video_IndexController extends Cl_Controller_Action_NodeIndex
     
     public function viewAction()
     {
-        //TODO Your permission here
-        parent::viewAction();//no permission yet
+    	$iid = (string) $this->getStrippedParam('iid');
+        //$slug = (string) $this->getStrippedParam('slug');
+        if ($iid)
+        	$where = array('iid' => $iid);
+        //elseif ($slug)
+        	//$where = array('slug' => $slug);
+        	
+    	$r = $this->dao->findOne($where, true /*convert id*/);
+    	
+    	if ($r['success'] && $r['count'] > 0)
+    	{
+    	     $this->setViewParam('row', $r['result']);
+    	}   
+    	else 
+    	{
+    		$this->_redirect("/");
+    	}
 
         if ($row = $this->getViewParam('row')){
-	        //Get list related story 5.9.2013
+	        //Get list related video 5.9.2013
 	        $list = array();
 	        $tags = array();
 	         
@@ -359,5 +374,98 @@ class Video_IndexController extends Cl_Controller_Action_NodeIndex
     		$this->ajaxData['data'] = array('msg' => t('successful',1));
     	}
     }    
+    
+    //==============FB comment,like,share counter===========
+    
+    public function newFbCommentAction()
+    {
+    	// TODO: match this for different url schemes
+    	$url = preg_replace('/#view$/', '',get_value('url'));
+    	$id = get_value('id');
+    	$fbc = fb_counter($url,'comment'); //fb comment
+    	$formClass = 'Video_Form_Update';
+    	$daoClass = 'Dao_Node_Video';
+    	$step = '';
+    	$obj = 'Node';
+    	$dao = $daoClass::getInstance();
+    
+    	$where = array('id' => $id);
+    	$r = $dao->findOne($where);
+    
+    	if ($r['success'] && $r['count'] > 0)
+    	{
+    		$row = $r['result'];
+    		$update = array('counter.c' => $fbc);
+    		
+    		$update = array('$set' => $update);
+    		$r = $dao->update($where, $update);
+    		$dao->deleteStaticCache($row);
+    	}
+    	$r = array('success' => true, 'result' => 'done!');
+    	$this->handleAjaxOrMaster($r);
+    }
+    
+    public function newFbLikeAction()
+    {
+    	 
+    	$iid = $this->getStrippedParam('iid');
+    	$id = $this->getStrippedParam('id');
+    	$rt = $this->getStrippedParam('rt');
+    	$uiid=$this->getStrippedParam('uiid');
+    	if(is_rest() && $rt==1)
+    	{
+    		$options = array(
+    				'subject' => 'user',
+    				'object' => 'video',
+    		);
+    		$relationDao = Cl_Dao_Relation::getInstance($options);
+    		$where=array(
+    				's.iid'=>(string)$uiid,
+    				'o.id'=>(string)$id,
+    				'r.rt'=>$rt);
+    		$cond['where']=$where;
+    		$r=$relationDao->find($cond);
+    		if($r['count']>0)
+    		{
+    			$r = array('success' => false, 'result' => 'Already like FB');
+    			send_json($r);
+    		}
+    		else { //new relation
+    			$object='video';
+    			$data = array(
+    					's' => Zend_Registry::get('user'),
+    					'o' => array('id' => $id),
+    					'r' => array(
+    							'rt' => $rt
+    					)
+    			);
+    			$requestParams = array(
+    					'object'=>$object,
+    					'rt'=>$rt,
+    					'id'=>$id
+    			);
+    			$dao = Cl_Dao_Util::getDaoObject($object); //comment_samx => Cl_Dao_Comment_Samx
+    			$r = $dao->insertRelation($data, $options, $requestParams);
+    			if (!$r['success'])
+    			{
+    				$r = array('success' => false, 'result' => 'Error insert database');
+    				send_json($r);
+    			}
+    			$dao_video=Dao_Node_Video::getInstance();
+    			$rs=$dao_video->findOne(array('id'=>$id));
+    			$iid=$rs['result']['iid'];
+    		}
+    	}
+    	$dao_video=Dao_Node_Video::getInstance();
+    	$dao_video->fb_like_inc_point($iid,$rt);
+    	$dao_video->deleteStaticCacheOfType('vote',1,10);
+    	$dao_video->deleteStaticCacheOfType('new',1,10);
+    	$r = array('success' => true, 'result' => 'done!');
+    	if(is_rest())
+    	{
+    		send_json($r);
+    	}
+    	$this->handleAjaxOrMaster($r);
+    }
 }
 

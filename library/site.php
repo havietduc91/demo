@@ -1,4 +1,54 @@
 <?
+//facebook parse int . comment,like,share
+function fb_counter($url,$type)
+{
+	/**
+	 * Add new node
+	 * @param $url : url of site that we need count likes,comments,shares
+	 * @param $type : string 'like' | 'comment' | 'share' | 'commentsbox'
+	 * @return number of likes,comments,shares
+	 * */
+	if($type == 'like')
+	{
+		$like="<like_count>";
+		$like1="</like_count>";
+		$pos = 18;
+	}
+	if($type == 'share')
+	{
+		$like="<share_count>";
+		$like1="</share_count>";
+		$pos = 19;
+	}
+	if($type == 'commentsbox')
+	{
+		$like="<commentsbox_count>";
+		$like1="</commentsbox_count>";
+		$pos = 25;
+	}
+	if($type == 'comment')
+	{
+		$like="<comment_count>";
+		$like1="</comment_count>";
+		$pos = 21;
+	}
+	$addr="http://api.facebook.com/restserver.php?method=links.getStats&urls=".$url;
+	//$page_source=file_get_contents($addr);
+	$client = new Zend_Http_Client();
+	$client->setMethod(Zend_Http_Client::GET);
+	$client->setUri($addr);
+	$response = $client->request();
+	$page_source=$response->getBody();
+	$page = htmlentities($page_source);
+	$lik=strpos($page,htmlentities($like));
+	$lik1=strpos($page,htmlentities($like1));
+	$fullcount=strlen($page);
+	$a=$fullcount-$lik1;
+	$aaa=substr($page,$lik+$pos,-$a);
+	$aaa1=substr($page,605,610);
+	return $aaa;
+}
+
 //Check user's permission edit, delete video
 function has_role_video($lu, $id){
 	if(!$lu){
@@ -54,9 +104,19 @@ function per_page()
 {
 	return 9;
 }
-function node_link($type, $node)
-{
-    return "/{$type}/view?id={$node['id']}";
+/**return link of a story **/
+function node_link($type = 'video', $row){
+
+	if ($type == 'video')
+	{
+			$link = '/video/'. $row['iid'].'-' . $row['slug'] .'.html';
+	}
+	
+	elseif ($type == 'tag')
+		$link = "/tagged/" . $row['slug'];
+	else
+		$link = "/$type/{$row['id']}";
+	return $link;
 }
 function tag_link($tag)
 {

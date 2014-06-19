@@ -1,5 +1,5 @@
 <?php
-class Dao_Node_Video extends Cl_Dao_Node
+class Dao_Node_Video extends Dao_Node_Site
 {
     public $nodeType = 'video';
     public $cSchema = array(
@@ -57,6 +57,7 @@ class Dao_Node_Video extends Cl_Dao_Node
     	            'v' => 'int', //views on page
         			'vyt' => 'int', //views youtube
         			'hn'=> 'float',//hotness
+        			'point' => 'float',
     	        ),
         		'url' => 'string',
         		'ytid' => 'string',
@@ -124,7 +125,7 @@ class Dao_Node_Video extends Cl_Dao_Node
 		{
 			//unset  tag name 'featured' if user's not allowed
 			foreach ($data['tags'] as $k => $tag){
-				if($tag['name'] == featured_tag() && !has_perm('admin_story')){
+				if($tag['name'] == featured_tag() && !has_perm('admin_video')){
 					unset($data['tags'][$k]);
 				}
 			}
@@ -136,7 +137,7 @@ class Dao_Node_Video extends Cl_Dao_Node
 				$data['tags'] = $r['result'];
 		}
 		
-		//set slug for story
+		//set slug for video
 		if (!isset($data['slug']))
 		{
 			$tempSlug = Cl_Utility::getInstance()->generateSlug($data['name']);
@@ -494,5 +495,46 @@ class Dao_Node_Video extends Cl_Dao_Node
 		}
 		
 		return $r;
+	}
+	
+	public function fb_like_inc_point($iid,$rt)
+	{
+		$where = array('iid' => $iid);
+		$r = Dao_Node_Video::getInstance()->findOne($where);
+		$lu = Zend_Registry::get('user');
+		if ($r['success'] && $r['count'] > 0)
+		{
+			$where1 = array('id' => $r['id']);
+			//$actor, $action, $node, $subjectUser = array()
+			if ($rt == 1 )//vote up
+			{
+				parent::updateUserKarmaAndNodePoint($lu,'video_voted_up',$r['result'],$r['result']['u']);
+				//if voted up => increase 1 more vote
+				$videoUpdate = array('$inc' => array('counter.l' => 1));
+				$r2 = $this->update($where, $videoUpdate);
+			}
+		}
+	}
+	
+	/**
+	 * Removed folder by type = hot | new| best| vote
+	 * @param unknown_type $type
+	 */
+	public function deleteStaticCacheOfType($type,$first,$last)
+	{
+		//Delete cache if exists
+		$dir = get_cache_dir();
+		$dirname = $dir . '/' . $type;
+		for($i=$first;$i<=$last;$i++){
+			if(file_exists($dirname."/".$i.'.html') && !is_dir($dirname."/".$i.'.html')){
+				unlink($dirname."/".$i.'.html');
+			}
+			if(file_exists($dirname."/".$i.".json")){
+				unlink($dirname."/".$i.".json");
+			}
+			if(is_dir($dirname."/".$i)){
+				$this->rmdir_recursive($dirname."/".$i);
+			}
+		}
 	}
 }

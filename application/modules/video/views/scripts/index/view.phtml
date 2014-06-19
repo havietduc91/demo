@@ -1,3 +1,4 @@
+<?php echo sand_dev_info_phtml(__FILE__);?>
 <?php 
     $row = $this->row;
     $lu = Zend_Registry::get('user');
@@ -15,6 +16,17 @@
     			break;
     		}
     	}
+    }
+    
+    $playList = isset($lu['playlist']) ? $lu['playlist'] : array();
+    $isFavourite = false;
+    if(count($playList) > 0){
+		foreach ($playList as $v){
+			if($v['id'] == $row['id']){
+				$isFavourite = true;
+				break;
+			}
+		}    	
     }
     
     $subLink = "/user/subscribe?id={$row['u']['id']}";
@@ -76,14 +88,15 @@ CL.NID = "<?php echo $row['id']; ?>";
 						title='Thêm vào playlist ưa thích'>
 					<a href="/video/add-playlist?id=<?php echo $row['id'];?>" class='cl_ajax'>				
 						<button type="button" 
-							class="vd-button vd-is-buffered vd-button-branded btn-favourite">
+							class="vd-button vd-is-buffered vd-button-branded btn-favourite 
+								<?php if($isFavourite):?>vd-button-active<?php endif;?>">
 							<span class="button-icon-wrapper">
 								<img class="vd-button-icon" 
 								src="<?php echo ASSETS_CDN?>/img/favourites-8.png">
 							</span>
 							<span class="vd-button-content">
 								<span aria-label="Clip ưa thích" class="subscribe-label">
-								Ưa thích</span>
+								<?php if($isFavourite):?>Bỏ thích<?php else:?>Ưa thích<?php endif;?></span>
 							</span>		
 						</button>
 					</a>

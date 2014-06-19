@@ -130,6 +130,130 @@ $(function(){ // document ready
     }
 
 });
+
+$(document).ready(function() {
+	$.ajaxSetup({ cache: true });
+	$.getScript('//connect.facebook.net/en_UK/all.js', function(){
+		FB.init({
+			appId: CL.FB_APP_ID,
+			//channelUrl: 'hoibi.net',
+			  status: true,
+	          cookie: true, 
+	          xfbml: true,
+	            
+		});     
+		var init_comment_cb = function()
+		{
+			FB.Event.subscribe('comment.create',
+		            function (response) {
+		                $.ajax({
+		                    url : "/video/new-fb-comment",
+		                    data : 
+		                    {
+		                        id  : CL.nid,
+		                        url : window.location.href
+		                    }
+		                });
+		            }
+		         );
+		        FB.Event.subscribe('comment.remove',
+		            function (response) {
+		               $.ajax();
+		            }
+	        );
+		};
+		
+		var init_like_cb = function()
+		{
+			 FB.Event.subscribe('edge.create',
+	            function (url) {
+				 console.log(url);
+		 			//from URL : http://fun.local/truyen-cuoi/440-123123-2.html
+			     //TF : http://fun.local/quiz/757.html
+		 			//TODO: check for fun & thaifun url
+			        var re = new RegExp('(.*)\/([0-9]*)-([^\]*)\.html$');
+		 			var tmp = url.match(re);
+		 			console.log(tmp);
+		 			if (tmp.length >= 2)
+	 				{
+		 				$.ajax({
+		 					url : "/video/new-fb-like",
+		 					data : 
+		 					{
+		 					    rt : 1, //voteup
+		 						iid  : tmp[2], //9440
+		 						url : url//http://hoibi.net/anh-vui/9440-1.htm
+		 					},
+		 					success:function(){
+		 						count=$( "#total-vote-" + tmp[2] ).text();
+		 						$( "#total-vote-" + tmp[2]).text(parseInt(count)+1);
+		 					}
+		 					
+		 				});
+	 				}
+	            }
+	        );
+	        FB.Event.subscribe('edge.remove',
+        		function (url) {
+	 			//from URL : http://fun.local/truyen-cuoi/440-123123-2.html
+	 			//TODO: check for fun & thaifun url
+                var re = new RegExp('(.*)\/([0-9]*)-([^\]*)\.html$');
+	 			var tmp = url.match(re);
+	 			if (tmp.length >= 2)
+ 				{
+	 				$.ajax({
+	 					url : "/video/new-fb-like",
+	 					data : 
+	 					{
+	 					    rt : 4,
+	 						iid  : tmp[2],
+	 						url : url
+	 					},
+	 					success:function(){
+	 						count=$( "#total-vote-" + tmp[2] ).text();
+	 						$( "#total-vote-" + tmp[2]).text(parseInt(count)-1);
+	 					}
+	 				});
+ 				}
+            }
+            );
+		};
+		
+		/*
+		var get_login_fb=function(){
+			FB.getLoginStatus(function(response) {
+				  if (response.status === 'connected') {
+				    console.log(response.authResponse.accessToken);
+				    setLocalStorageCookie('access_token',response.authResponse.accessToken);
+//				    $.cookie("access_token", response.authResponse.accessToken);
+				  }
+				 else {
+					 	FB.login(function(response) {
+					 		if (response.authResponse) {
+							     var access_token =   FB.getAuthResponse()['accessToken'];
+//							     console.log('Access Token = '+ access_token);
+							     FB.api('/me/feed', function(response) {
+							     $.cookie("access_token", access_token);
+							     });
+							   } else {
+							     console.log('User cancelled login or did not fully authorize.');
+							   }
+					 }, {scope: 'publish_stream,offline_access,email,user_events,create_event,user_location'});
+				}
+		    });
+//			 location.reload();
+		}
+		*/
+		
+		if (CL.page == 'video/index/view')
+		{
+			init_comment_cb();
+		}
+		
+		init_like_cb();
+		//get_login_fb();
+	});
+});
 /** End * */
 /*
 <!-- Place this tag after the last +1 button tag. -->
