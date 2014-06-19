@@ -502,6 +502,8 @@ class Dao_Node_Video extends Dao_Node_Site
 		$where = array('iid' => $iid);
 		$r = Dao_Node_Video::getInstance()->findOne($where);
 		$lu = Zend_Registry::get('user');
+		//TODO: Vi day la like, comment tu facebook nen kha nang khong co tai khoan
+		//Get default user => $lu = $defaulUser;
 		if ($r['success'] && $r['count'] > 0)
 		{
 			$where1 = array('id' => $r['id']);
@@ -512,7 +514,12 @@ class Dao_Node_Video extends Dao_Node_Site
 				//if voted up => increase 1 more vote
 				$videoUpdate = array('$inc' => array('counter.l' => 1));
 				$r2 = $this->update($where, $videoUpdate);
-			}
+			} else if ($rt == 4 )//vote down
+		    {
+	            parent::updateUserKarmaAndNodePoint($lu, 'video_voted_down', $r['result'],$r['result']['u']);
+		        $storyUpdate = array('$inc' => array('counter.l' => -1));
+		        $r2 = $this->update($where, $storyUpdate);
+		    }
 		}
 	}
 	

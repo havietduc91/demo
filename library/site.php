@@ -104,6 +104,15 @@ function per_page()
 {
 	return 9;
 }
+function get_cache_dir()
+{
+	$dir = PUBLIC_PATH. '/cache/';//add folder caches
+	if (getenv('SITE'))
+		$dir = $dir . getenv('SITE') . '/';
+	else
+		$dir = $dir . CODENAME . '/';
+	return $dir;
+}
 /**return link of a story **/
 function node_link($type = 'video', $row){
 

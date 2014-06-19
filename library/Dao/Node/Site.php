@@ -191,7 +191,7 @@ class Dao_Node_Site extends Cl_Dao_Node
         		$videoUpdate['$set'] = array('status' => 'approved');
         	}
         	
-        	$this->update(array('id' => $node['id']), $videoUpdate);
+        	$r = $this->update(array('id' => $node['id']), $videoUpdate);
                 
         return array('success' => true);
     }
