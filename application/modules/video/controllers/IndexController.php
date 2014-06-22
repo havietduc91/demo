@@ -383,7 +383,6 @@ class Video_IndexController extends Cl_Controller_Action_NodeIndex
     	$url = preg_replace('/#view$/', '',get_value('url'));
     	$id = get_value('id');
     	$fbc = fb_counter($url,'comment'); //fb comment
-    	$formClass = 'Video_Form_Update';
     	$daoClass = 'Dao_Node_Video';
     	$step = '';
     	$obj = 'Node';

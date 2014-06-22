@@ -544,4 +544,28 @@ class Dao_Node_Video extends Dao_Node_Site
 			}
 		}
 	}
+	
+	public function deleteStaticCache($row)
+	{
+		if (is_string($row))
+		{
+			$where = array('id' => $row);
+			$t = $this->findOne($where);
+			if ($t['success'])
+				$row = $t['result'];
+			else
+				return false;
+		}
+		//Delete cache if exists
+		$dir = get_cache_dir();
+		$nodelinks = node_link_cache('video', $row);
+		foreach( $nodelinks as $node)
+		{
+			$filename = $dir . $node;
+			if(file_exists($filename)){
+				unlink($filename);
+			}
+		}
+		return array('success' => true);
+	}
 }

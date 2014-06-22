@@ -13,8 +13,14 @@
 <div class='clear' style='min-height: 20px;'></div>
 <div id="idcover" class="pfctncover">
 <?php if($step == 'background'):?>
+	<div class="drag-cover">
+          <img src="<?php echo $lu['background'];?>" 
+          		alt="<?php echo $lu['name'];?>" style="width:1024px; height:768px;"/>
+        </div>
+	<?php /*
 	<div class="filledImage border-img">
 		<img class='avatar-preview' alt="" src="<?php echo $lu['background'];?>">
+	*/?>
 <?php elseif ($step == 'avatar'):?>
 	<div class="pfavatar border-img" style='top: 0;'>
 		<span class="avtholder" 
@@ -23,8 +29,6 @@
 	</div>
 </div>
 <?php $this->inlineScript()->captureStart();?>
-	//TODO: click preview change image in class avatar-preview
-	
 	//Show style background and 
 	$("#preview").click(function(){
 		var src = $(".display_avatar img").attr('src');
@@ -34,5 +38,22 @@
 			$(".avtholder").css('background-image', "url('" + src + "')");
 		<?php endif;?>
 	});
-	
+	$(function(){
+        $('.drag-cover').imagedrag({
+          input: "#output",
+          position: "middle",
+          attribute: "html"
+        });
+
+      });
 <?php $this->inlineScript()->captureEnd();?>
+<?php $this->inlineScript()->appendFile(ASSETS_CDN . "js/jquery.imagedrag.js", 'text/javascript');?>
+<style type="text/css">
+	.drag-cover {
+    width: 938px;
+    height: 280px;
+    overflow: hidden;
+    margin: auto;
+    cursor: -webkit-grab;
+}
+</style>

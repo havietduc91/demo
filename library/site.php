@@ -171,5 +171,18 @@ function display_avatar ($imgUrl, $size = 50, $atype = AS3_AVATAR_FOLDER)
 
 	return AVATAR_PREFIX . '/' . str_replace("//", "/", $avatar);
 }
-
+//node link for remove staticache
+function node_link_cache($type = 'video', $row){
+	$link = array();
+	if ($type == 'video')
+	{
+		$link[] = '/video/' . $row['iid'].'.html';
+		$link[] = '/video/' . $row['iid'].'.html.json';
+	}
+	elseif ($type == 'tag')
+		$link = "/tagged/" . $row['slug'];
+	else
+		$link = "/$type/{$row['id']}";
+	return $link;
+}
 ?>
