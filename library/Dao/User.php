@@ -8,6 +8,7 @@ class Dao_User extends Cl_Dao_User
 			'name' => 'string',
 			'avatar' => 'string',
 			'background' => 'string',
+			'position_top' => 'string',
 			'url' => 'string',
 			'ts' => 'int',
 			'counter' => 'mixed', // image extension
@@ -74,6 +75,7 @@ class Dao_User extends Cl_Dao_User
 				'ts' => 'int',
 				'avatar' => 'string',
 				'background' => 'string',
+				'position_top' => 'string',
 				'birthday' => 'string',
 				'last_login' => 'int',
 				'intro' => 'string',
@@ -411,5 +413,21 @@ class Dao_User extends Cl_Dao_User
     	}
     	
     	return $r;
+    }
+    
+    public function beforeUpdateUser($where, $data, $currentRow){
+    	if($data['$set']['_cl_step'] == 'background'){
+    		if(isset($data['$set']['position_top'])){
+    			$dataToUpdate = array('$set' => array('position_top' => '123'));
+    			$t = $this->update(array('id' => $currentRow['id']), $dataToUpdate);
+    		}
+    		//TODO: update position_top
+    	}
+    	parent::beforeUpdateUser($where, $data, $currentRow);
+    }
+    
+    public function afterUpdateUser($where, $data, $currentRow){
+    	
+    	parent::afterUpdateUser($where, $data, $currentRow);
     }
 }

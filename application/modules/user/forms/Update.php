@@ -6,7 +6,7 @@ class User_Form_Update extends Cl_Form_User_Update
     		$this->fieldList = array('name', 'mail', 'lname', 'ustatus');
     	}
     	else if($step == 'background')
-    		$this->fieldList = array('background');
+    		$this->fieldList = array('background', 'position_top');
     	else 
         	$this->fieldList = $this->getFieldList($step);
     	
@@ -90,10 +90,12 @@ class User_Form_Update extends Cl_Form_User_Update
         		'type' => 'Hidden',
         		'options' => array(
         			'class' => 'cl_upload',
-        			//TODO:
         			'type' => 'avatar_image',
         			'attribs' => array('cl_upload_text' => 'Avatar')
         		)
+        	),
+        	'position_top' => array(
+        		'type' => 'Hidden',
         	),
     	);
     }

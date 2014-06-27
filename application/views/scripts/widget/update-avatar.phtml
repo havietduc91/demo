@@ -4,17 +4,31 @@
 	$step = get_value('_cl_step', '');
 ?>
 <?php 
+/*
+	if($step == 'background'){
+		echo $this->form->background;
+	}else if($step == 'avatar')
+	{
+		echo $this->form->avatar;
+	}
+	
+	echo $this->form->_cl_submit;
+ */
 	echo $this->form;
 ?>
 
 <div id='preview' style='clear: both; width: 90px; min-width: inherit;'>
 	Xem trước	
 </div>
+<span id="output" onchange="changePositionTop()"></span>
+<div></div>
+
 <div class='clear' style='min-height: 20px;'></div>
 <div id="idcover" class="pfctncover">
 <?php if($step == 'background'):?>
 	<div class="drag-cover">
-          <img src="<?php echo $lu['background'];?>" 
+          <img src="<?php echo $lu['background'];?>"
+          		class='avatar-preview' 
           		alt="<?php echo $lu['name'];?>" style="width:1024px; height:768px;"/>
         </div>
 	<?php /*
@@ -40,20 +54,19 @@
 	});
 	$(function(){
         $('.drag-cover').imagedrag({
-          input: "#output",
+          input: "#position_top",
           position: "middle",
           attribute: "html"
         });
-
-      });
+    });
 <?php $this->inlineScript()->captureEnd();?>
 <?php $this->inlineScript()->appendFile(ASSETS_CDN . "js/jquery.imagedrag.js", 'text/javascript');?>
 <style type="text/css">
 	.drag-cover {
-    width: 938px;
-    height: 280px;
-    overflow: hidden;
-    margin: auto;
-    cursor: -webkit-grab;
+	    width: 938px;
+	    height: 280px;
+	    overflow: hidden;
+	    margin: auto;
+	    cursor: -webkit-grab;
 }
 </style>
