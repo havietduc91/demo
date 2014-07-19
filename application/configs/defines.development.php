@@ -90,7 +90,10 @@ define('PUBLIC_FILES_SERVER', 'local');
 
 function default_avatar($nodeType)
 {
-    return SAND_ASSETS_CDN. "/images/avatar.gif";
+	if($nodeType == 'background'){
+		return ASSETS_CDN. "/img/cover.jpg";
+	}else
+	    return SAND_ASSETS_CDN. "/images/avatar.gif";
 }
 
 
