@@ -45,9 +45,10 @@
 							style='height: 37px;'></a></li>
 			<?php else:?>
 			    <?php if(!has_perm('sudo', null, '', $u)):?>
+			    	<?php $avatar = (isset($u['avatar']) && $u['avatar'] != '') ? $u['avatar'] : default_avatar('user');?>
 		    		<li style='padding: 4px;'><a href="<?php echo user_link($u);?>">
-					    <img title="Trang cá nhân" src="<?php echo ASSETS_CDN?>/img/avatar.png"
-								style='height: 37px;'></a></a></li>
+					    <img title="Trang cá nhân" src="<?php echo $avatar;?>"
+								style='height: 37px; width:40px;'></a></a></li>
 			    <?php endif;?>
 				<?php if (has_perm('sudo', null, '', $u)) :?>
 					<li><a href="/site/admin">

@@ -51,7 +51,7 @@
 <?php if (isset($this->list)) :?>
 	Total <?php echo $this->total;?>
 	<?php if($this->total > 0) :?>
-	    <?php echo $this->render("widget/pagination.phtml");?>
+	    <?php echo $this->render("widget/paginationa.phtml");?>
 	<?php endif;?>
 	
 	<a href="/<?php echo $this->module?>/bulk-delete" class="cl_ajax btn btn-xs"
@@ -63,7 +63,6 @@
 	<thead>
 		<tr>
 			<th><input type="checkbox" class="checkall"/></th>
-			<th>ID</th>
 			<th>Name</th>
 			<th>Email</th>
 			<th>Role</th>
@@ -75,8 +74,10 @@
 		<?php foreach($this->list as $row) :?>
 		<tr id="<?php echo $row['id'];?>">
 			<td><input type="checkbox" value="<?php echo $row['id'];?>" class="check-item" /></td>
-			<td><?php echo Cl_Utility::charBreadcumb($row['id'], 8);?>...</td>
-			<td><a href="/user/<?php echo $row['id'];?>"><?php echo $row['name'];?></a></td>
+			<td>
+				<?php $avatar = (isset($row['avatar']) && $row['avatar'] != '') ? $row['avatar'] : default_avatar('user');?>
+				<img alt="" src="<?php echo $avatar;?>" width='37px' height='37px'>
+				<a href="/user/<?php echo $row['id'];?>"><?php echo $row['name'];?></a></td>
 			<td><a href="/user/<?php echo $row['id'];?>"><?php echo $row['mail'];?></a></td>
 			<td>
 			<form class="cl_ajax" method="POST" action="/user/update?_cl_step=assign_roles">
@@ -87,25 +88,29 @@
 			    <a href="/user/update-role?id=<?echo $role['id'];?>"><?php echo $role['name'];?></a>
 			    <?php endforeach;?>
 			    <br/>
-			    <input name="submit" type="submit" value="update" class="btn btn-xs">
+			    <input name="submit" type="submit" value="update" class="btn btn-xs btn-primary">
 			</form>
 			</td>			
 			<td>
 					<span <?php if ($row['status'] == 'banned') echo "style='display:none'"?> >
 					Active<br/>
 					<a href='/user/update?id=<?php echo $row['id'];?>&_cl_step=block_user&status=banned' 
-					    _cl_get_metadata="hide_my_parent_show_next_uncle" class='btn btn-xs cl_ajax' _cl_ajax_confirm="yes">Block</a>
+					    _cl_get_metadata="hide_my_parent_show_next_uncle" class='btn btn-xs cl_ajax btn-primary ' 
+				    	_cl_ajax_confirm="yes">Block</a>
 					</span>
 					<span <?php if ($row['status'] != 'banned') echo "style='display:none'"?> >
 					Banned<br/>
 					<a href='/user/update?id=<?php echo $row['id'];?>&_cl_step=unblock_user&status=activated' 
-					    _cl_get_metadata="hide_my_parent_show_prev_uncle" class='btn btn-xs cl_ajax' _cl_ajax_confirm="yes">Unblock</a>
+					    _cl_get_metadata="hide_my_parent_show_prev_uncle" class='btn btn-xs cl_ajax btn-default '
+					     _cl_ajax_confirm="yes">Unblock</a>
 					</span>
 			</td>			
 			<td>
-					<a href="/<?php echo $this->module;?>/update?id=<?php echo $row['id']?>" class="btn btn-xs"><i class="icon-edit"></i>Edit</a>
+					<a href="/<?php echo $this->module;?>/update?id=<?php echo $row['id']?>" 
+						class="btn btn-xs btn-default ">
+						<i class="icon-edit"></i>Edit</a>
 					<a href="/<?php echo $this->module;?>/delete?id=<?php echo $row['id']?>" 
-						class="btn btn-xs cl_ajax" _cl_ajax_confirm="yes" _cl_get_metadata="remove_my_parent:2">
+						class="btn btn-xs btn-danger cl_ajax" _cl_ajax_confirm="yes" _cl_get_metadata="remove_my_parent:2">
 						<i class="icon-remove"></i>Delete
 					</a>
 			</td>
