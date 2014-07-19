@@ -389,6 +389,12 @@ class Dao_Node_Video extends Dao_Node_Site
 		$r = $this->find($cond);
 		if($r['success'] && $r['count'] > 0) {
 			$list = $r['result'];
+		}else{
+			//clip la moi nhat, nen khong co clip moi hon
+			$where = array('ts' => array('$lt' => $ts));
+			$cond['where'] = $where;
+			$r = $this->find($cond);
+			$list = $r['result'];
 		}
 		
 		return $list;

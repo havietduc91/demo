@@ -35,12 +35,22 @@
 				<div class="grid-info">
 					<div class="video-share">
 						<ul>
-							<li><a href="#"><img src="<?php echo ASSETS_CDN?>/img/likes.png" title="links"></a></li>
-							<li><a href="#"><img src="<?php echo ASSETS_CDN?>/img/link.png" title="Link"></a></li>
-							<li><a href="#">
-							<?php $view = isset($video['counter']['v']) ? $video['counter']['v'] : 0;?>
+							<?php 
+								$views = isset($video['counter']['v']) ? $video['counter']['v'] : 0;
+								$likes = isset($video['counter']['l']) ? $video['counter']['l'] : 0;
+								$comments = isset($video['counter']['c']) ? $video['counter']['c'] : 0;
+							?>
+							<li>
+								<img src="<?php echo ASSETS_CDN?>/img/likes.png" title="links">
+								<?php echo $likes;?>
+								</li>
+							<li>
+								<img src="<?php echo ASSETS_CDN?>/img/icon-comment.png" title="Link">
+								<?php echo $comments;?>
+								</li>
+							<li>
 								<img src="<?php echo ASSETS_CDN?>/img/views.png" 
-									title="<?php echo number_format($view);?> lượt xem"></a></li>
+									title="<?php echo number_format($views);?> lượt xem"></li>
 						</ul>
 					</div>
 					<div class="video-watch">

@@ -1529,3 +1529,7 @@ ul.listfans li .statusfans {
     color: #333333 !important;
 }
 /**********************BUTTON EXTEND BOOTSTRAP******************************************/
+.upload-h3:hover{
+	background-color: #133F8F !important;
+	color: #FFF !important;
+}

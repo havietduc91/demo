@@ -11,7 +11,13 @@
 			  <a href="<?php echo node_link('video', $video);?>">
 				<img src="<?php echo $avatar;?>" 
 					title="<?php echo $video['name'];?>" />
-				<span><?php echo $video['name'];?></span>
+				<span>
+				<?php if(strlen($video['name']) > 46):?>
+					<?php echo char_breadcumb($video['name'], 46) . ' .....';?>
+				<?php else:?>
+					<?php echo $video['name'];?>
+				<?php endif;?>
+				</span>
 				<?php if(!isset($this->user_view) ||  !$this->user_view):?>
 				    <p style='height: 40px; overflow: hidden;'><?php echo $video['content'];?> </p>
 				<?php endif;?>
