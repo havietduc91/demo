@@ -237,6 +237,10 @@ class Video_IndexController extends Cl_Controller_Action_NodeIndex
         	//Increase count view video
         	$whereUpdate = array('id'=>$row['id']);
         	$update = array('$inc'=>array('counter.v' => 1));
+        	
+        	//Get top user limit 10;
+        	$list = Dao_User::getInstance()->getTopUser();
+        	$this->setViewParam('topuser', $list);
         	Dao_Node_Video::getInstance()->update($whereUpdate, $update);
         }else 
         	Bootstrap::$pageTitle = 'Chi tiết video';

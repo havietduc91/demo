@@ -28,6 +28,10 @@ class Site_IndexController extends Cl_Controller_Action_Index
         $list = Dao_Node_Video::getInstance()->getVideoByType('hot', 1);
         $this->setViewParam('hotVideos', $list);
         
+        //Get top user limit 10;
+        $list = Dao_User::getInstance()->getTopUser();
+        $this->setViewParam('topuser', $list);
+        
         Bootstrap::$pageTitle = "Tổng hợp cover hay nhất, hài nhất";
     }
 	public function errorAction()

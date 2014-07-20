@@ -1,0 +1,43 @@
+<?php 
+	$list = isset($this->topuser) ? $this->topuser : array();
+?>
+<?php if(count($list) > 0):?>
+	<div class="popular">
+		<h3>
+			<a href="#" style='color: #FFF;'>
+			Top thành viên</a></h3>
+			<div class="clear"> </div>
+	</div>
+	
+	<div class="top-10">
+		<?php foreach ($list as $u):?>
+			<?php $avatar = (isset($u['avatar']) && $u['avatar'] != '') ? $u['avatar'] : default_avatar('user');?>
+			<ul class="widget-content">
+				<li class="widget-content">
+					<a href="<?php echo user_link($u);?>" target="_blank">
+						<img style="width:40px;height:40px;" 
+						src="<?php echo $avatar;?>">
+					</a>
+					<ul>
+						<li>
+							<a href="<?php echo user_link($u);?>" target="_blank">
+							<?php 
+								if(strlen($u['name']) > 10){
+									$u['name'] = substr($u['name'], 0, 10) . '...';
+								}
+							?>
+								<strong><?php echo $u['name'];?></strong></a>
+						</li>
+						<li>
+							Số bài: <strong><?php echo $u['counter']['p'];?></strong>
+						</li>
+						<li>
+							Điểm: <strong><?php echo number_format($u['counter']['k']);?></strong>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		<?php endforeach;?>		
+		<div class="clearfix"></div>
+	</div>
+<?php endif;?>

@@ -430,4 +430,20 @@ class Dao_User extends Cl_Dao_User
     	
     	parent::afterUpdateUser($where, $data, $currentRow);
     }
+    
+    public function getTopUser(){
+    	$list = array();
+    	//$where = array();
+    	$order = array('counter.k' => -1);
+    	$limit = get_conf('number_top_user',10);
+    	$cond['limit'] = $limit;
+    	$cond['order'] = $order;
+    	
+    	$r = Dao_User::getInstance()->findAll($cond);
+    	if($r['success']){
+    		$list = $r['result'];
+    	}
+    	
+    	return $list;
+    }
 }

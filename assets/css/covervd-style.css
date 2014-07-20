@@ -209,6 +209,7 @@ body{
 	background:rgb(30, 93, 173);
 	padding:15.5px;
 	padding: 9.4px;
+	width: 95%;
 }
 .popular p img{
 	vertical-align: text-bottom;
@@ -265,6 +266,7 @@ body{
 	color: #fff;
 	padding: 10px;
 	margin-top: 10px;
+	width: 95%;
 }
 .r-all a{
 	font-size: 0.9em;
@@ -1584,4 +1586,46 @@ ul.listfans li .statusfans {
     font-weight: bold;
     font-size: 14px;
     font-style: italic;
+}
+
+/*************TOPUSER*****************************/
+.top-10 {
+	background: #EEE;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    clear: right;
+    color: #666;
+    height: 268px;
+    margin-bottom: 10px;
+    margin-top: 4px;
+    padding: 12px 15px 15px;
+    position: relative;
+    width: 90%;
+}
+.top-10 ul, .top-10 li {
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+.top-10 .widget-content li {
+    float: left;
+    width: 50%;
+    font-size: 14px;
+    line-height: 18px;
+    font-style: italic;
+}
+.top-10 .widget-content li a{
+	color: #1e5dad;
+	font-weight: bold;
+}
+.top-10 img {
+    display: block;
+    float: left;
+    height: 40px;
+    margin-right: 10px;
+    width: 40px;
+}
+.top-10 .widget-content ul {
+    min-height: 50px;
+    position: relative;
 }

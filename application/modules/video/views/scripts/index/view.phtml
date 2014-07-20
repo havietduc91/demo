@@ -226,6 +226,8 @@ CL.nid = '<?php echo $row['id']?>';
 	<div class="clear"> </div>
 </div>
 <div class="right-content">
+	<?php echo $this->render('/widget/support-fan.phtml');?>
+	<div style='min-height: 10px;'></div>
 	<?php echo $this->render('/widget/button-upload-video.phtml');?>
 	<div style='min-height: 10px;'></div>
 	<div class="clear"> </div>
@@ -233,6 +235,11 @@ CL.nid = '<?php echo $row['id']?>';
     <div class="clear"> </div>
 	<?php echo $this->render('/video/hot-videos.phtml');?>
 	<div class="clear"> </div>
+    <?php /*
+    <?php echo $this->render('/widget/topuser.phtml');?>
+	<div style='min-height: 10px;'></div>
+	<div class="clear"> </div>
+    */?>
 	<?php echo $this->render('/video/new-videos.phtml');?>
 </div>
 <div class="clear"> </div>
