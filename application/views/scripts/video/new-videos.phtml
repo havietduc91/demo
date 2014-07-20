@@ -9,25 +9,29 @@
 			<?php $avatar = "http://img.youtube.com/vi/{$video['ytid']}/0.jpg";?>
 			<div class="video1">
 			  <a href="<?php echo node_link('video', $video);?>">
-				<img src="<?php echo $avatar;?>" 
-					title="<?php echo $video['name'];?>" />
-					<div class="duration">
-						<?php $video['duration'] = isset($video['duration']) ? $video['duration'] : 0;?>
-						<?php echo gmdate("H:i:s", (int)$video['duration']);?>
+				  <div class="thumb">
+					<img src="<?php echo $avatar;?>" 
+						title="<?php echo $video['name'];?>" />
+						<div class="duration">
+							<?php $video['duration'] = isset($video['duration']) ? $video['duration'] : 0;?>
+							<?php echo gmdate("H:i:s", (int)$video['duration']);?>
+						</div>
 					</div>
-				<span>
-				<?php if(strlen($video['name']) > 46):?>
-					<?php echo char_breadcumb($video['name'], 46) . ' .....';?>
-				<?php else:?>
-					<?php echo $video['name'];?>
-				<?php endif;?>
-				</span>
-				<?php $views = isset($video['counter']['vyt']) ? $video['counter']['vyt'] : 0;?>
-			    <p style='height: 40px; overflow: hidden;' title='Luợt xem trên trang youtube'>
-			    	<img src="<?php echo ASSETS_CDN?>/img/views.png" class='view_img'
-							title="<?php echo number_format($views);?> lượt xem">
-							  <?php echo number_format($views);?>
-			    </p>
+				<div class='info'>
+					<span>
+						<?php if(strlen($video['name']) > 46):?>
+							<?php echo char_breadcumb($video['name'], 46) . ' .....';?>
+						<?php else:?>
+							<?php echo $video['name'];?>
+						<?php endif;?>
+					</span>
+					<?php $views = isset($video['counter']['vyt']) ? $video['counter']['vyt'] : 0;?>
+				    <p style='height: 40px; overflow: hidden;' title='Luợt xem trên trang youtube'>
+				    	<img src="<?php echo ASSETS_CDN?>/img/views.png" class='view_img'
+								title="<?php echo number_format($views);?> lượt xem">
+								  <?php echo number_format($views);?>
+				    </p>
+				</div>
 				<div class="clear"> </div>
 			   	</a>
 			</div>
