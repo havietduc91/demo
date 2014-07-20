@@ -11,6 +11,10 @@
 			  <a href="<?php echo node_link('video', $video);?>">
 				<img src="<?php echo $avatar;?>" 
 					title="<?php echo $video['name'];?>" />
+					<div class="duration">
+						<?php $video['duration'] = isset($video['duration']) ? $video['duration'] : 0;?>
+						<?php echo gmdate("H:i:s", (int)$video['duration']);?>
+					</div>
 				<span>
 				<?php if(strlen($video['name']) > 46):?>
 					<?php echo char_breadcumb($video['name'], 46) . ' .....';?>
