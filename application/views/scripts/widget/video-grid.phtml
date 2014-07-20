@@ -1,0 +1,98 @@
+<?php echo sand_dev_info_phtml(__FILE__);?>
+<?php 
+	$list = isset($this->list) ? $this->list : array();
+	$page = isset($this->page) ? $this->page : 1;
+	$filter = isset($this->filter) ? $this->filter : 1;
+	$ac_name = isset($this->ac_name) ? $this->ac_name : '';
+	$isWidget = (isset($this->is_widget) && $this->is_widget == 'widget') ? true:false;
+	$total = Zend_Registry::isRegistered('total') ? Zend_Registry::get('total') : isset($this->total) ? $this->total : 1;
+?>
+<?php if(count($list) > 0):?>
+	<?php foreach ($list as $video):?>
+	<?php $imgLink = "http://img.youtube.com/vi/{$video['ytid']}/0.jpg";?>
+		<div class="title margin-left" style='border-top: 1px solid #DDD;'>
+			<h3>
+				<a href="<?php echo node_link('video', $video);?>" 
+					style='cursor: pointer; color: #1e5dad;'>
+					<?php echo $video['name'];?> </a></h3>
+			<ul>
+				<li><h4>Đăng bởi:</h4></li>
+				<li>
+					<a href="<?php echo user_link($video['u']);?>">
+						<?php echo $video['u']['name'];?></a></li>
+			</ul>
+		</div>
+		<div class="video-inner margin-left" style='min-height: 440px;'>
+			<a href="<?php echo node_link('video', $video);?>">
+				<img src="<?php echo $imgLink;?>" title="<?php echo $video['name'];?>"
+				style='width: 98%;height: 440px;'>
+				<img class="tidypics-photo-start" width="35px" height="25px" 
+					src="<?php echo ASSETS_CDN?>/img/play_youtube.png" 
+					style="left: 405px; position: absolute; top: 217px; width: 101px; 
+					height: 69px; cursor: pointer; background: none repeat scroll 0 0 rgba(0, 0, 0, 0) !important;box-shadow : none;">
+				</a>
+		</div>
+		<div class="viwes margin-left">
+			<div class="view-links">
+				<ul>
+					<li><h4>Chia sẻ:</h4></li>
+					<li>
+						<ul class="share-links">
+						         <div class="fb-like" 
+									data-href="<?echo SITE_URL;?><?php echo node_link('video',$video);?>"  
+			                        data-layout="button_count" 
+			                        data-action="like" 
+			                        data-show-faces="true" 
+			                        data-share="true">
+			                     </div>
+					    </ul>
+					</li>
+				</ul>
+			</div>
+			<div class="views-count">
+				<?php $video['counter']['vyt'] = isset($video['counter']['vyt']) ? $video['counter']['vyt'] : 0;?>
+				<p><span title='Lượt xem được cập nhật từ trên trang youtube'><?php echo number_format($video['counter']['vyt']);?></span> Lượt xem</p>
+			</div>
+			<div class="clear" style='min-height: 26px;'> </div>
+		</div>
+	<?php endforeach;?>
+<?php endif;?>
+<div class="clear"> </div>
+<ul class="dc_pagination dc_paginationA dc_paginationA03" id= "nav-footer">
+  <li style='width: 100%; text-align: center' class='<?php if ($page == $total):?>disabled<?php Endif;?>'>
+  	<?php 
+  		$nextPage = $page + 1;
+  		if($page != $total):
+  			$nextWidget = "/$filter/{$nextPage}/widget";
+  		else:
+  			$nextWidget = "#/widget";
+  		endif;
+  		
+  		if(isset($this->is_search) && $this->is_search){
+			$url = "/video/search-videos?ac_name={$ac_name}&items_per_page=-1&_cl_submit=Submit&page={$nextPage}";
+		}else{
+	  		$url = "/{$filter}/{$nextPage}"; 
+		}
+  	?>
+  	<a href="<?php echo $url;?>" 
+  		id='next-page' title='Cover còn nhiều lắm, click tiếp đi nha'
+  		data-href-widget="<?php echo $nextWidget;?>"
+  		class="first" 
+  		<?php if ($page == $total):?>
+  			style='background: none repeat scroll 0 0 #1E5DAD; color: #FFF !important;'
+  			<?php endif;?>>
+  			<?php if ($page == $total):?>
+  				:(( Xin lỗi bạn, chúng tôi sẽ tiếp tục cập nhật thêm dữ liệu
+  			<?php else:?>
+  			Cover còn nhiều lắm, click tiếp đi nha
+  			<?php endif;?></a></li>
+</ul>
+<div class="clear"> </div>
+<?php if (!$isWidget):?>
+	<ul class="dc_pagination dc_paginationA dc_paginationA03"
+		style='font-weight:bold;display:none;' id="loading">
+	  <li style='width: 100%; text-align: center'>
+	  	<a href='#' 
+	  		class="first">Anh Zai chờ chút nha............</a></li>
+	</ul>
+<?php endif;?>

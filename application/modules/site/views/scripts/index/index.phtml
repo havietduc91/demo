@@ -6,6 +6,7 @@
 	
 	$page = isset($this->page) ? $this->page : 1;
 	$filter = isset($this->filter) ? $this->filter : 1;
+	$template = get_value('template', 'list');
 ?>
 
 <?php if($isWidget == false):?>
@@ -15,13 +16,43 @@
 			<?php echo $this->render('/widget/search-box.phtml');?>
 		</div>
 		<div class="search-right">
-			<p>Tổng hợp cover hay nhất, hài nhất</p>
+			<span class="pull-right"
+						title='Hiển thị theo danh sách'>
+					<a href="?template=grid" class=''>				
+						<button type="button" style='padding: 2px 4px 3px 4px;'
+							class="vd-button vd-is-buffered vd-button-branded btn-favourite 
+								<?php if($template == 'list'):?>vd-button-active<?php endif;?>">
+							<span class="button-icon-wrapper">
+								<img class="vd-button-icon" 
+								src="<?php echo ASSETS_CDN?>/img/list-black.png">
+							</span>
+						</button>
+					</a>
+				</span>
+				
+			<span class="pull-right"
+						title='Hiển thị theo dạng icon nhỏ'>
+					<a href="?template=list" class=''>				
+						<button type="button" style='padding: 2px 4px 3px 4px;'
+							class="vd-button vd-is-buffered vd-button-branded btn-favourite 
+								<?php if($template == 'grid'):?>vd-button-active<?php endif;?>">
+							<span class="button-icon-wrapper">
+								<img class="vd-button-icon" width='10px;' height='20px;'
+								src="<?php echo ASSETS_CDN?>/img/grid-black.png">
+							</span>
+						</button>
+					</a>
+				</span>
 		</div>
 		<div class="clear"> </div>
 	</div>
 	<div class="box">
 <?php endif;?>
+	<?php if($template == 'list'):?>
 		<?php echo $this->render('/widget/video-list.phtml');?>
+	<?php else:?>
+		<?php echo $this->render('/widget/video-grid.phtml');?>
+	<?php endif;?>
 <?php if($isWidget == false):?>
 	<div class="clear"> </div>
 	</div>
