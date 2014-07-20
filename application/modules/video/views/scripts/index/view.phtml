@@ -226,6 +226,9 @@ CL.nid = '<?php echo $row['id']?>';
 	<div class="clear"> </div>
 </div>
 <div class="right-content">
+	<?php echo $this->render('/widget/button-upload-video.phtml');?>
+	<div style='min-height: 10px;'></div>
+	<div class="clear"> </div>
     <?php echo $this->render('/video/ori-video.phtml');?>
     <div class="clear"> </div>
 	<?php echo $this->render('/video/hot-videos.phtml');?>

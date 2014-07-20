@@ -1533,3 +1533,55 @@ ul.listfans li .statusfans {
 	background-color: #133F8F !important;
 	color: #FFF !important;
 }
+/*********************BOX SUPORT FAN******************************/
+.support_fan{
+	display: block;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+    width: 100%;
+}
+.support_fan .sinfo {
+    background: none repeat scroll 0 0 #ffff99;
+    border: 1px solid #bbb;
+    box-shadow: 0 1px #eee, 0 0 0 1px #fff inset;
+    border-radius: 11px;
+    display: block;
+    float: left;
+    height: 102px;
+    margin: 0 14px 5px 0;
+    overflow: hidden;
+    padding: 10px 12px 0;
+    position: relative;
+    width: 93%;
+    margin-top: 2px;
+    font-size: 14px;
+}
+
+.support_fan span.ribbon {
+    background: url("../img/ribbon.png") no-repeat scroll right top rgba(0, 0, 0, 0);
+    display: block;
+    height: 37px;
+    overflow: hidden;
+    position: absolute;
+    right: 10px;
+    top: 0;
+    width: 35px;
+}
+.support_fan h3 {
+    color: #515151;
+    font-size: 19px;
+    margin-bottom: 5px;
+    text-shadow: 1px 1px #fff;
+    font-weight: bold;
+}
+.support_fan .sinfo p {
+    line-height: 20px;
+    margin: 0;
+    padding: 0;
+    color: #222;
+    font-weight: bold;
+    font-size: 14px;
+    font-style: italic;
+}
