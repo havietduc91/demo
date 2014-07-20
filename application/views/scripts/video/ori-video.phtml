@@ -21,9 +21,22 @@
 		<div class="grid-info">
 			<div class="ori_video-share">
 				<ul>
-					<li><a href="#"><img src="<?php echo ASSETS_CDN?>/img/likes.png" title="links" /></a></li>
-					<li><a href="#"><img src="<?php echo ASSETS_CDN?>/img/link.png" title="Link" /></a></li>
-					<li><a href="#"><img src="<?php echo ASSETS_CDN?>/img/views.png" title="Views" /></a></li>
+					<?php 
+						$views = isset($video['counter']['vyt']) ? $video['counter']['vyt'] : 0;
+						$likes = isset($video['counter']['l']) ? $video['counter']['l'] : 0;
+						$comments = isset($video['counter']['c']) ? $video['counter']['c'] : 0;
+					?>
+					<li>
+						<img src="<?php echo ASSETS_CDN?>/img/likes.png" title="links">
+						<?php echo $likes;?>
+						</li>
+					<li>
+						<img src="<?php echo ASSETS_CDN?>/img/icon-comment.png" title="Link">
+						<?php echo $comments;?>
+						</li>
+					<li>
+						<img src="<?php echo ASSETS_CDN?>/img/views.png" 
+							title="<?php echo number_format($views);?> lượt xem"></li>
 				</ul>
 			</div>
 			<div class="ori_video-watch">

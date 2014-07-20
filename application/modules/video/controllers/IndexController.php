@@ -233,6 +233,11 @@ class Video_IndexController extends Cl_Controller_Action_NodeIndex
         	//Get popular video
         	$list = Dao_Node_Video::getInstance()->getVideoByType('hot', 1, $row['ts']);
         	$this->setViewParam('hotVideos', $list);
+        	
+        	//Increase count view video
+        	$whereUpdate = array('id'=>$row['id']);
+        	$update = array('$inc'=>array('counter.v' => 1));
+        	Dao_Node_Video::getInstance()->update($whereUpdate, $update);
         }else 
         	Bootstrap::$pageTitle = 'Chi tiết video';
     }
