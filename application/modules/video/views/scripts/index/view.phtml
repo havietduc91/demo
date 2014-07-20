@@ -50,7 +50,7 @@ CL.nid = '<?php echo $row['id']?>';
 		<h3><?php echo $row['name'];?> </h3>
 		<ul>
 			<li><h4>Đăng bởi:</h4></li>
-			<li><a href="#"><?php echo $row['u']['name'];?></a></li>
+			<li><a href="#" class='user-link'><?php echo $row['u']['name'];?></a></li>
 			<li>
 				<?php /*
 					<a href='javascript:void(0);'>				
@@ -226,6 +226,9 @@ CL.nid = '<?php echo $row['id']?>';
 	<div class="clear"> </div>
 </div>
 <div class="right-content">
+	<div class="clear"> </div>
+	<?php echo $this->render('/widget/box-like-facebook.phtml');?>
+	<div class="clear"> </div>
 	<?php echo $this->render('/widget/support-fan.phtml');?>
 	<div style='min-height: 10px;'></div>
 	<?php echo $this->render('/widget/button-upload-video.phtml');?>
@@ -233,9 +236,9 @@ CL.nid = '<?php echo $row['id']?>';
 	<div class="clear"> </div>
     <?php echo $this->render('/video/ori-video.phtml');?>
     <div class="clear"> </div>
+    <?php /*
 	<?php echo $this->render('/video/hot-videos.phtml');?>
 	<div class="clear"> </div>
-    <?php /*
     <?php echo $this->render('/widget/topuser.phtml');?>
 	<div style='min-height: 10px;'></div>
 	<div class="clear"> </div>

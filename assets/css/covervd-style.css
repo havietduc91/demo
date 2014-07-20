@@ -239,6 +239,7 @@ body{
 	float:right;
 	width: 67%;
 	color: #1E5DAD;
+	font-size: 14px;
 }
 .video1 p{
 	font-family: Arial, Helvetica, sans-serif;
@@ -1628,4 +1629,15 @@ ul.listfans li .statusfans {
 .top-10 .widget-content ul {
     min-height: 50px;
     position: relative;
+}
+/***************END TOP USER*****************/
+.user-link{
+	color: #f60 !important;
+	font-weight: bold;
+}
+.view_img{
+	width: 20px !important;	
+}
+.social-network{
+	text-align: center;
 }

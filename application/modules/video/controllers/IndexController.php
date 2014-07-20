@@ -227,7 +227,7 @@ class Video_IndexController extends Cl_Controller_Action_NodeIndex
         	$this->setViewParam('ori_video', $ori_viddeo);
         	
         	//Get new video
-			$list = Dao_Node_Video::getInstance()->getVideoByType('new', 3, $row['ts']);
+			$list = Dao_Node_Video::getInstance()->getVideoByType('new', 15, $row['ts']);
 			$this->setViewParam('newVideos', $list);
         	
         	//Get popular video

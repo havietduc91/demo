@@ -25,7 +25,7 @@
 					style='width: 300px;height: 172px;'>
 					<img class="tidypics-photo-start" width="35px" height="25px" 
 						src="<?php echo ASSETS_CDN?>/img/play_youtube.png" 
-						style="left: 102px; position: absolute; top: 116px; width: 50px; 
+						style="left: 132px; position: absolute; top: 128px; width: 50px; 
 						height: 40px; cursor: pointer;">
 					</a>
 				<div class="time">
@@ -40,17 +40,18 @@
 								$likes = isset($video['counter']['l']) ? $video['counter']['l'] : 0;
 								$comments = isset($video['counter']['c']) ? $video['counter']['c'] : 0;
 							?>
-							<li>
+							<li style='font-size: 13px;'>
 								<img src="<?php echo ASSETS_CDN?>/img/likes.png" title="links">
 								<?php echo $likes;?>
 								</li>
-							<li>
+							<li style='font-size: 13px;'>
 								<img src="<?php echo ASSETS_CDN?>/img/icon-comment.png" title="Link">
 								<?php echo $comments;?>
 								</li>
-							<li>
+							<li style='font-size: 13px;'>
 								<img src="<?php echo ASSETS_CDN?>/img/views.png" 
-									title="<?php echo number_format($views);?> lượt xem"></li>
+									title="<?php echo number_format($views);?> lượt xem">
+									<?php echo number_format($views);?></li>
 						</ul>
 					</div>
 					<div class="video-watch">
@@ -58,7 +59,8 @@
 					</div>
 					<div class="clear"> </div>
 					<div class="lables">
-						<p>By:<a href="<?php echo user_link($video['u']);?>">
+						<p>By:<a href="<?php echo user_link($video['u']);?>" class='user-link'
+							style='font-weight: normal;'>
 							<?php echo $video['u']['name'];?></a></p>
 					</div>
 				</div>

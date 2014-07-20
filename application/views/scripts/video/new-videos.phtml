@@ -18,9 +18,12 @@
 					<?php echo $video['name'];?>
 				<?php endif;?>
 				</span>
-				<?php if(!isset($this->user_view) ||  !$this->user_view):?>
-				    <p style='height: 40px; overflow: hidden;'><?php echo $video['content'];?> </p>
-				<?php endif;?>
+				<?php $views = isset($video['counter']['vyt']) ? $video['counter']['vyt'] : 0;?>
+			    <p style='height: 40px; overflow: hidden;' title='Luợt xem trên trang youtube'>
+			    	<img src="<?php echo ASSETS_CDN?>/img/views.png" class='view_img'
+							title="<?php echo number_format($views);?> lượt xem">
+							  <?php echo number_format($views);?>
+			    </p>
 				<div class="clear"> </div>
 			   	</a>
 			</div>
