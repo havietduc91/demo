@@ -205,6 +205,9 @@ class Dao_Node_Video extends Dao_Node_Site
 	 */
 	public function afterInsertComment($data, $comment)
 	{
+		// refresh & reculate hotness
+		$node = $data['_node'];
+		$this->incActivityCountAndCheckHotnessCache(array('ts' => time()),$node['iid'],$node['counter']['hn']);
 	    return array('success' => true, 'result' => $comment);
 	}
 	
@@ -268,6 +271,20 @@ class Dao_Node_Video extends Dao_Node_Site
 	}
 	public function afterInsertRelation($data, $newRelations, $currentRow)
 	{
+		//Delete cache if exists
+		parent::afterInsertRelation($data, $newRelations, $currentRow);
+		 
+		/**
+		 *  Check status of video:
+		 *  	if status is approved
+		 *  		- remove cache home page hot
+		 *  		- remove cache detail page hot
+		*/
+		if($data['o']['status'] == 'approved'){
+			//Remove cache home page hot video.local/hot
+			$this->incActivityCountAndCheckHotnessCache(array('ts' => time()),$data['o']['iid'],$data['o']['counter']['hn']);
+		}
+		 
 		return array('success' => true, 'result' => $data);
 	}
 	public function afterDeleteRelation($currentRow, $rt, $newRelations = array())
@@ -401,6 +418,7 @@ class Dao_Node_Video extends Dao_Node_Site
 	}
 	
 	public function getVideoList($page, $filter){
+		$redis = init_redis(RDB_CACHE_DB);
 		$where = array();
 		if($filter == 'domestic'){
 			$where = array('country'=> 'domestic');
@@ -411,7 +429,28 @@ class Dao_Node_Video extends Dao_Node_Site
 			$order = array('ts' => -1);
 		}
 		if($filter == 'hot'){
-			$order = array('counter.vyt'=>-1);
+			//array of top 100 hot iids
+			$redisHotIidsKey = $this->redisHotIidKey();
+			$currentHotIids = $redis->zRange($redisHotIidsKey, 0, -1, true);
+			if (count($currentHotIids) == 0)
+			{
+				//TODO: generate top 100 hotness Iids
+				//recalculate all hotness
+				$this->refreshHotnessAll(array('ts' => time()),$redisHotIidsKey);
+				$currentHotIids = $redis->zRange($redisHotIidsKey, 0, -1, true);
+			}
+			foreach ($currentHotIids as $i => $v)
+			{
+				$arrHot[$i]= (int) $i;
+			}
+			
+			$currentHotIids=$arrHot;
+			
+			$where = array(
+					'status' => 'approved', 
+					'iid' => array('$in' => $currentHotIids)
+			);
+			$order = array('counter.hn' => -1);	
 		}
 		if($filter == 'vote'){
 			$where = array('status'=> 'queued');
@@ -523,8 +562,8 @@ class Dao_Node_Video extends Dao_Node_Site
 			} else if ($rt == 4 )//vote down
 		    {
 	            parent::updateUserKarmaAndNodePoint($lu, 'video_voted_down', $r['result'],$r['result']['u']);
-		        $storyUpdate = array('$inc' => array('counter.l' => -1));
-		        $r2 = $this->update($where, $storyUpdate);
+		        $videoUpdate = array('$inc' => array('counter.l' => -1));
+		        $r2 = $this->update($where, $videoUpdate);
 		    }
 		}
 	}
@@ -573,5 +612,223 @@ class Dao_Node_Video extends Dao_Node_Site
 			}
 		}
 		return array('success' => true);
+	}
+	/*************************** Calculate Hotness score*****************************************************/
+	//TODO: Use doBatchJobs();
+	public function calculateHotness($data)
+	{
+		$time = $data['ts'];
+		$where = array('status' => 'approved');
+		$cond['where'] = $where;
+	
+		$r= $this->findAll($cond);
+	
+		foreach ($r['result'] as $k => $row)
+		{
+			$row['counter']['hn']= $row['counter']['point'] / pow((($time-$row['ts'])/3600 + 2),1.5);
+			$r['result'][$k]['mau']=pow((($time-$row['ts'])/3600 + 2),1.5);
+			$this->update(array('id'=>$row['id']), $row);
+		}
+		return array('success'=>true,'result'=>$this->findAll($cond));
+	}
+	
+	/**
+	 * Recalculate all hotness score & cache top 200 into redis cache key "hotness:top_iids"
+	 *
+	 * @param unknown_type $data
+	 * @param unknown_type $typeRedisHotIids //hotness:top_iids
+	 */
+	public function refreshHotnessAll($data,$typeRedisHotIids)
+	{
+		// reset hotness:activites
+		$redis = init_redis(RDB_CACHE_DB);
+		$redis->set("hotness:activites", 0);
+	
+		$keys = $redis->keys($typeRedisHotIids);
+		foreach($keys as $key)
+			$this->deleteRedisCache($key);
+	
+		// reculate hotness
+		//$this->runBackground("calculateHotness", array($data));
+		$this->calculateHotness($data);
+	
+		//cache top 100 into redis cache key "hotness:top_iids"
+		$where = array('status' => 'approved');
+	
+		$order = array('counter.hn' => -1);
+		$limit = 100;
+	
+		$cond['where'] = $where;
+		$cond['order'] = $order;
+		$cond['limit'] = $limit;
+	
+		$r = $this->find($cond);
+		if ($r['success'])
+		{
+			foreach ($r['result'] as $video)
+			{
+				$redis->zAdd($typeRedisHotIids, $video['counter']['hn'], $video['iid']);
+			}
+		}
+	
+		return array('success' => true);
+	}
+	
+	/**
+	 *
+	 * @param Int $type video type
+	 */
+	function redisHotIidKey()
+	{
+		return 'hotness:top_iids';
+	}
+	
+	/**
+	 * Calculate Hotness
+	 *
+	 * @param unknown_type $data
+	 * @param unknown_type $currentHotIids
+	 * @param unknown_type $iid
+	 * @param unknown_type $typeRedisHotIids //hotness:top_iids
+	 */
+	public function calculate_hotness($data,$currentHotIids,$iid,$typeRedisHotIids){
+		$time = $data['ts'];
+		$ids = array();
+	
+		foreach ($currentHotIids as $i => $v)
+		{
+			$ids[]= (int) $i;
+		}
+	
+		//Add iid into array to calculate hotness
+		$ids[] = $iid;
+			
+		$where = array('iid' => array('$in' => $ids));
+		$cond['where'] = $where;
+		$r= $this->findAll($cond);
+	
+		foreach ($r['result'] as $k => $row)
+		{
+			$row['counter']['hn']= $row['counter']['point'] / pow((($time-$row['ts'])/3600 + 2),1.5);
+			$r['result'][$k]['mau']=pow((($time-$row['ts'])/3600 + 2),1.5);
+			$this->update(array('id'=>$row['id']), $row);
+		}
+	
+		$redis = init_redis(RDB_CACHE_DB);
+		$where = array('status' => 'approved');
+	
+		$order = array('counter.hn' => -1);
+		$limit = 100;
+	
+		$cond['where'] = $where;
+		$cond['order'] = $order;
+		$cond['limit'] = $limit;
+		$r = $this->find($cond);
+	
+		if ($r['success'])
+		{
+			foreach ($r['result'] as $video)
+			{
+				$redis->zAdd($typeRedisHotIids, $video['counter']['hn'], $video['iid']);
+			}
+		}
+		return array('success'=>true,'result'=>$this->find($where));
+	}
+	
+	/**
+	 *
+	 * Calculate hotness
+	 *
+	 * @param unknown_type $data
+	 * @param unknown_type $iid  // iid of video relation
+	 * @param unknown_type $hotNess
+	 */
+	public function incActivityCountAndCheckHotnessCache($data,$iid,$hotNess)
+	{
+		/**
+		 * 			Haduc update 10.7.2013
+		 * Check exit array redis with key values: hotness:top_iids
+		 *  If array redis with key values: hotness:top_iids already exits
+		 *  	- Add iids into array redis with key values: hotness:top_iids
+		 *  	- Calculate hotness of member in array redis with key values: hotness:top_iids
+		 *
+		 *  Else if array redis with key values: hotness:top_iids not exits
+		 *  	- Refresh all hotness cache
+		 *  	- Calculate all hotness and add 100 member hotness with order -1 into array redis
+		 *
+		 */
+		$typeRedisHotIids = $this->redisHotIidKey(); //hotness:top_iid
+		$redis = init_redis(RDB_CACHE_DB);
+	
+		//array of top 100 hot iids
+		$currentHotIids = $redis->zRange($typeRedisHotIids, 0, -1, true);
+		if (count($currentHotIids) == 0)
+		{
+			//generate top 100 hotness Iids
+			//recalculate all hotness
+			$this->refreshHotnessAll(array('ts' => time()),$typeRedisHotIids);
+			$currentHotIids = $redis->zRange($typeRedisHotIids, 0, -1, true);
+		}
+	
+		$currentHotIids = array_reverse($currentHotIids,true);
+		//Get list hotness old before relation
+		foreach ($currentHotIids as $i => $v)
+		{
+			$hotnessOld[]= (int) $i;
+		}
+			
+		$redis->zAdd($typeRedisHotIids, $hotNess, (int) $iid);
+	
+		$currentHotIids = $redis->zRange($typeRedisHotIids, 0, -1, true);
+		$currentHotIids = array_reverse($currentHotIids,true);
+	
+		//calculate hotness 100 video in array redis
+		$this->calculate_hotness($data,$currentHotIids,$iid,$typeRedisHotIids);
+		$currentHotIids = $redis->zRange($typeRedisHotIids, 0, -1, true);
+
+		$currentHotIids = array_reverse($currentHotIids,true);
+		/*
+		 * TODO: Cache
+		//Get list hotness new after relation
+		foreach ($currentHotIids as $i => $v)
+		{
+			$hotnessNew[]= (int) $i;
+		}
+	
+		$result = array_diff_assoc($hotnessOld, $hotnessNew);
+	
+		if($result){
+			// Get index fisrt different
+			$k = 0;
+			foreach($result as $key => $value){
+				if($value){
+					$k = $key;
+					break;
+				}
+			}
+	
+			$pageChange = (int) ($k/10);
+	
+			// Removed cache hot from page $pageChange to page 10
+			$this->deleteStaticCacheOfType($dir, $pageChange+1,10);
+	
+			// Removed cahce widget video hot if pagechange + 1 = 1
+			if($pageChange == 0){
+				$this->deleteStaticCacheOfType('widget/hot', $pageChange+1,2);
+			}
+	
+		}
+	
+	
+		$kRelation = array_search($iid, $hotnessOld);
+		$situation = (int) ($kRelation/10);
+	
+		// Removed cache hot of page have element relation
+		$this->deleteStaticCacheOfType($dir, $situation+1, $situation+1);
+		// Removed cahce widget video hot if situation + 1 = 1
+		if($situation == 0){
+			$this->deleteStaticCacheOfType('widget/hot', $situation+1,2);
+		}
+		*/
 	}
 }
