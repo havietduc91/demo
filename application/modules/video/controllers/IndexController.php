@@ -63,7 +63,9 @@ class Video_IndexController extends Cl_Controller_Action_NodeIndex
                 else 
                 {
                 	$this->ajaxData['callback'] = 'redirect';
-                	$this->ajaxData['data'] = array('url' => node_link('video' , $this->ajaxData['result']));
+                	$url = node_link('video' , $this->ajaxData['result'], 'upload');
+                	
+                	$this->ajaxData['data'] = array('url' => $url);
                 }
             }
         }

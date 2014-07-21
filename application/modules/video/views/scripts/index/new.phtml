@@ -32,7 +32,7 @@
 	    $user = Zend_Registry::isRegistered('viewuser') ? Zend_Registry::get('viewuser') : array();
 	    $newVideos = isset($this->newVideos) ? $this->newVideos : array();
 	    $hotVideos = isset($this->hotVideos) ? $this->hotVideos : array();
-	
+		$this->form->setAttrib('class', 'cl_ajax');
 	    $lu = $this->row;
 	    $step = get_value('_cl_step', '');
 	?>

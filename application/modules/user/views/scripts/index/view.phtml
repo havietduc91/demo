@@ -92,6 +92,7 @@ CL.NID = "<?php echo $row['id']; ?>";
      </div>
 </div>
 <div class="right-content user-view" style='margin-top: 44px;width: 20%;'>
+	<div style='min-height: 12px;'></div>
 	<?php echo $this->render('/widget/button-upload-video.phtml');?>
     <?php $this->user_view = true;?>
 	<?php echo $this->render('/video/new-videos.phtml');?>
@@ -137,9 +138,13 @@ CL.NID = "<?php echo $row['id']; ?>";
 	 $('#subscribe_user_tab').hide();
 	 $("#no_video_playlist").hide();
 	 <?php if(count($strUploadList) > 0 && $strUploadList != ''):?>
-		 $('#player').show();
-	  	  player.stopVideo();
-	  	  player.loadPlaylist([<?php echo $strUploadList;?>]);
+	 	 if($('#player').is(':visible')){
+		  	 player.loadPlaylist([<?php echo $strUploadList;?>]);
+	 	 }else{
+			 $('#player').show();
+		  	 player.loadPlaylist([<?php echo $strUploadList;?>]);
+	 	 	 $("#upload_video").trigger('click');
+	 	 }
 	 <?php else:?>
 		$("#no_video_uploaded").show();
 	 <?php endif;?>
@@ -149,9 +154,11 @@ CL.NID = "<?php echo $row['id']; ?>";
 	 $('#subscribe_user_tab').hide();
 	 $("#no_video_uploaded").hide();
      <?php if(count($strPlaylistVid) > 0 && $strPlaylistVid != ''):?>
-		 $('#player').show();
-	  	 player.stopVideo();
-	  	 player.loadPlaylist([<?php echo $strPlaylistVid;?>]);
+      	if($('#player').is(':visible')){
+		  	 player.loadPlaylist([<?php echo $strPlaylistVid;?>]);
+	 	 }else{
+	 	 	 $("#upload_video").trigger('click');
+	 	 }
      <?php else:?>
      	$("#no_video_playlist").show();
      <?php endif;?>

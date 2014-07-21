@@ -1641,26 +1641,6 @@ ul.listfans li .statusfans {
 .social-network{
 	text-align: center;
 }
-/* .video1 .duration{ */
-/* 	margin-top: 75px; */
-/*     background-color: #000; */
-/*     color: #fff !important; */
-/*     display: inline-block; */
-/*     font-size: 11px; */
-/*     font-weight: bold; */
-/*     line-height: 1em; */
-/*     opacity: 0.85; */
-/*     padding: 1px 4px; */
-/*     position: absolute; */
-/*     right: 287px; */
-/*     text-transform: lowercase; */
-/*     vertical-align: top; */
-/* } */
-/* .user-view .video1 .duration{ */
-/* 	right: 198px !important; */
-/* 	margin-top: 47px !important; */
-/* } */
-
 .video1 .duration{
     background-color: #000;
     bottom: 2px;
