@@ -36,7 +36,7 @@ class Video_Form_New extends Cl_Form
         		'options' => array(
         	        'label' => "Nội dung video",
         	        'class' => 'isEditor',
-    	    		'filters' => array('StringTrim', 'NodePost'),
+    	    		'filters' => array('StringTrim'),
         			'prefixPath' => array(
         				"filter" => array (
         					"Filter" => "Filter/"
