@@ -1,0 +1,35 @@
+<?php if (APPLICATION_ENV != 'development'):?>
+			<script src="<?php echo ASSETS_CDN?>/js/all.js?v=1"></script>	
+<?php else:?>
+		<script src="<?php echo SAND_ASSETS_CDN;?>/js/jquery.js"></script>
+		<?php /*
+	    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+	    <script src="<?php echo SAND_ASSETS_CDN;?>/js/jquery-ui-1.8.16.custom.min.js"></script>
+		*/?>
+	    
+	    <script src="<?php echo SAND_ASSETS_CDN;?>bootstrap-3.0.0/dist/js/bootstrap.min.js"></script>			
+		<script src="<?php echo SAND_ASSETS_CDN;?>/js/plugins/toastmessage/src/main/javascript/jquery.toastmessage.js" type="text/javascript"></script>
+		<script src="<?php echo SAND_ASSETS_CDN;?>/js/sand/utils.js"	type="text/javascript"></script>
+		<script src="<?php echo SAND_ASSETS_CDN;?>/js/plugins/jquery.form.js" type="text/javascript"></script>
+		<script src="<?php echo SAND_ASSETS_CDN;?>/js/plugins/jquery.fitvids.js" type="text/javascript"></script>
+		<script src="<?php echo SAND_ASSETS_CDN;?>/js/plugins/tokeninput/src/jquery.tokeninput.js" type="text/javascript" ></script>
+		
+		<script src="<?php echo SAND_ASSETS_CDN;?>/js/sand/sand-callbacks-common.js" type="text/javascript"></script>
+        <script src="<?php echo SAND_ASSETS_CDN;?>/js/sand/sand-callbacks-metadata.js" type="text/javascript"></script>
+		
+		
+		<script src="<?php echo SAND_ASSETS_CDN;?>/js/plugins/jquery.timeago.js" type="text/javascript"></script>
+		<script src="<?php echo ASSETS_CDN;?>/js/vi.js"></script>
+		
+		<script src="<?php echo SAND_ASSETS_CDN;?>/js/sand/sand-ajax-link.js" type="text/javascript"></script>
+        <script src="<?php echo SAND_ASSETS_CDN;?>/js/sand/sand-ajax-form.js" type="text/javascript"></script>
+        <script src="<?php echo SAND_ASSETS_CDN;?>/js/sand/sand-utils.js" type="text/javascript"></script> 
+    	
+		<script src="<?php echo SAND_ASSETS_CDN;?>/js/sand/site_common.js" type="text/javascript"></script>
+		
+		<script src="<?php echo SAND_ASSETS_CDN;?>/js/sand/upload.js" type="text/javascript"></script>
+		<script src="<?php echo ASSETS_CDN;?>/js/site.js" type="text/javascript"></script>
+		<script src="<?php echo SAND_ASSETS_CDN;?>/js/plugins/lazyload/lazyload.js"></script>
+<?php endif;?>
+	<script type="text/javascript" src="<?php echo SITE_URL;?>/tinymce/tinymce_3.5.2/jscripts/tiny_mce/tiny_mce.js"></script>
