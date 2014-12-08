@@ -7,67 +7,70 @@
 	$isWidget = (isset($this->is_widget) && $this->is_widget == 'widget') ? true:false;
 	$total = Zend_Registry::isRegistered('total') ? Zend_Registry::get('total') : isset($this->total) ? $this->total : 1;
 ?>
+<div class='separator'></div>
 <?php if(count($list) > 0):?>
-	<div class="grids">
-	<?php $k = 0;?>
 	<?php foreach ($list as $video):?>
-		<?php if($k % 3 == 0 && $k > 0):?>
-			</div>
-			<div class="clear"> </div>
-			<div class="grids">
-		<?php endif;?>
-			<?php $imgLink = "http://img.youtube.com/vi/{$video['ytid']}/0.jpg";?>
-			<div class="grid" style='margin-bottom: 4px;'>
-				<a href="<?php echo node_link('video', $video);?>"><h3>
-					<?php echo $video['name'];?></h3></a>
-				<a href="<?php echo node_link('video', $video);?>">
-					<img src="<?php echo $imgLink;?>" title="<?php echo $video['name'];?>"
-					style='width: 300px;height: 172px;'>
-					<img class="tidypics-photo-start" width="35px" height="25px" 
-						src="<?php echo ASSETS_CDN?>/img/play_youtube.png" 
-						style="left: 132px; position: absolute; top: 128px; width: 50px; 
-						height: 40px; cursor: pointer;">
-					</a>
-				<div class="time">
-					<?php $video['duration'] = isset($video['duration']) ? $video['duration'] : 0;?>
-					<span><?php echo gmdate("H:i:s", (int)$video['duration']);?></span>
-				</div>
-				<div class="grid-info">
-					<div class="video-share">
-						<ul>
-							<?php 
-								$views = isset($video['counter']['vyt']) ? $video['counter']['vyt'] : 0;
-								$likes = isset($video['counter']['l']) ? $video['counter']['l'] : 0;
-								$comments = isset($video['counter']['c']) ? $video['counter']['c'] : 0;
-							?>
-							<li style='font-size: 13px;'>
-								<img src="<?php echo ASSETS_CDN?>/img/likes.png" title="links">
-								<?php echo $likes;?>
-								</li>
-							<li style='font-size: 13px;'>
-								<img src="<?php echo ASSETS_CDN?>/img/icon-comment.png" title="Link">
-								<?php echo $comments;?>
-								</li>
-							<li style='font-size: 13px;'>
-								<img src="<?php echo ASSETS_CDN?>/img/views.png" 
-									title="<?php echo number_format($views);?> lượt xem">
-									<?php echo number_format($views);?></li>
-						</ul>
-					</div>
-					<div class="video-watch">
-						<a href="<?php echo node_link('video', $video);?>">Xem ngay</a>
-					</div>
-					<div class="clear"> </div>
-					<div class="lables">
-						<p>By:<a href="<?php echo user_link($video['u']);?>" class='user-link'
-							style='font-weight: normal;'>
-							<?php echo $video['u']['name'];?></a></p>
-					</div>
+	<?php $imgLink = "http://img.youtube.com/vi/{$video['ytid']}/0.jpg";?>
+		<div class='video-cover'>
+			<div class='video-content'>
+				<div class="video-inner margin-left" style='min-height: 440px;'>
+					<a href="<?php echo node_link('video', $video);?>">
+						<img src="<?php echo $imgLink;?>" title="<?php echo $video['name'];?>"
+						style='width: 98%;height: 372px;'>
+						<img class="tidypics-photo-start" width="35px" height="25px" 
+							src="<?php echo ASSETS_CDN?>/img/play_youtube.png" 
+							style="left: 43%; position: absolute; top: 41%; width: 82px; 
+							height: 54px; cursor: pointer; background: none repeat scroll 0 0 rgba(0, 0, 0, 0) !important;box-shadow : none;">
+						</a>
 				</div>
 			</div>
-		<?php $k ++;?>
+			
+			<div class='action-content'>
+				<?php 
+					$views = isset($video['counter']['vyt']) ? $video['counter']['vyt'] : 0;
+					$likes = isset($video['counter']['l']) ? $video['counter']['l'] : 0;
+					$comments = isset($video['counter']['c']) ? $video['counter']['c'] : 0;
+				?>
+				<div class="title margin-left">
+					<h3 style='font-weight: bold;'>
+						<a href="<?php echo node_link('video', $video);?>" 
+							style='cursor: pointer; color: #1e5dad;'>
+							<?php echo $video['name'];?> </a></h3>
+				   <div class="uinfo">
+                            	bởi <a href="<?php echo user_link($video['u']);?>" 
+                            		class='user-link'>
+								<?php echo $video['u']['name'];?></a>
+								<span class="timeago" 
+								title="<?php echo convert_ts_to_js($video['ts']);?>"></span>
+							</div>
+				</div>
+			    <div class="p-stats">
+					<span class="views" title="Lượt xem">
+						<?php $video['counter']['vyt'] = isset($video['counter']['vyt']) ? $video['counter']['vyt'] : 0;?>
+						<img src="<?php echo ASSETS_CDN?>/img/views.png" 
+								title="<?php echo number_format($views);?> lượt xem">
+								<?php echo number_format($views);?></span>
+                	<span class="comments">
+                		<img src="<?php echo ASSETS_CDN?>/img/icon-comment.png" title="Link">
+                			<?php echo $comments;?></span>
+                </div>
+                <div class='clear'></div>
+                <div class="like-box">
+					<ul class="share-links">
+					         <div class="fb-like" 
+								data-href="<?echo SITE_URL;?><?php echo node_link('video',$video);?>"  
+		                        data-layout="button_count" 
+		                        data-action="like" 
+		                        data-show-faces="true" 
+		                        data-share="true">
+		                     </div>
+				    </ul>
+                </div>
+			</div>
+		</div>
+		<div class='separator-high' style='border-bottom: 1px solid #DDD;'></div>
+		<div class='separator-high'></div>
 	<?php endforeach;?>
-	</div>
 <?php endif;?>
 <div class="clear"> </div>
 <ul class="dc_pagination dc_paginationA dc_paginationA03" id= "nav-footer">

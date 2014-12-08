@@ -63,8 +63,14 @@ class Video_IndexController extends Cl_Controller_Action_NodeIndex
                 else 
                 {
                 	$this->ajaxData['callback'] = 'redirect';
-                	$url = node_link('video' , $this->ajaxData['result'], 'upload');
-                	
+                	//TODO:$this->ajaxData['result'] (tim hieu no duoc tao ra nhu the nao)??
+                	$id = $this->ajaxData['result']['id'];
+                	$r = Dao_Node_Video::getInstance()->findOne(array('id'=>$id));
+                	if($r['success']){
+	                	$url = node_link('video' , $r['result'], 'upload');
+                	}else{
+                		$url = '/';
+                	}
                 	$this->ajaxData['data'] = array('url' => $url);
                 }
             }

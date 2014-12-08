@@ -39,6 +39,14 @@ body{
 	float:left;
 	padding: 8px 6px 0px 15px;
 }
+.separator{
+	clear: both;
+    min-height: 10px;
+}
+.separator-high{
+	clear: both;
+    min-height: 20px;
+}
 .top-nav{
 	float:right;
 }
@@ -955,7 +963,7 @@ ul.dc_paginationA03 li a:hover, ul.dc_paginationA03 li a.current, ul.dc_paginati
 .box2 ul li{
 	display:inherit;
 	float: left;
-	margin-right: 68px;
+	margin-right: 6%;
 }
 .box2 ul li a{
 	font-family: 'Ropa Sans', sans-serif;
@@ -1574,7 +1582,7 @@ ul.listfans li .statusfans {
 }
 .support_fan h3 {
     color: #515151;
-    font-size: 16px;
+    font-size: 14px;
     margin-bottom: 5px;
     text-shadow: 1px 1px #fff;
     font-weight: bold;
@@ -1585,7 +1593,7 @@ ul.listfans li .statusfans {
     padding: 0;
     color: #222;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 13px;
     font-style: italic;
 }
 
@@ -1660,4 +1668,44 @@ ul.listfans li .statusfans {
 	float: left;
 	width: 30%;
     position: relative;
+}
+.video-cover{
+	clear: both;
+}
+.video-cover .video-content{
+	float: left;
+    min-height: 240px;
+    width: 70%;
+}
+.video-cover .action-content{
+	float: right;
+    position: relative;
+    width: 28%;
+}
+hr {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: #eee -moz-use-text-color -moz-use-text-color;
+    border-image: none;
+    border-right: 0 none;
+    border-style: solid none none;
+    border-width: 1px 0 0;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+.like-box {
+    height: 20px;
+    margin-bottom: 10px;
+}
+.p-stats {
+    float: left;
+    font-size: 14px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+}
+.uinfo {
+    font-size: 13px;
 }

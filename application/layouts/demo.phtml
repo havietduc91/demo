@@ -1,0 +1,95 @@
+<?php 
+    $lu =  Zend_Registry::get('user');
+    $page = 'home';
+    if (isset($_REQUEST['page']))
+        $page = $_REQUEST['page'];
+    if (Zend_Registry::isRegistered('page'))
+        $page = Zend_Registry::get('page');
+
+?>
+<!DOCTYPE html>
+<html>
+	<head>
+	<link rel="shortcut icon" type="image/x-icon" href="<?php echo ASSETS_CDN?>/img/pageicon.png" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title><?php echo Bootstrap::$pageTitle;?> - Video cover</title>
+    <meta name="description" content="<?php echo Bootstrap::$pageDesc;?>" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="">
+    
+<?php //if (APPLICATION_ENV == 'development') :?>
+    
+    
+    <!-- 
+    <link href="<?php echo SAND_ASSETS_CDN;?>/css/common.css" media="screen" rel="stylesheet" type="text/css" >
+    <link href="<?php echo SAND_ASSETS_CDN;?>/css/ui-lightness/jquery-ui-1.8.16.custom.css" rel="stylesheet" >
+    <link href="<?php echo SAND_ASSETS_CDN;?>/css/reset.css" media="screen" rel="stylesheet" type="text/css" >
+	<link href="<?php echo SAND_ASSETS_CDN;?>bootstrap-3.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="<?php echo ASSETS_CDN;?>/css/styles.css" media="screen" rel="stylesheet" type="text/css" >
+    <link href="<?php echo SAND_ASSETS_CDN;?>/js/plugins/toastmessage/src/main/resources/css/jquery.toastmessage.css" rel="stylesheet" type="text/css"/>	
+     -->
+	<link href="<?php echo ASSETS_CDN;?>/css/covervd-style.css" media="screen" rel="stylesheet" type="text/css" >
+<?php
+/* 
+//else 
+//<link href="<?php echo ASSETS_CDN . "css/_v" . JSVERSION . ".css"?>" media="screen" rel="stylesheet" type="text/css" >
+// endif;
+ * 
+ */
+?>
+
+<?php 
+$format = "DD/MM/YYYY";
+?>
+
+<script type='text/javascript'>
+<?php echo $this->render('widget/php-to-js.phtml');?>
+CL.DATE_FORMAT = "<?php echo substr(strtolower($format), 0, -2);?>";
+</script>
+	
+</head>
+<body> 
+<div class="wrap2">
+	<?php echo $this->render("demo-menu.phtml");?>
+	<div class='container' style='min-height:500px;' >
+		<div class="clear"> </div>
+		<div class="content">
+	     <?php echo $this->layout()->content; ?>
+	     </div>
+	</div>
+</div>
+<?php echo $this->render('footer.phtml');?>
+
+<?php /*
+    <script src="<?php echo SAND_ASSETS_CDN;?>/js/jquery.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+*/?>
+<?php echo $this->render('development-js.phtml');?>
+
+    <?php if (APPLICATION_ENV == 'development') :?> 
+     <script type="text/javascript">
+      window.fbAsyncInit = function() {
+        // init the FB JS SDK
+        FB.init({
+          appId      : '7829106395',
+          channelUrl : '' + window.location.protocol + '//' + window.location.host + '/facebook/xd_receiver.html',
+          status     : true,
+          xfbml      : true
+        });
+      };
+    
+      // Load the SDK asynchronously
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "//connect.facebook.net/en_US/all.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <?php endif;?>
+<?php echo $this->headScript();?>
+<?php print $this->inlineScript();?>
+</body>
+</html>
+

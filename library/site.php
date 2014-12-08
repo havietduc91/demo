@@ -118,11 +118,11 @@ function node_link($type = 'video', $row, $type_redirect='view'){
 
 	if ($type == 'video')
 	{
-		if($type_redirect == 'upload'){
-			$link = '/video/view?id='. $row['id'];
-		}else{
+		//if($type_redirect == 'upload'){
+			//$link = '/video/view?id='. $row['id'];
+		//}else{
 			$link = '/video/'. $row['iid'].'-' . $row['slug'] .'.html';
-		}
+		//}
 	}
 	
 	elseif ($type == 'tag')

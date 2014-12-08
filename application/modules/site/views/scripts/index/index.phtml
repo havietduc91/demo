@@ -16,6 +16,7 @@
 			<?php echo $this->render('/widget/search-box.phtml');?>
 		</div>
 		<div class="search-right">
+		<?php /*
 			<span class="pull-right"
 						title='Hiển thị theo danh sách'>
 					<a href="?template=grid" class=''>				
@@ -43,16 +44,17 @@
 						</button>
 					</a>
 				</span>
+		*/?>
 		</div>
 		<div class="clear"> </div>
 	</div>
 	<div class="box">
 <?php endif;?>
-	<?php if($template == 'list'):?>
+	<?php //if($template == 'list'):?>
 		<?php echo $this->render('/widget/video-list.phtml');?>
-	<?php else:?>
-		<?php echo $this->render('/widget/video-grid.phtml');?>
-	<?php endif;?>
+	<?php ///else:?>
+		<?php //echo $this->render('/widget/video-grid.phtml');?>
+	<?php //endif;?>
 <?php if($isWidget == false):?>
 	<div class="clear"> </div>
 	</div>
