@@ -30,7 +30,9 @@ class Video_IndexController extends Cl_Controller_Action_NodeIndex
     public function newAction()
     {
     	$u = Zend_Registry::get('user');
-    
+    	if (is_guest())
+    		$this->_redirect('/user/login');
+    	
     	if(has_role('sudo')){
 	    	assure_perm('sudo');
 	    	$this->setLayout("admin");

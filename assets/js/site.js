@@ -112,11 +112,16 @@ $(function(){ // document ready
 	                            _cl_modal_ajax : 1
 	                        },
 	                        success : function(data){
-	                            isloading = false;
+	                        	isloading = false;
 	                            loaded ++;
 	                            $("#nav-footer").remove();
 	                            $(data.result.content).insertBefore("#loading");
+	                            $(".timeago").timeago();//refresh timeago for new items
 	                            $('#loading').hide();
+	                            //gapi.plusone.go();
+	                            //$('.gifs').gifplayer(); 
+	                            //vote_store();
+	                            FB.XFBML.parse();
 	                        }
 	                    });	
 	                }

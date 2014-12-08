@@ -385,6 +385,7 @@ class Dao_Node_Video extends Dao_Node_Site
 	}
 	
 	public function getVideoByType($type, $limit, $ts){
+		$ts = isset($ts) ? $ts : time();
 		$list = array();
 		if($type == 'new'){
 			if(isset($ts) && $ts > 0){

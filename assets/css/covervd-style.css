@@ -1599,17 +1599,11 @@ ul.listfans li .statusfans {
 
 /*************TOPUSER*****************************/
 .top-10 {
-	background: #EEE;
-    border: 1px solid #bbb;
     border-radius: 5px;
     clear: right;
-    color: #666;
-    height: 268px;
     margin-bottom: 10px;
-    margin-top: 4px;
-    padding: 12px 15px 15px;
+    margin-top: 5px;
     position: relative;
-    width: 90%;
 }
 .top-10 ul, .top-10 li {
     list-style: none outside none;
@@ -1628,11 +1622,11 @@ ul.listfans li .statusfans {
 	font-weight: bold;
 }
 .top-10 img {
-    display: block;
+    border-radius: 25px;
     float: left;
-    height: 40px;
+    height: 50px;
     margin-right: 10px;
-    width: 40px;
+    width: 50px;
 }
 .top-10 .widget-content ul {
     min-height: 50px;

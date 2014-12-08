@@ -13,7 +13,7 @@
 	<?php $imgLink = "http://img.youtube.com/vi/{$video['ytid']}/0.jpg";?>
 		<div class='video-cover'>
 			<div class='video-content'>
-				<div class="video-inner margin-left" style='min-height: 440px;'>
+				<div class="video-inner margin-left" style='min-height: 400px;'>
 					<a href="<?php echo node_link('video', $video);?>">
 						<img src="<?php echo $imgLink;?>" title="<?php echo $video['name'];?>"
 						style='width: 98%;height: 372px;'>
@@ -57,6 +57,7 @@
                 <div class='clear'></div>
                 <div class="like-box">
 					<ul class="share-links">
+						<li>
 					         <div class="fb-like" 
 								data-href="<?echo SITE_URL;?><?php echo node_link('video',$video);?>"  
 		                        data-layout="button_count" 
@@ -64,6 +65,14 @@
 		                        data-show-faces="true" 
 		                        data-share="true">
 		                     </div>
+		                </li>     
+		                 <li>
+				        	<a>
+                              <div class="g-plusone" 
+                              	data-href="<?echo SITE_URL;?><?php echo node_link('video',$video);?>"
+                              	data-count=true data-width="100"></div>
+                              </a>
+		                </li>
 				    </ul>
                 </div>
 			</div>

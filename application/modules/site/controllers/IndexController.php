@@ -21,11 +21,11 @@ class Site_IndexController extends Cl_Controller_Action_Index
         $this->setViewParam('total', $total);
         
         //Get new video
-        $list = Dao_Node_Video::getInstance()->getVideoByType('new', 2);
+        $list = Dao_Node_Video::getInstance()->getVideoByType('new', 2, time());
         $this->setViewParam('newVideos', $list);
         
         //Get popular video
-        $list = Dao_Node_Video::getInstance()->getVideoByType('hot', 1);
+        $list = Dao_Node_Video::getInstance()->getVideoByType('hot', 1, time());
         $this->setViewParam('hotVideos', $list);
         
         //Get top user limit 10;
