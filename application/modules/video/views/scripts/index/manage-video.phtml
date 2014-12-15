@@ -8,23 +8,26 @@
 <script type="text/javascript">
 CL.NID = "<?php echo $row['id']; ?>";
 </script>
-<?php echo $this->render('/widget/user_menu.phtml');?>
-<div class="inner-page" style='margin-left: 15%; width: 85%;'>
-	<div class="searchbar">
-		<div class="search-left">
-			<?php echo $this->render('/widget/search-box.phtml');?>
-		</div>
-		<div class="search-right">
-			<p>Quản lý video</p>
-		</div>
-		<div class="clear"> </div>
+<div class='row'>
+	<div class='col-md-2'>
+		<?php echo $this->render('/widget/user_menu.phtml');?>
 	</div>
-	
-	<?php echo $this->render('/widget/manage-video-list.phtml');?>
-	
-	<div class="clear"> </div>
-	<?php if($this->total > 0) :?>
-        <?php echo $this->render("widget/vd-pagination.phtml");?>
-    <?php endif;?>
+	<div class='col-md-10'>
+		<div class="searchbar">
+			<div class="search-left">
+				<?php echo $this->render('/widget/search-box.phtml');?>
+			</div>
+			<div class="search-right">
+				<p>Quản lý video</p>
+			</div>
+			<div class="clear"> </div>
+		</div>
+		
+		<?php echo $this->render('/widget/manage-video-list.phtml');?>
+		
+		<div class="separator"> </div>
+		<?php if($this->total > 0) :?>
+	        <?php echo $this->render("widget/vd-pagination.phtml");?>
+	    <?php endif;?>
+	</div>
 </div>
-<div class="clear"> </div>

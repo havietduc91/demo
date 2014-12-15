@@ -35,18 +35,19 @@
 <script>
 CL.nid = '<?php echo $row['id']?>';
 </script>
-
-<div class="inner-page">
-	<div class="searchbar">
-		<div class="search-left">
-			<?php echo $this->render('/widget/search-box.phtml');?>
+<div class='row'>
+	<div class='col-md-8'>
+		<div class="searchbar">
+			<div class="search-left">
+				<?php echo $this->render('/widget/search-box.phtml');?>
+			</div>
+			<div class="search-right">
+				<p>Chi tiết video</p>
+			</div>
+			<div class="clear"> </div>
 		</div>
-		<div class="search-right">
-			<p>Chi tiết video</p>
-		</div>
-		<div class="clear"> </div>
-	</div>
-	<div class="title margin-left">
+		
+		<div class="title margin-left">
 		<h3><?php echo $row['name'];?> </h3>
 		<ul>
 			<li><h4>Đăng bởi:</h4></li>
@@ -128,7 +129,6 @@ CL.nid = '<?php echo $row['id']?>';
 	<div class="viwes margin-left">
 		<div class="view-links">
 			<ul>
-				<li><h4>Chia sẻ:</h4></li>
 				<li>
 					<ul class="share-links">
 					         <div class="fb-like" 
@@ -178,7 +178,7 @@ CL.nid = '<?php echo $row['id']?>';
 	<div class="video-details margin-left">
 		<ul>
 			<li><p>Được tải lên  <a href="#"><?php echo date('Y-m-d H:i:s', $row['ts']);?></a>
-				 bỏi <a href="#"><?php echo $row['u']['name'];?></a></p></li>
+				 </p></li>
 			<li><span><?php //echo $row['content'];?></span></li>
 		</ul>
 	</div>
@@ -244,28 +244,26 @@ CL.nid = '<?php echo $row['id']?>';
 		</div>
 	<?php endif;?>
 	<div class="clear"> </div>
+	</div>
+	<div class='col-md-4'>
+		<?php echo $this->render('/widget/box-like-facebook.phtml');?>
+		<div class="separator"> </div>
+		<?php echo $this->render('/widget/support-fan.phtml');?>
+		<div class="separator"> </div>
+		<?php echo $this->render('/widget/button-upload-video.phtml');?>
+		<div class="separator"> </div>
+	    <?php echo $this->render('/video/ori-video.phtml');?>
+	    <div class="separator"> </div>
+	    <?php /*
+		<?php echo $this->render('/video/hot-videos.phtml');?>
+		<div class="clear"> </div>
+	    <?php echo $this->render('/widget/topuser.phtml');?>
+		<div style='min-height: 10px;'></div>
+		<div class="clear"> </div>
+	    */?>
+		<?php echo $this->render('/video/new-videos.phtml');?>
+	</div>
 </div>
-<div class="right-content">
-	<div class="clear"> </div>
-	<?php echo $this->render('/widget/box-like-facebook.phtml');?>
-	<div class="clear"> </div>
-	<?php echo $this->render('/widget/support-fan.phtml');?>
-	<div style='min-height: 10px;'></div>
-	<?php echo $this->render('/widget/button-upload-video.phtml');?>
-	<div style='min-height: 10px;'></div>
-	<div class="clear"> </div>
-    <?php echo $this->render('/video/ori-video.phtml');?>
-    <div class="clear"> </div>
-    <?php /*
-	<?php echo $this->render('/video/hot-videos.phtml');?>
-	<div class="clear"> </div>
-    <?php echo $this->render('/widget/topuser.phtml');?>
-	<div style='min-height: 10px;'></div>
-	<div class="clear"> </div>
-    */?>
-	<?php echo $this->render('/video/new-videos.phtml');?>
-</div>
-<div class="clear"> </div>
 <?php $this->inlineScript()->captureStart();?>
       // 2. This code loads the IFrame Player API code asynchronously.
 	var tag = document.createElement('script');

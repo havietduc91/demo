@@ -20,14 +20,12 @@
 <?php //if (APPLICATION_ENV == 'development') :?>
     
     
-    <!-- 
     <link href="<?php echo SAND_ASSETS_CDN;?>/css/common.css" media="screen" rel="stylesheet" type="text/css" >
     <link href="<?php echo SAND_ASSETS_CDN;?>/css/ui-lightness/jquery-ui-1.8.16.custom.css" rel="stylesheet" >
     <link href="<?php echo SAND_ASSETS_CDN;?>/css/reset.css" media="screen" rel="stylesheet" type="text/css" >
 	<link href="<?php echo SAND_ASSETS_CDN;?>bootstrap-3.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
 		<link href="<?php echo ASSETS_CDN;?>/css/styles.css" media="screen" rel="stylesheet" type="text/css" >
     <link href="<?php echo SAND_ASSETS_CDN;?>/js/plugins/toastmessage/src/main/resources/css/jquery.toastmessage.css" rel="stylesheet" type="text/css"/>	
-     -->
 	<link href="<?php echo ASSETS_CDN;?>/css/covervd-style.css" media="screen" rel="stylesheet" type="text/css" >
 <?php
 /* 
@@ -51,8 +49,8 @@ CL.DATE_FORMAT = "<?php echo substr(strtolower($format), 0, -2);?>";
 <body> 
 <div class="wrap2">
 	<?php echo $this->render("demo-menu.phtml");?>
-	<div class='container' style='min-height:500px;' >
-		<div class="clear"> </div>
+	<div class='container container-full' style='min-height:500px;' >
+		<div class="clear" style='margin-top: 55px;'> </div>
 		<div class="content">
 	     <?php echo $this->layout()->content; ?>
 	     </div>

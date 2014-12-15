@@ -11,31 +11,34 @@
 <script type="text/javascript">
 CL.NID = "<?php echo $row['id']; ?>";
 </script>
-<?php echo $this->render('/widget/user_menu.phtml');?>
-<div class="inner-page" style='margin-left: 212px; width: 54%;'>
-	<div class="searchbar">
-		<div class="search-left">
-			<?php echo $this->render('/widget/search-box.phtml');?>
-		</div>
-		<div class="search-right">
-			<p>Tài khoản cá nhân</p>
-		</div>
-		<div class="clear"> </div>
+<div class='row'>
+	<div class='col-md-2'>
+		<?php echo $this->render('/widget/user_menu.phtml');?>
 	</div>
-	<div id='vd_form'>
-		<?php if($step == 'avatar' || $step == 'background'):?>
-			<?php echo $this->render('/widget/update-avatar.phtml');?>
-		<?php else:?>
-			<?php echo $this->form;?>
-		<?php endif;?>
+	<div class='col-md-7'>
+		<div class="searchbar">
+			<div class="search-left">
+				<?php echo $this->render('/widget/search-box.phtml');?>
+			</div>
+			<div class="search-right">
+				<p>Tài khoản cá nhân</p>
+			</div>
+			<div class="clear"> </div>
+		</div>
+		<div id='vd_form'>
+			<?php if($step == 'avatar' || $step == 'background'):?>
+				<?php echo $this->render('/widget/update-avatar.phtml');?>
+			<?php else:?>
+				<?php echo $this->form;?>
+			<?php endif;?>
+		</div>
+	</div>
+	<div class='col-md-3'>
+		<?php echo $this->render('/video/hot-videos.phtml');?>
+		<div class="separator"> </div>
+		<?php echo $this->render('/video/new-videos.phtml');?>
 	</div>
 </div>
-<div class="right-content">
-	<?php echo $this->render('/video/hot-videos.phtml');?>
-	<div class="clear"> </div>
-	<?php echo $this->render('/video/new-videos.phtml');?>
-</div>
-<div class="clear"> </div>
 <?php $this->inlineScript()->captureStart();?>
 CL.formStep = '<?php echo $step;?>';
 CL.uid = '<?php echo $lu['id'];?>';

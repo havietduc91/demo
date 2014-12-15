@@ -9,80 +9,77 @@
 	$template = get_value('template', 'list');
 ?>
 
-<?php if($isWidget == false):?>
-<div class="left-content">
-	<div class="searchbar">
-		<div class="search-left">
-			<?php echo $this->render('/widget/search-box.phtml');?>
-		</div>
-		<div class="search-right">
-		<?php /*
-			<span class="pull-right"
-						title='Hiển thị theo danh sách'>
-					<a href="?template=grid" class=''>				
-						<button type="button" style='padding: 2px 4px 3px 4px;'
-							class="vd-button vd-is-buffered vd-button-branded btn-favourite 
-								<?php if($template == 'list'):?>vd-button-active<?php endif;?>">
-							<span class="button-icon-wrapper">
-								<img class="vd-button-icon" 
-								src="<?php echo ASSETS_CDN?>/img/list-black.png">
-							</span>
-						</button>
-					</a>
-				</span>
-				
-			<span class="pull-right"
-						title='Hiển thị theo dạng icon nhỏ'>
-					<a href="?template=list" class=''>				
-						<button type="button" style='padding: 2px 4px 3px 4px;'
-							class="vd-button vd-is-buffered vd-button-branded btn-favourite 
-								<?php if($template == 'grid'):?>vd-button-active<?php endif;?>">
-							<span class="button-icon-wrapper">
-								<img class="vd-button-icon" width='10px;' height='20px;'
-								src="<?php echo ASSETS_CDN?>/img/grid-black.png">
-							</span>
-						</button>
-					</a>
-				</span>
-		*/?>
-		</div>
+<div class='row'>
+	<div class='<?php if($isWidget == false):?>col-md-8<?php else:?>col-md-12<?php endif;?>'>
+		<?php if($isWidget == false):?>
+			<div class="searchbar">
+				<div class="search-left">
+					<?php echo $this->render('/widget/search-box.phtml');?>
+				</div>
+				<div class="search-right">
+				<?php /*
+					<span class="pull-right"
+								title='Hiển thị theo danh sách'>
+							<a href="?template=grid" class=''>				
+								<button type="button" style='padding: 2px 4px 3px 4px;'
+									class="vd-button vd-is-buffered vd-button-branded btn-favourite 
+										<?php if($template == 'list'):?>vd-button-active<?php endif;?>">
+									<span class="button-icon-wrapper">
+										<img class="vd-button-icon" 
+										src="<?php echo ASSETS_CDN?>/img/list-black.png">
+									</span>
+								</button>
+							</a>
+						</span>
+						
+					<span class="pull-right"
+								title='Hiển thị theo dạng icon nhỏ'>
+							<a href="?template=list" class=''>				
+								<button type="button" style='padding: 2px 4px 3px 4px;'
+									class="vd-button vd-is-buffered vd-button-branded btn-favourite 
+										<?php if($template == 'grid'):?>vd-button-active<?php endif;?>">
+									<span class="button-icon-wrapper">
+										<img class="vd-button-icon" width='10px;' height='20px;'
+										src="<?php echo ASSETS_CDN?>/img/grid-black.png">
+									</span>
+								</button>
+							</a>
+						</span>
+				*/?>
+				</div>
+				<div class="clear"> </div>
+			</div>
+		<?php endif;?>
+			<?php //if($template == 'list'):?>
+				<?php echo $this->render('/widget/video-list.phtml');?>
+			<?php ///else:?>
+				<?php //echo $this->render('/widget/video-grid.phtml');?>
+			<?php //endif;?>
 		<div class="clear"> </div>
 	</div>
-	<div class="box">
-<?php endif;?>
-	<?php //if($template == 'list'):?>
-		<?php echo $this->render('/widget/video-list.phtml');?>
-	<?php ///else:?>
-		<?php //echo $this->render('/widget/video-grid.phtml');?>
-	<?php //endif;?>
-<?php if($isWidget == false):?>
-	<div class="clear"> </div>
+	<?php if($isWidget == false):?>
+	<div class='col-md-4'>
+		<script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"> </script>
+			<ins class="adsbygoogle"
+				 style="display: inline-block; width: 336px; height: 280px"
+				 data-ad-client="ca-pub-1704544291315733"
+				 data-ad-slot="9304440203"></ins>
+			<script>
+				(adsbygoogle = window.adsbygoogle || []).push({});
+			</script>
+		<?php echo $this->render('/widget/support-fan.phtml');?>
+		<div class='separator'></div>
+		<?php echo $this->render('/widget/button-upload-video.phtml');?>
+		<div class='separator'></div>
+		<?php /*
+			<?php echo $this->render('/video/hot-videos.phtml');?>
+		<div class="clear"> </div>
+		*/?>
+			<?php echo $this->render('/video/new-videos.phtml');?>
+		<div class='separator'></div>
+			<?php echo $this->render('/widget/topuser.phtml');?>
+		<div class='separator'></div>
+			<?php echo $this->render('/widget/box-like-facebook.phtml');?>
 	</div>
+	<?php endif;?>
 </div>
-<div class="right-content">
-	<script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"> </script>
-		<ins class="adsbygoogle"
-			 style="display: inline-block; width: 336px; height: 280px"
-			 data-ad-client="ca-pub-1704544291315733"
-			 data-ad-slot="9304440203"></ins>
-		<script>
-			(adsbygoogle = window.adsbygoogle || []).push({});
-		</script>
-	<?php echo $this->render('/widget/support-fan.phtml');?>
-	<div style='min-height: 10px;'></div>
-	<?php echo $this->render('/widget/button-upload-video.phtml');?>
-	<div style='min-height: 14px;'></div>
-<div class="clear"> </div>
-<?php /*
-	<?php echo $this->render('/video/hot-videos.phtml');?>
-<div class="clear"> </div>
-*/?>
-	<?php echo $this->render('/video/new-videos.phtml');?>
-<div class="clear"> </div>
-	<?php echo $this->render('/widget/topuser.phtml');?>
-	<div style='min-height: 10px;'></div>
-<div class="clear"> </div>
-	<?php echo $this->render('/widget/box-like-facebook.phtml');?>
-<?php endif;?>
-</div>
-<div class="clear"> </div>

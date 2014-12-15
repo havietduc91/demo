@@ -21,26 +21,24 @@
 	Xem trước	
 </div>
 <span id="output" onchange="changePositionTop()"></span>
-<div></div>
-
-<div class='clear' style='min-height: 20px;'></div>
+<div class='separator-high'></div>
 <div id="idcover" class="pfctncover">
-<?php if($step == 'background'):?>
-	<div class="drag-cover">
-          <img src="<?php echo $lu['background'];?>"
-          		class='avatar-preview' 
-          		alt="<?php echo $lu['name'];?>" style="width:1024px; height:768px;"/>
-        </div>
-	<?php /*
-	<div class="filledImage border-img">
-		<img class='avatar-preview' alt="" src="<?php echo $lu['background'];?>">
-	*/?>
-<?php elseif ($step == 'avatar'):?>
-	<div class="pfavatar border-img" style='top: 0;'>
-		<span class="avtholder" 
-			style="background-image:url('<?php echo $lu['avatar'];?>');"> Hà Việt Đức</span>
-<?php endif;?>
-	</div>
+	<?php if($step == 'background'):?>
+		<div class="drag-cover">
+	          <img src="<?php echo $lu['background'];?>"
+	          		class='avatar-preview' 
+	          		alt="<?php echo $lu['name'];?>" style="width:1024px; height:768px;"/>
+	        </div>
+		<?php /*
+		<div class="filledImage border-img">
+			<img class='avatar-preview' alt="" src="<?php echo $lu['background'];?>">
+		*/?>
+	<?php elseif ($step == 'avatar'):?>
+		<div class="pfavatar border-img" style='top: 0;'>
+			<span class="avtholder" 
+				style="background-image:url('<?php echo $lu['avatar'];?>');"> Hà Việt Đức</span>
+		</div>
+	<?php endif;?>
 </div>
 <?php $this->inlineScript()->captureStart();?>
 	//Show style background and 

@@ -8,35 +8,31 @@
 	$ac_name = get_value('ac_name');
 	$this->is_search = true; 
 ?>
-
-<?php if($isWidget == false):?>
-<div class="left-content">
-	<div class="searchbar">
-		<div class="search-left">
-			<?php echo $this->render('/widget/search-box.phtml');?>
-		</div>
-		<div class="search-right">
-			<p>Kết quả tìm kiếm - <?php echo $ac_name;?></p>
-		</div>
-		<div class="clear"> </div>
-	</div>
-	<div class="box">
-<?php endif;?>
-        <?php if(isset($this->list) && count($this->list) > 0):?>
+<div class='row'>
+	<div class='<?php if(!$isWidget):?>col-md-8<?php else:?>col-md-12<?php endif;?>'>
+		<?php if(!$isWidget):?>
+			<div class="searchbar">
+				<div class="search-left">
+					<?php echo $this->render('/widget/search-box.phtml');?>
+				</div>
+				<div class="search-right">
+					<p>Kết quả tìm kiếm - <?php echo $ac_name;?></p>
+				</div>
+				<div class="clear"> </div>
+			</div>
+		<?php endif;?>
+		
+		<?php if(isset($this->list) && count($this->list) > 0):?>
 			<?php echo $this->render('/widget/video-list.phtml');?>
 		<?php else:?>
 			<div style='min-height: 30px;'></div>
 			<?php echo $this->render('/widget/video-not-found.phtml');?>	
 				
 		<?php endif;?>
-<?php if($isWidget == false):?>
-	<div class="clear"> </div>
+	</div>
+	<div class='col-md-4'>
+		<?php echo $this->render('/video/hot-videos.phtml');?>
+		<div class="separator"> </div>
+		<?php echo $this->render('/video/new-videos.phtml');?>
 	</div>
 </div>
-<div class="right-content">
-	<?php echo $this->render('/video/hot-videos.phtml');?>
-<div class="clear"> </div>
-	<?php echo $this->render('/video/new-videos.phtml');?>
-</div>
-<?php endif;?>
-<div class="clear"> </div>

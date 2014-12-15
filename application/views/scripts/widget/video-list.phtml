@@ -2,12 +2,19 @@
 <?php 
 	$list = isset($this->list) ? $this->list : array();
 	$page = isset($this->page) ? $this->page : 1;
-	$filter = isset($this->filter) ? $this->filter : 1;
+	$filter = isset($this->filter) ? $this->filter : 'new';
 	$ac_name = isset($this->ac_name) ? $this->ac_name : '';
 	$isWidget = (isset($this->is_widget) && $this->is_widget == 'widget') ? true:false;
 	$total = Zend_Registry::isRegistered('total') ? Zend_Registry::get('total') : isset($this->total) ? $this->total : 1;
 ?>
 <div class='separator'></div>
+<?php if($filter == 'vote'):?>
+<div class="tips"><p>
+	<b>Mẹo:</b> 
+	<span ng-bind-html="pageTip" class="ng-binding">
+	Gặp clip cover hay hãy "like" động viên tác giả nhé!</span></p></div>
+	<div class='separator'></div>
+<?php endif;?>
 <?php if(count($list) > 0):?>
 	<?php foreach ($list as $video):?>
 	<?php $imgLink = "http://img.youtube.com/vi/{$video['ytid']}/0.jpg";?>

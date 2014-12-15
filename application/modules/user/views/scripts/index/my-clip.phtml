@@ -9,27 +9,30 @@
 <script type="text/javascript">
 CL.NID = "<?php echo $row['id']; ?>";
 </script>
-<?php echo $this->render('/widget/user_menu.phtml');?>
-<div class="inner-page" style='margin-left: 212px; width: 54%;'>
-	<div class="searchbar">
-		<div class="search-left">
-			<?php echo $this->render('/widget/search-box.phtml');?>
-		</div>
-		<div class="search-right">
-			<p>Clip của bạn</p>
-		</div>
-		<div class="clear"> </div>
+<div class='row'>
+	<div class='col-md-2'>
+		<?php echo $this->render('/widget/user_menu.phtml');?>	
 	</div>
-	
-	<?php echo $this->render('/widget/user-video-list.phtml');?>
-	<div class="clear"> </div>
-	<?php if($this->total > 0) :?>
-        <?php echo $this->render("widget/vd-pagination.phtml");?>
-    <?php endif;?>
+	<div class='col-md-7'>
+		<div class="searchbar">
+			<div class="search-left">
+				<?php echo $this->render('/widget/search-box.phtml');?>
+			</div>
+			<div class="search-right">
+				<p>Clip của bạn</p>
+			</div>
+			<div class="clear"> </div>
+		</div>
+		
+		<?php echo $this->render('/widget/user-video-list.phtml');?>
+		<div class="separator"> </div>
+		<?php if($this->total > 0) :?>
+	        <?php echo $this->render("widget/vd-pagination.phtml");?>
+	    <?php endif;?>
+	</div>
+	<div class='col-md-3'>
+		<?php echo $this->render('/video/hot-videos.phtml');?>
+		<div class="separator"> </div>
+		<?php echo $this->render('/video/new-videos.phtml');?>
+	</div>
 </div>
-<div class="right-content">
-	<?php echo $this->render('/video/hot-videos.phtml');?>
-	<div class="clear"> </div>
-	<?php echo $this->render('/video/new-videos.phtml');?>
-</div>
-<div class="clear"> </div>

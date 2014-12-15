@@ -6,7 +6,12 @@ blockquote,q{quotes:none;}
 blockquote:before,blockquote:after,q:before,q:after{content:'';content:none;}
 table{border-collapse:collapse;border-spacing:0;}
 /* start editing from here */
-a{text-decoration:none;}
+a{
+	text-decoration:none !important; 
+}
+a:hover{
+	color: #f60 !important;
+}
 .txt-rt{text-align:right;}/* text align right */
 .txt-lt{text-align:left;}/* text align left */
 .txt-center{text-align:center;}/* text align center */
@@ -30,6 +35,7 @@ body{
 }
 .header {
 /* 	margin-bottom: 8px; */
+ 	height: 50px;
 	background-color: #FFF;
 	z-index: 1000;
 	width: 100%;
@@ -217,7 +223,7 @@ body{
 	background:rgb(30, 93, 173);
 	padding:15.5px;
 	padding: 9.4px;
-	width: 95%;
+/* 	width: 95%; */
 }
 .popular p img{
 	vertical-align: text-bottom;
@@ -274,8 +280,6 @@ body{
 	background: rgb(30, 93, 173);
 	color: #fff;
 	padding: 10px;
-	margin-top: 10px;
-	width: 95%;
 }
 .r-all a{
 	font-size: 0.9em;
@@ -984,14 +988,15 @@ ul.dc_paginationA03 li a:hover, ul.dc_paginationA03 li a.current, ul.dc_paginati
     box-shadow: 0 0 2px #DDDDDD;
     left: 0;
     min-height: 100%;
-    position: absolute;
+/*     position: absolute; */
 }
 .zml, .zmr {
-    width: 209px;
+/*     width: 209px; */
+/* 	width: 15%; */
 }
 .zml {
 /*     z-index: 36; */
-    margin-top: 54px;
+/*     margin-top: 54px; */
 }
 .zml_toparea {
     border-bottom: 1px solid #E5E5E5;
@@ -1110,7 +1115,7 @@ ul.dc_paginationA03 li a:hover, ul.dc_paginationA03 li a.current, ul.dc_paginati
     background-repeat: no-repeat;
 }
 .grid3{
-	width: 96%;
+	width: 100%;
 	margin: 0 0 7px !important;
 	padding: 12px !important;
 }
@@ -1389,34 +1394,18 @@ ul.pfmenutab li span {
 	padding: 20px;
 }
 #vd_form label{
-	border-bottom: 1px dashed #C9C9C9;
+/* 	border-bottom: 1px dashed #C9C9C9; */
 	color: #9B9B9B;
 	font-family: 'Ropa Sans',sans-serif;
 	font-size: 1em;
 	padding: 15px 0 10px;
-}
-#vd_form #_cl_submit, #vd_form #preview{
-	background-color:#1E5DAD;
-	border: medium none;
-	border-radius: 3px;
-	color: #FFF;
-	font-size: 15px;
-	font-weight: bold;
-	line-height: 14px;
-	min-width: 189px;
-	padding: 8px 16px;
-	cursor: pointer;
-	margin-left: 10px;
 }
 #vd_form .form-control{
 	background: none repeat scroll 0 0 #FFFFFF;
 	border: 5px solid #EEEEEE;
 	color: #AAAAAA;
 	font-size: 16px;
-	height: 30px;
-	width: 300px;
-	margin-bottom: 10px;
-	margin-top: 5px;
+	height: 40px;
 }
 #vd_form .form-control[type='text']{
 	width: 100% !important;
@@ -1561,11 +1550,9 @@ ul.listfans li .statusfans {
     display: block;
     float: left;
     height: 102px;
-    margin: 0 14px 5px 0;
     overflow: hidden;
     padding: 10px 12px 0;
     position: relative;
-    width: 93%;
     margin-top: 2px;
     font-size: 14px;
 }
@@ -1702,4 +1689,19 @@ hr {
 }
 .uinfo {
     font-size: 13px;
+}
+.tips {
+    background-color: #ff9;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    color: #92917e;
+    padding: 10px;
+}
+.tips b {
+    font-weight: bold;
+}
+.container-full {
+    margin: 0 auto;
+    max-width: 100% !important;
+    width: 100% !important;
 }

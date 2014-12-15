@@ -7,7 +7,6 @@
 	$isWidget = (isset($this->is_widget) && $this->is_widget == 'widget') ? true:false;
 	$total = Zend_Registry::isRegistered('total') ? Zend_Registry::get('total') : isset($this->total) ? $this->total : 1;
 ?>
-<div class="box">
 	<div class="grids">
 		<?php if(count($list) > 0):?>
 			<?php foreach ($list as $video):?>
@@ -48,5 +47,4 @@
 			<?php endforeach;?>
 		<?php endif;?>
 	</div>
-</div>
 <div class="clear"> </div>
