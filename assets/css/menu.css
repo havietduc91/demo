@@ -1,0 +1,111 @@
+header#top-nav {
+    background: none repeat scroll 0 0 rgb(30, 93, 173);
+    border-bottom: 1px solid #ddd;
+    color: #fff;
+    height: 46px;
+    width: 100%;
+}
+
+header#top-nav .nav-wrap {
+    height: 46px;
+    margin: 0 auto;
+    position: relative;
+    width: 1068px;
+}
+
+header#top-nav h1 {
+    float: left;
+}
+header#top-nav .headbar-items {
+    float: left;
+}
+header#top-nav h1 a {
+	background: url("../img/9gag-logo-white.png") no-repeat scroll left center rgba(0, 0, 0, 0);
+    display: block;
+    height: 46px;
+    overflow: hidden;
+    text-indent: -9999px;
+    width: 90px;
+}
+header#top-nav .headbar-items ul {
+    font-size: 13px;
+    list-style-type: none;
+    overflow: hidden;
+}
+.headbar-items li {
+    float: left;
+}
+
+header#top-nav a {
+    text-decoration: none;
+}
+.headbar-items a {
+    color: #fff;
+    display: block;
+    padding: 0 10px;
+    position: relative;
+}
+
+.headbar-items a.selected span.label,
+.headbar-items a:hover span.label {
+/*     border-color: #ee0005; */
+	border-color: #f60;
+    color: #f60;
+    font-weight: bold;
+}
+.headbar-items a span.label {
+    border-bottom: 3px solid transparent;
+    display: block;
+    height: 44px;
+    line-height: 48px;
+    padding: 0 5px;
+    font-size: 100%;
+}
+.visitor-function {
+    float: right;
+    width: 246px;
+}
+
+header#top-nav a {
+    text-decoration: none;
+}
+.visitor-function a.link {
+    color: #999;
+    display: block;
+    float: left;
+    font-size: 13px;
+    line-height: 47px;
+    padding: 0 10px;
+}
+.visitor-function a.link {
+    color: #999;
+    display: block;
+    float: left;
+    font-size: 13px;
+    line-height: 47px;
+    padding: 0 10px;
+}
+
+.visitor-function div.upload, .badge-user-function-placeholder div.upload {
+    margin-top: 8px;
+}
+a.upload{
+    float: right;
+}
+a.upload{
+    background-color: #ff3c1f;
+    color: #fff;
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 30px;
+    margin-left: 10px;
+    padding: 0 12px;
+}
+a.upload:hover{
+    background-color: #ff6852;
+    color: #FFF !important;
+}
+a.upload{
+    float: right;
+}

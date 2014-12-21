@@ -28,68 +28,20 @@ nav.horizontal ul li{	display: inline-block;}/* horizontal menu */
 img{max-width:100%;}
 /*end reset*/
 body{
+	font-family: OpenSansRegular,'Helvetica Neue',Helvetica,Arial,FreeSans,sans-serif;
+	color: #333;
+	font-size: 16px;
+	line-height: 1.5;
 }
 .wrap{
 	width:70%;
 	margin:0 auto;
 }
 .header {
-/* 	margin-bottom: 8px; */
  	height: 50px;
-	background-color: #FFF;
 	z-index: 1000;
 	width: 100%;
 	position: fixed;
-}
-.logo{
-	float:left;
-	padding: 8px 6px 0px 15px;
-}
-.separator{
-	clear: both;
-    min-height: 10px;
-}
-.separator-high{
-	clear: both;
-    min-height: 20px;
-}
-.top-nav{
-	float:right;
-}
-.top-nav ul li{
-	display: inline-block;
-	float: left;
-/* 	width: 120px; */
-	background: rgb(30, 93, 173);
-	color: rgb(218, 216, 216);
-	border-left: 1px solid rgb(47, 75, 124);
-/* 	padding: 22px 12px; */
-	padding: 14px 10px;
-	text-align: center;
-	cursor: pointer;
-	text-transform: uppercase;
-	font-size: 0.9em;
-}
-.top-nav ul li.active{
-	background: none repeat scroll 0 0 #133F8F;
-}
-.top-nav ul li:hover{
-	background: none repeat scroll 0 0 #133F8F;
-}
-.top-nav ul li:first-child{
-	border:none;
-}
-.top-nav ul li a{
-	color: #FFF;
-	font-size: 1.5em;
-	font-family: 'Ropa Sans', sans-serif;
-	text-transform: uppercase;
-	font-size: 1.2em;
-}
-.top-nav ul li p{
-	font-size:1em;
-	font-family: 'Ropa Sans', sans-serif;
-	padding-top: 4px;
 }
 /*----content-----*/
 /*---search-bar----*/
@@ -101,8 +53,8 @@ body{
 .search-left{
 	float:left;
 	background:#fff;
-	width: 295px;
-	height: 28px;
+	width: 364px;
+	height: 31px;
 }
 .search-right{
 	float:right;
@@ -1075,7 +1027,6 @@ ul.dc_paginationA03 li a:hover, ul.dc_paginationA03 li a.current, ul.dc_paginati
 .zml .zmmenu li a, .zml .zmmenu li a:hover {
     border-right: 0 none;
     overflow: visible;
-    width: 209px;
 }
 .zml .zmmenu li a:hover, .zml .zmmenu li a.selected:hover {
     background-color: #EEEEEE;
@@ -1307,7 +1258,6 @@ ul.pfmenutab li span {
 	box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
 	font-size:inline-block;
 	cursor: pointer;
-	font-size: 11px;
 	font-weight: bold;
 	height: 28px;
 	line-height: normal;
@@ -1320,7 +1270,6 @@ ul.pfmenutab li span {
 }
 .button-icon-wrapper{
 	display: inline-block;
-	font-size: 0;
 	margin-right: 6px;
 	vertical-align: middle;
 }
@@ -1376,13 +1325,6 @@ ul.pfmenutab li span {
 	vertical-align: middle;
 }
 /*************************END BUTTON*******************************/
-
-.pull-right{
-	float: right;
-}
-.pull-left{
-	float: left;
-}
 /***********************FORM***************************************/
 .fileinput-button{
 	float: left;
@@ -1497,42 +1439,6 @@ ul.listfans li .statusfans {
 	box-shadow: 0 0 10px #E4E4E4;
 }
 
-/**********************BUTTON EXTEND BOOTSTRAP******************************************/
-.btn-danger {
-    background-color: #D9534F !important;
-    border-color: #D43F3A !important;
-    color: #FFFFFF !important;
-}
-.btn-warning {
-    background-color: #F0AD4E !important;
-    border-color: #EEA236 !important;
-    color: #FFFFFF !important;
-}
-.btn-info {
-    background-color: #5BC0DE !important;
-    border-color: #46B8DA !important;
-    color: #FFFFFF !important;
-}
-.btn-success {
-    background-color: #5CB85C !important;
-    border-color: #4CAE4C !important;
-    color: #FFFFFF !important;
-}
-.btn-primary {
-    background-color: #428BCA !important;
-    border-color: #357EBD !important;
-    color: #FFFFFF !important;
-}
-.btn-default {
-    background-color: #FFFFFF !important;
-    border-color: #CCCCCC !important;
-    color: #333333 !important;
-}
-/**********************BUTTON EXTEND BOOTSTRAP******************************************/
-.upload-h3:hover{
-	background-color: #133F8F !important;
-	color: #FFF !important;
-}
 /*********************BOX SUPORT FAN******************************/
 .support_fan{
 	display: block;
@@ -1547,14 +1453,10 @@ ul.listfans li .statusfans {
     border: 1px solid #bbb;
     box-shadow: 0 1px #eee, 0 0 0 1px #fff inset;
     border-radius: 11px;
-    display: block;
-    float: left;
     height: 102px;
     overflow: hidden;
     padding: 10px 12px 0;
     position: relative;
-    margin-top: 2px;
-    font-size: 14px;
 }
 
 .support_fan span.ribbon {
@@ -1704,4 +1606,7 @@ hr {
     margin: 0 auto;
     max-width: 100% !important;
     width: 100% !important;
+}
+.btn-primary{
+	background-color: #1E5DAD;
 }

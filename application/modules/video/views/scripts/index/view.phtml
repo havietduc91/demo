@@ -60,9 +60,9 @@ CL.nid = '<?php echo $row['id']?>';
 							       echo $unsubLink; 
 							   else 
 							   	   echo $subLink;?>' 	
-			   	   	class='cl_ajax sublink'>			
+			   	   	class='cl_ajax sublink'>
 					<button type="button" 
-						class="vd-button vd-is-buffered vd-button-branded sub-button
+						class="btn btn-primary vd-is-buffered vd-button-branded sub-button
 							<?php if($subscribed):?>vd-button-active<?php endif;?>">
 						<span class="button-icon-wrapper">
 							<img class="vd-button-icon" 
@@ -87,37 +87,33 @@ CL.nid = '<?php echo $row['id']?>';
 			<li style='float: right;'> 
 				<span class="pull-right"
 						title='Thêm vào playlist ưa thích'>
-					<a href="/video/add-playlist?id=<?php echo $row['id'];?>" class='cl_ajax'>				
-						<button type="button" 
-							class="vd-button vd-is-buffered vd-button-branded btn-favourite 
+					<a href="/video/add-playlist?id=<?php echo $row['id'];?>" class='cl_ajax'>
+						<button class="btn btn-primary vd-is-buffered vd-button-branded btn-favourite
 								<?php if($isFavourite):?>vd-button-active<?php endif;?>">
 							<span class="button-icon-wrapper">
-								<img class="vd-button-icon" 
-								src="<?php echo ASSETS_CDN?>/img/favourites-8.png">
+								<?php echo gen_icon('star');?>
 							</span>
 							<span class="vd-button-content">
 								<span aria-label="Clip ưa thích" class="subscribe-label">
 								<?php if($isFavourite):?>Bỏ thích<?php else:?>Ưa thích<?php endif;?></span>
-							</span>		
-						</button>
+							</span>
+						</button>				
 					</a>
 				</span>
 				
 				<span class="pull-right replay-video"
 						data-replay='0'
 						title='Luôn replay khi clip kết thúc'>
-					<a href='javascript:void(0);'>				
-						<button type="button" 
-							class="vd-button vd-is-buffered vd-button-branded btn-replay">
+					<a href='javascript:void(0);'>		
+						<button class='btn btn-primary vd-is-buffered vd-button-branded btn-replay'>
 							<span class="button-icon-wrapper">
-								<img class="vd-button-icon vd-button-icon" 
-								src="<?php echo ASSETS_CDN;?>/img/replay-icon-2.png">
+								<?php echo gen_icon('repeat');?>
 							</span>
 							<span class="vd-button-content">
 								<span aria-label="Replay" class="subscribe-label">
 								Replay</span>
 							</span>
-						</button>
+						</button>		
 					</a>
 				</span>
 			</li>
@@ -222,13 +218,6 @@ CL.nid = '<?php echo $row['id']?>';
 							<span><?php echo gmdate("H:i:s", (int)$video['duration']);?></span>
 						</div>
 						<div class="grid-info">
-							<div class="video-share">
-								<ul>
-									<li><a href="#"><img src="<?php echo ASSETS_CDN?>/img/likes.png" title="links"></a></li>
-									<li><a href="#"><img src="<?php echo ASSETS_CDN?>/img/link.png" title="Link"></a></li>
-									<li><a href="#"><img src="<?php echo ASSETS_CDN?>/img/views.png" title="Views"></a></li>
-								</ul>
-							</div>
 							<div class="video-watch">
 								<a href="<?php echo node_link('video', $video);?>">Xem ngay</a>
 							</div>
@@ -249,8 +238,6 @@ CL.nid = '<?php echo $row['id']?>';
 		<?php echo $this->render('/widget/box-like-facebook.phtml');?>
 		<div class="separator"> </div>
 		<?php echo $this->render('/widget/support-fan.phtml');?>
-		<div class="separator"> </div>
-		<?php echo $this->render('/widget/button-upload-video.phtml');?>
 		<div class="separator"> </div>
 	    <?php echo $this->render('/video/ori-video.phtml');?>
 	    <div class="separator"> </div>

@@ -27,16 +27,17 @@
 						$comments = isset($video['counter']['c']) ? $video['counter']['c'] : 0;
 					?>
 					<li>
-						<img src="<?php echo ASSETS_CDN?>/img/likes.png" title="links">
+						<?php echo gen_icon('hand-right');?>
 						<?php echo $likes;?>
 						</li>
 					<li>
-						<img src="<?php echo ASSETS_CDN?>/img/icon-comment.png" title="Link">
+						<?php echo gen_icon('comment');?>
 						<?php echo $comments;?>
 						</li>
 					<li>
-						<img src="<?php echo ASSETS_CDN?>/img/views.png" 
-							title="<?php echo number_format($views);?> lượt xem"></li>
+						<?php echo gen_icon('eye-open');?>
+						<?php echo $views;?>
+						</li>
 				</ul>
 			</div>
 			<div class="ori_video-watch">

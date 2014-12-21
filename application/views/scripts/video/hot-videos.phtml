@@ -4,7 +4,7 @@
 	<h3>
 		<a href="/hot" style='color: #FFF;'>
 			Video phổ biến</a></h3>
-	<p><img src="<?php echo ASSETS_CDN?>/img/l1.png" title="likes" /> Vote</p>
+	<p><?php echo gen_icon('hand-right');?> Vote</p>
 	<div class="clear"> </div>
 </div>
 <?php if(count($hotVideos) > 0):?>
@@ -28,18 +28,17 @@
 							$comments = isset($video['counter']['c']) ? $video['counter']['c'] : 0;
 						?>
 						<li>
-							<img src="<?php echo ASSETS_CDN?>/img/likes.png" title="links">
+							<?php echo gen_icon('hand-right');?>
 							<?php echo $likes;?>
 							</li>
 						<li>
-							<img src="<?php echo ASSETS_CDN?>/img/icon-comment.png" title="Link">
+							<?php echo gen_icon('comment');?>
 							<?php echo $comments;?>
 							</li>
 						<li>
-							<img src="<?php echo ASSETS_CDN?>/img/views.png" 
-								title="<?php echo number_format($views);?> lượt xem">
+							<?php echo gen_icon('eye-open');?>
 								<?php echo number_format($views);?>
-								</li>
+							</li>
 					</ul>
 				</div>
 				<div class="video-watch">

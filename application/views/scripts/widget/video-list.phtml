@@ -54,11 +54,10 @@
 			    <div class="p-stats">
 					<span class="views" title="Lượt xem">
 						<?php $video['counter']['vyt'] = isset($video['counter']['vyt']) ? $video['counter']['vyt'] : 0;?>
-						<img src="<?php echo ASSETS_CDN?>/img/views.png" 
-								title="<?php echo number_format($views);?> lượt xem">
-								<?php echo number_format($views);?></span>
+							<?php echo gen_icon('eye-open');?>
+							<?php echo number_format($views);?></span>
                 	<span class="comments">
-                		<img src="<?php echo ASSETS_CDN?>/img/icon-comment.png" title="Link">
+                		<?php echo gen_icon('comment');?>
                 			<?php echo $comments;?></span>
                 </div>
                 <div class='clear'></div>

@@ -3,6 +3,43 @@
 	$filter = isset($this->active_filter) ? $this->active_filter : '';
 	$is_home = isset($this->is_home) ? $this->is_home : false;
 ?>
+<header id="top-nav" class="badge-sticky-nav header">
+	<div class="nav-wrap">
+		<h1>
+			<a>Cover Hay</a>
+		</h1>
+		
+		<div class="headbar-items">
+			<ul>
+				<li>
+					<a href="/" class="selected">
+						<span class='label'>Trang chủ</a></span></li>
+				<li>
+					<a href="/vote">
+						<span class="label">Bình chọn</span></a></li>
+				<li>
+					<a href="/hot" class="">
+						<span class="label">Hot nhất</span></a></li>
+				<li>
+					<a href="/domestic" class="">
+						<span class="label">Trong nước</span></a></li>
+				<li>
+					<a href="/foreign" class="">
+						<span class="label">Nước ngoài</span></a></li>
+			</ul>
+		</div>
+		
+		<div class="visitor-function" id="jsid-visitor-function">
+        	<a href="/user/login" class="badge-login-button link">Log in</a>
+        	<a href="/user/register" class="badge-signup-button link">Sign up</a>
+            <div class="upload">
+            	<a href="/video/new" 
+            		class="badge-signup-button upload">Upload</a>
+            </div>
+	    </div>
+	</div>
+</header>
+<?php /*
 <div class="header">
 	<!----start-Logo---->
 	<div class="logo">
@@ -63,5 +100,5 @@
 	<div class="clear"> </div>
 	<!----End-top-nav---->
 </div>
-		
+*/ ?>
 <div class="clear"> </div>

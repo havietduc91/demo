@@ -1,9 +1,11 @@
 <form action='<?php echo SITE_URL?>/video/search-videos'>
 	<input id="name" placeholder='Nhập video bạn muốn tìm?'
 		class="form-control" type="text" value="" name="ac_name"
-		style='width: 267px; height: 25px; float: left;'>
+		style='width: 85%; height: 31px; float: left;'>
 	<input id="_cl_step" type="hidden" value="" name="_cl_step">
 	<input id="items_per_page" type="hidden" value="-1" name="items_per_page">
-	<input id="_cl_submit" class="btn btn-large btn-primary" type="submit"
-		 value="" name="_cl_submit">
+	<button class="btn btn-primary pull-right" 
+			name="submit" type="_cl_submit" 
+			style='padding: 5px 12px; border-radius: 0px; border:1px solid transparent'>
+		<?php echo gen_icon('search');?></button>
 </form>
