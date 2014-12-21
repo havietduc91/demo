@@ -1,58 +1,59 @@
-<div class="inner-page">
-	<div class="searchbar">
-		<div class="search-left">
-			<?php echo $this->render('/widget/search-box.phtml');?>
+<div class='row'>
+	<div class="col-md-8">
+		<div class="searchbar">
+			<div class="search-left">
+				<?php echo $this->render('/widget/search-box.phtml');?>
+			</div>
+			<div class="search-right">
+				<p>Đăng ký</p>
+			</div>
+			<div class="clear"> </div>
 		</div>
-		<div class="search-right">
-			<p>Đăng ký</p>
-		</div>
-		<div class="clear"> </div>
-	</div>
-	
-	<div>
-	<div class='social-network support_fan'>
+		
 		<div>
-			<h3 style='font-size: 25px;'>Bạn có thể đăng ký</h3></div>
-		<div style='margin-top: 20px;'>
-			<span class="facebook_register"
-			  title='Đăng ký thông qua facebook'>
-				<a href='/user/oauth?login=facebook'>				
-					<button type="button" 
-						class="vd-button vd-is-buffered vd-button-branded btn-replay">
-						<span class="button-icon-wrapper">
-							<img class="vd-button-icon vd-button-icon" 
-								style='width: 24px; height: 24px;'	 
-							src="<?php echo ASSETS_CDN;?>/img/fb.png">
-						</span>
-						<span class="vd-button-content" style='font-size: 20px;'>
-							<span aria-label="Replay" class="subscribe-label">
-							Đăng ký qua Facebook</span>
-						</span>
-					</button>
-				</a>
-			</span>
+		<div class='social-network support_fan'>
+			<div>
+				<h3 style='font-size: 25px;'>Bạn có thể đăng ký</h3></div>
+			<div style='margin-top: 20px;'>
+				<span class="facebook_register"
+				  title='Đăng ký thông qua facebook'>
+					<a href='/user/oauth?login=facebook'>				
+						<button type="button" 
+							class="vd-button vd-is-buffered vd-button-branded btn-replay">
+							<span class="button-icon-wrapper">
+								<img class="vd-button-icon vd-button-icon" 
+									style='width: 24px; height: 24px;'	 
+								src="<?php echo ASSETS_CDN;?>/img/fb.png">
+							</span>
+							<span class="vd-button-content" style='font-size: 20px;'>
+								<span aria-label="Replay" class="subscribe-label">
+								Đăng ký qua Facebook</span>
+							</span>
+						</button>
+					</a>
+				</span>
+			</div>
+			<div style='margin-top: 20px;'>
+				<h3 style='font-size: 20px;'>Hoặc</h3>
+			</div>
+			<div style='margin-left: 150px; width: 60%; border-bottom: 3px solid #EEE;'></div>
 		</div>
-		<div style='margin-top: 20px;'>
-			<h3 style='font-size: 20px;'>Hoặc</h3>
+		<div style='margin-left: 150px; width: 60%;'>
+			<div id='vd_form'  style='min-height: 350px;'>
+				<?php 
+		        	$form = new User_Form_Register();
+					$form->build();
+					$form->setAction('/user/register')
+					->setAttrib('class', 'cl_ajax');
+					echo $form;
+		       ?>
+			</div>
 		</div>
-		<div style='margin-left: 150px; width: 60%; border-bottom: 3px solid #EEE;'></div>
+		</div>
 	</div>
-	<div style='margin-left: 150px; width: 60%;'>
-		<div id='vd_form'  style='min-height: 350px;'>
-			<?php 
-	        	$form = new User_Form_Register();
-				$form->build();
-				$form->setAction('/user/register')
-				->setAttrib('class', 'cl_ajax');
-				echo $form;
-	       ?>
-		</div>
-	</div>
+	<div class="col-md-4">
+		<?php echo $this->render('/video/hot-videos.phtml');?>
+		<div class="clear"> </div>
+		<?php echo $this->render('/video/new-videos.phtml');?>
 	</div>
 </div>
-<div class="right-content">
-	<?php echo $this->render('/video/hot-videos.phtml');?>
-	<div class="clear"> </div>
-	<?php echo $this->render('/video/new-videos.phtml');?>
-</div>
-<div class="clear"> </div>

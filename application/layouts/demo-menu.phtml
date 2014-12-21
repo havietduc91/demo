@@ -12,26 +12,42 @@
 		<div class="headbar-items">
 			<ul>
 				<li>
-					<a href="/" class="selected">
+					<a href="/" <?php if($filter == ''):?> class='selected' <?php endif;?>>
 						<span class='label'>Trang chủ</a></span></li>
 				<li>
-					<a href="/vote">
+					<a href="/vote" <?php if($filter == 'vote'):?> class='selected' <?php endif;?>>
 						<span class="label">Bình chọn</span></a></li>
 				<li>
-					<a href="/hot" class="">
+					<a href="/hot" <?php if($filter == 'hot'):?> class='selected' <?php endif;?>>
 						<span class="label">Hot nhất</span></a></li>
 				<li>
-					<a href="/domestic" class="">
+					<a href="/domestic" <?php if($filter == 'domestic'):?> class='selected' <?php endif;?>>
 						<span class="label">Trong nước</span></a></li>
 				<li>
-					<a href="/foreign" class="">
+					<a href="/foreign" <?php if($filter == 'foreign'):?> class='selected' <?php endif;?>>
 						<span class="label">Nước ngoài</span></a></li>
 			</ul>
 		</div>
 		
 		<div class="visitor-function" id="jsid-visitor-function">
-        	<a href="/user/login" class="badge-login-button link">Log in</a>
-        	<a href="/user/register" class="badge-signup-button link">Sign up</a>
+			<?php if(is_guest()):?>
+			<a href="/user/login" class="badge-login-button link"
+				title="Đăng nhập">Đăng nhập</a>
+        	<a href="/user/register" class="badge-signup-button link"
+        		title="Đăng ký">Đăng ký</a>
+			<?php else:?>
+			    <?php if(!has_perm('sudo', null, '', $u)):?>
+			    	<?php $avatar = (isset($u['avatar']) && $u['avatar'] != '') ? $u['avatar'] : default_avatar('user');?>
+		    		<a href="<?php echo user_link($u);?>" class='avatar'>
+					    <img title="Trang cá nhân" src="<?php echo $avatar;?>"></a>
+			    <?php endif;?>
+				<?php if (has_perm('sudo', null, '', $u)) :?>
+		        	<a href="/site/admin" class="badge-signup-button link"
+        				title="Quản trị">Quản trị</a>
+				<?php endif;?>
+					<a href="/user/logout" class="badge-signup-button link"
+        				title="Đăng suất">Đăng suất</a>
+			<?php endif;?>
             <div class="upload">
             	<a href="/video/new" 
             		class="badge-signup-button upload">Upload</a>

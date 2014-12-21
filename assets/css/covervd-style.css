@@ -45,11 +45,6 @@ body{
 }
 /*----content-----*/
 /*---search-bar----*/
-.left-content{
-	width:70%;
-	float:left;
-	margin-top: 54px;
-}
 .search-left{
 	float:left;
 	background:#fff;
@@ -149,12 +144,6 @@ body{
 }
 .grid:nth-child(2),.grid:nth-child(5),.grid:nth-child(8){
 	margin:0px 14.5px;
-}
-/*-----right-content-----*/
-.right-content{
-	float:right;
-	width: 29%;
-	margin-top: 54px;
 }
 .popular h3{
 	text-align:left;
@@ -288,11 +277,6 @@ body{
 	font-size:10em;
 }
 /*---single-page-----*/
-.inner-page {
-	width: 70%;
-	float: left;
-	margin-top: 54px;
-}
 .title ul li{
 	display:inline-block;
 }

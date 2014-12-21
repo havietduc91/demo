@@ -1,28 +1,29 @@
-<div class="inner-page">
-	<div class="searchbar">
-		<div class="search-left">
-			<?php echo $this->render('/widget/search-box.phtml');?>
+<div class='row'>
+	<div class='col-md-8'>
+		<div class="searchbar">
+			<div class="search-left">
+				<?php echo $this->render('/widget/search-box.phtml');?>
+			</div>
+			<div class="search-right">
+				<p>Đăng nhập</p>
+			</div>
+			<div class="clear"> </div>
 		</div>
-		<div class="search-right">
-			<p>Đăng nhập</p>
+		<div id='vd_form'  style='min-height: 350px;'>
+			<?php 
+	        	$form = new User_Form_Login();
+	            $form->build();
+	            $form->setAction('/user/login')
+	            	->setAttrib('class', 'cl_ajax');
+	            $form->getElement('_cl_submit')->setAttrib('class', 'btn-primary btn btn-large');
+	            echo $form;
+	       ?>
+		
 		</div>
+	</div>
+	<div class='col-md-4'>
+		<?php echo $this->render('/video/hot-videos.phtml');?>
 		<div class="clear"> </div>
-	</div>
-	<div id='vd_form'  style='min-height: 350px;'>
-		<?php 
-        	$form = new User_Form_Login();
-            $form->build();
-            $form->setAction('/user/login')
-            	->setAttrib('class', 'cl_ajax');
-            $form->getElement('_cl_submit')->setAttrib('class', 'btn-primary btn btn-large');
-            echo $form;
-       ?>
-	
+		<?php echo $this->render('/video/new-videos.phtml');?>
 	</div>
 </div>
-<div class="right-content">
-	<?php echo $this->render('/video/hot-videos.phtml');?>
-	<div class="clear"> </div>
-	<?php echo $this->render('/video/new-videos.phtml');?>
-</div>
-<div class="clear"> </div>

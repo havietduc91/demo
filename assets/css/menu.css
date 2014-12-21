@@ -85,7 +85,12 @@ header#top-nav a {
     line-height: 47px;
     padding: 0 10px;
 }
-
+.visitor-function img{
+	width: 45px;
+	height: 45px;
+	border: 2px solid;
+	float: left;
+}
 .visitor-function div.upload, .badge-user-function-placeholder div.upload {
     margin-top: 8px;
 }
